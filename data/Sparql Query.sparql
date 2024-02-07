@@ -1,0 +1,17 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
+SELECT ?g ?concept ?prefLabel ?definition 
+WHERE{
+    GRAPH ?g {
+      {
+            ?concept skos:prefLabel ?prefLabel .
+            OPTIONAL {
+                ?concept skos:definition ?definition
+            }
+        }
+        FILTER(!isblank(?concept))
+        FILTER (?g=<https://swissdatacustodian.ch/doc/ontology/contractshapes#>)#||?g=<https://swissdatacustodian.ch/doc/ontology/contractcontrolledlists#>)
+    }
+}

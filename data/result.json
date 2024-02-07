@@ -1,0 +1,172 @@
+{
+  "head" : {
+    "vars" : [
+      "g",
+      "concept",
+      "prefLabel",
+      "definition"
+    ]
+  },
+  "results" : {
+    "bindings" : [
+      {
+        "g" : {
+          "type" : "uri",
+          "value" : "https://swissdatacustodian.ch/doc/ontology/contractshapes#"
+        },
+        "concept" : {
+          "type" : "uri",
+          "value" : "https://swissdatacustodian.ch/doc/ontology#DataHandling"
+        },
+        "prefLabel" : {
+          "type" : "literal",
+          "value" : "Data Handling"
+        },
+        "definition" : {
+          "type" : "literal",
+          "value" : "A class to represent the concept a data handling."
+        }
+      },
+      {
+        "g" : {
+          "type" : "uri",
+          "value" : "https://swissdatacustodian.ch/doc/ontology/contractshapes#"
+        },
+        "concept" : {
+          "type" : "uri",
+          "value" : "https://swissdatacustodian.ch/doc/ontology#SecurityScanConstraint"
+        },
+        "prefLabel" : {
+          "type" : "literal",
+          "value" : "Security scan constraint"
+        },
+        "definition" : {
+          "type" : "literal",
+          "value" : "An object which indicates the constraints on a security scan report"
+        }
+      },
+      {
+        "g" : {
+          "type" : "uri",
+          "value" : "https://swissdatacustodian.ch/doc/ontology/contractshapes#"
+        },
+        "concept" : {
+          "type" : "uri",
+          "value" : "https://swissdatacustodian.ch/doc/ontology#maxAge"
+        },
+        "prefLabel" : {
+          "type" : "literal",
+          "value" : "Maximum age"
+        },
+        "definition" : {
+          "type" : "literal",
+          "value" : "Indicates how old something is allowed to be"
+        }
+      },
+      {
+        "g" : {
+          "type" : "uri",
+          "value" : "https://swissdatacustodian.ch/doc/ontology/contractshapes#"
+        },
+        "concept" : {
+          "type" : "uri",
+          "value" : "https://swissdatacustodian.ch/doc/ontology#ContractShape"
+        },
+        "prefLabel" : {
+          "type" : "literal",
+          "value" : "Contract"
+        }
+      },
+      {
+        "g" : {
+          "type" : "uri",
+          "value" : "https://swissdatacustodian.ch/doc/ontology/contractshapes#"
+        },
+        "concept" : {
+          "type" : "uri",
+          "value" : "https://swissdatacustodian.ch/doc/ontology#hasDataHandling"
+        },
+        "prefLabel" : {
+          "type" : "literal",
+          "value" : "Has Data Handling"
+        },
+        "definition" : {
+          "type" : "literal",
+          "value" : "The property which links a contract to a data handling"
+        }
+      },
+      {
+        "g" : {
+          "type" : "uri",
+          "value" : "https://swissdatacustodian.ch/doc/ontology/contractshapes#"
+        },
+        "concept" : {
+          "type" : "uri",
+          "value" : "https://swissdatacustodian.ch/doc/ontology#DataHandlingShape"
+        },
+        "prefLabel" : {
+          "type" : "literal",
+          "value" : "Data Handling"
+        }
+      },
+      {
+        "g" : {
+          "type" : "uri",
+          "value" : "https://swissdatacustodian.ch/doc/ontology/contractshapes#"
+        },
+        "concept" : {
+          "type" : "uri",
+          "value" : "https://swissdatacustodian.ch/doc/ontology#allowedVulnerabilitySeverity"
+        },
+        "prefLabel" : {
+          "type" : "literal",
+          "value" : "Allowed vulnerability severity"
+        },
+        "definition" : {
+          "type" : "literal",
+          "value" : "A list of the accepted vulnerability severity levels in a container image, such as Low, Medium or High"
+        }
+      },
+      {
+        "g" : {
+          "type" : "uri",
+          "value" : "https://swissdatacustodian.ch/doc/ontology/contractshapes#"
+        },
+        "concept" : {
+          "type" : "uri",
+          "value" : "http://www.w3.org/ns/shacl-shacl#ListShape"
+        },
+        "prefLabel" : {
+          "xml:lang" : "en",
+          "type" : "literal",
+          "value" : "List shape"
+        },
+        "definition" : {
+          "xml:lang" : "en",
+          "type" : "literal",
+          "value" : "A shape describing well-formed RDF lists. Currently does not check for non-recursion. This could be expressed using SHACL-SPARQL."
+        }
+      },
+      {
+        "g" : {
+          "type" : "uri",
+          "value" : "https://swissdatacustodian.ch/doc/ontology/contractshapes#"
+        },
+        "concept" : {
+          "type" : "uri",
+          "value" : "http://www.w3.org/ns/shacl-shacl#ListNodeShape"
+        },
+        "prefLabel" : {
+          "xml:lang" : "en",
+          "type" : "literal",
+          "value" : "List node shape"
+        },
+        "definition" : {
+          "xml:lang" : "en",
+          "type" : "literal",
+          "value" : "Defines constraints on what it means for a node to be a node within a well-formed RDF list. Note that this does not check whether the rdf:rest items are also well-formed lists as this would lead to unsupported recursion."
+        }
+      }
+    ]
+  }
+}

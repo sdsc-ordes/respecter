@@ -1,0 +1,182 @@
+@prefix ex: <http://example.org/#> .
+@prefix sdc: <https://swissdatacustodian.ch/doc/ontology#> .
+@prefix dpv: <https://w3id.org/dpv#> .
+@prefix dcat: <https://www.w3.org/TR/vocab-dcat-2/#> .
+@prefix : <http://www.myprefix.org/id/> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sdc: <https://swissdatacustodian.ch/doc/ontology#> .
+@prefix shsh: <http://www.w3.org/ns/shacl-shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix sdsc: <https://ontology.datascience.ch/> .
+
+
+sdsc: a owl:Ontology ;
+dct:abstract "The swiss data science center ontology respect documentation creator requires certain classes and properties to be present in an ontology. This shapes graph specifies these classes and properties, and the restrictions on their values."@en ;
+    dct:contributor "Robin Franken" ;
+    dct:created "2023-02-01"^^xsd:date ;
+    dct:creator "Robin Franken" ;
+    dct:description "The swiss data science center ontology respect documentation creator requires certain classes and properties to be present in an ontology. This shapes graph specifies these classes and properties, and the restrictions on their values."@en ;
+    dct:license <https://spdx.org/licenses/CC-BY-SA-4.0.html> ;
+    dct:modified "2024-02-01"^^xsd:date ;
+    #dct:source "" ;
+    dct:title "RDF Respec documentation shapes Ontology"@en ;
+    vann:preferredNamespacePrefix "sdsc" ;
+    vann:preferredNamespaceUri "https://ontology.datascience.ch/"^^xsd:string ;
+    owl:versionInfo "1"^^xsd:string 
+.
+
+sdsc:RespecOntology a sh:NodeShape, rdfs:Class ;
+    sh:property [
+        sh:path dct:abstract ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Abstract" ;
+        sh:description "The abstract of the ontology." ;
+    ] ,
+    [
+        sh:path dct:contributor ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:name "Contributor" ;
+        sh:description "The contributors of the ontology." ;
+    ],
+    [
+        sh:path dct:creator ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:name "Creator" ;
+        sh:description "The creators of the ontology." ;
+    ],
+    [
+        sh:path dct:description ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Description" ;
+        sh:description "The description of the ontology." ;
+    ],
+    [
+        sh:path dct:license ;
+        sh:datatype xsd:anyURI ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "License" ;
+        sh:description "The license of the ontology, expressed as an SPDX license identifier URL." ;
+    ],
+    [
+        sh:path dct:title ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Title" ;
+        sh:description "The title of the ontology." ;
+    ],
+    [
+        sh:path dct:versionInfo ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:pattern "^[0-9]+.[0-9]+.[0-9]+$" ;
+        sh:name "Version" ;
+        sh:description "The version of the ontology." ;
+    ],
+    [
+        sh:path dct:modified ;
+        sh:datatype xsd:date ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Modified" ;
+        sh:description "The date of the last modification of the ontology." ;
+    ],
+    [
+        sh:path dct:created ;
+        sh:datatype xsd:date ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Created" ;
+        sh:description "The date of the creation of the ontology." ;
+    ],
+    [
+        sh:path vann:preferredNamespacePrefix ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Preferred namespace prefix" ;
+        sh:description "The preferred namespace prefix of the ontology." ;
+    ],
+    [
+        sh:path vann:preferredNamespaceUri ;
+        sh:datatype xsd:anyURI ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Preferred namespace URI" ;
+        sh:description "The preferred namespace URI of the ontology." ;
+    ].
+
+sdsc:ClassShape a sh:NodeShape ;
+    sh:targetClass rdfs:Class ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Preferred label" ;
+        sh:description "The preffered, human readable label of the class." ;
+    ],
+    [
+        sh:path skos:definition ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Definition" ;
+        sh:description "The definition of the class." ;
+    ],
+    [
+        sh:path skos:example ;
+        sh:datatype xsd:string ;
+        sh:name "Example" ;
+        sh:description "An example instance of the class." ;
+    ],
+    [
+        sh:path skos:altLabel ;
+        sh:datatype xsd:string ;
+        sh:name "Alternative label" ;
+        sh:description "An alternative label for the class." ;
+    ].
+
+sdsc:PropertyShape a sh:NodeShape ;
+    sh:targetClass rdf:Property ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Preferred label" ;
+        sh:description "The preffered, human readable label of the property." ;
+    ],
+    [
+        sh:path skos:definition ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Definition" ;
+        sh:description "The definition of the property." ;
+    ],
+    [
+        sh:path skos:example ;
+        sh:datatype xsd:string ;
+        sh:name "Example" ;
+        sh:description "An example value for the property." ;
+    ],
+    [
+        sh:path skos:altLabel ;
+        sh:datatype xsd:string ;
+        sh:name "Alternative label" ;
+        sh:description "An alternative label for the property." ;
+    ].
