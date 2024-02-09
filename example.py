@@ -43,7 +43,7 @@ for l in results:
         if 'http://purl.org/dc/terms/title' in i:
             if i.get('@id') == 'https://swissdatacustodian.ch/doc/ontology#':
                 title = (i.get('http://purl.org/dc/terms/title')[0].get('@value'))
-                author = (n for n in i.get('http://purl.org/dc/terms/contributor').get('@value'))
+                authorlist = []
                 # author = (i.get('http://purl.org/dc/terms/contributor')[0].get('@value'))
                 print(author)
 
