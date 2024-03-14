@@ -8,12 +8,19 @@
   <script class="remove">
     // All config options at https://respec.org/docs/
     var respecConfig = {
+      publishDate: "{{ publishDate }}",
       specStatus: "ED",
-      editors: [{ name: "{{author}}", url: "{{url}}" }],
-      github: "some-org/mySpec",
-      shortName: "dahut",
-      xref: "web-platform",
-      group: "my-working-group",
+      shortName: "ReSpecter",
+      github: "https://gitlab.com/data-custodian/custodian-ontology/-/blob/main/contract_shape_ontology.ttl?ref_type=heads",
+      authors: [
+        {% for author in creators %}
+        {name: "{{ author }}"},
+        {% endfor %}
+      ],
+      editors: [{% for editor in contributors %}
+      {name: "{{ editor }}"},
+      {% endfor %}
+    ],
     };
   </script>
 </head>
@@ -33,7 +40,7 @@
     <h2>Definitions</h2>
 
     {% for section in sections %}
-    <h3>{{ section.prefLabel }}</h3>
+    <h3>{{ section.label }}</h3>
     <table class="def">
       {% for key, value in section.items() %}
       <tr>

@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swiss Data Custodian Contract Ontology</title>
+  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+  <script class="remove">
+    // All config options at https://respec.org/docs/
+    var respecConfig = {
+      publishDate: "2024-01-17",
+      specStatus: "ED",
+      shortName: "ReSpecter",
+      github: "https://gitlab.com/data-custodian/custodian-ontology/-/blob/main/contract_shape_ontology.ttl?ref_type=heads",
+      authors: [
+        
+        {name: "Robin Franken"},
+        
+        {name: "Martin Fontanet"},
+        
+        {name: "Sabrina Ossey"},
+        
+      ],
+      editors: [
+      {name: "Robin Franken"},
+      
+      {name: "Martin Fontanet"},
+      
+      {name: "Sabine Maennel"},
+      
+      {name: "Laure Vancauwenberghe"},
+      
+      {name: "Sabrina Ossey"},
+      
+      {name: "Cyril Matthey-Doret"},
+      
+      {name: "Stefan Milosavljevic"},
+      
+      {name: "Luana Martelli"},
+      
+      {name: "Carlos Vivar Rios"},
+      
+    ],
+    };
+  </script>
+</head>
+
+<body>
+  <section id="abstract">
+    <p>The swiss data custodian ontology provides SHACL shapes and concepts (classes and properties) to model human and machine readable contracts.</p>
+  </section>
+  <section class="informative">
+    <h2>Introduction</h2>
+    <p>The swiss data custodian ontology provides SHACL shapes and concepts (classes and properties) to model human and machine readable contracts.</p>
+    <aside class="note" title="A useful note">
+      <p></p>
+    </aside>
+  </section>
+  <section>
+    <h2>Definitions</h2>
+
+    
+    <h3>Data Handling</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>concept</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">https://swissdatacustodian.ch/doc/ontology#DataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>definition</p>
+        </td>
+        <td>
+          <p>A class to represent the concept a data handling.</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>Data Handling</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>type</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/2000/01/rdf-schema#Class">http://www.w3.org/2000/01/rdf-schema#Class</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>concatenatedProperties</p>
+        </td>
+        <td>
+          <p></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>Security scan constraint</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>concept</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#SecurityScanConstraint">https://swissdatacustodian.ch/doc/ontology#SecurityScanConstraint</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>definition</p>
+        </td>
+        <td>
+          <p>An object which indicates the constraints on a security scan report</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>Security scan constraint</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>type</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/2000/01/rdf-schema#Class">http://www.w3.org/2000/01/rdf-schema#Class</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>concatenatedProperties</p>
+        </td>
+        <td>
+          <p></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>Maximum age</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>concept</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#maxAge">https://swissdatacustodian.ch/doc/ontology#maxAge</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>definition</p>
+        </td>
+        <td>
+          <p>Indicates how old something is allowed to be</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>Maximum age</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>type</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property">http://www.w3.org/1999/02/22-rdf-syntax-ns#Property</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>concatenatedProperties</p>
+        </td>
+        <td>
+          <p></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>Has Data Handling</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>concept</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#hasDataHandling">https://swissdatacustodian.ch/doc/ontology#hasDataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>definition</p>
+        </td>
+        <td>
+          <p>The property which links a contract to a data handling</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>Has Data Handling</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>type</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property">http://www.w3.org/1999/02/22-rdf-syntax-ns#Property</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>concatenatedProperties</p>
+        </td>
+        <td>
+          <p></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>Allowed vulnerability severity</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>concept</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#allowedVulnerabilitySeverity">https://swissdatacustodian.ch/doc/ontology#allowedVulnerabilitySeverity</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>definition</p>
+        </td>
+        <td>
+          <p>A list of the accepted vulnerability severity levels in a container image, such as Low, Medium or High</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>Allowed vulnerability severity</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>type</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property">http://www.w3.org/1999/02/22-rdf-syntax-ns#Property</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>concatenatedProperties</p>
+        </td>
+        <td>
+          <p></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>Contract</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>concept</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#ContractShape">https://swissdatacustodian.ch/doc/ontology#ContractShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>Contract</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>type</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/shacl#NodeShape">http://www.w3.org/ns/shacl#NodeShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>concatenatedProperties</p>
+        </td>
+        <td>
+          <p>https://w3id.org/dpv#hasIdentifier
+https://www.w3.org/TR/vocab-dcat-2/#startDate
+https://www.w3.org/TR/vocab-dcat-2/#endDate
+https://swissdatacustodian.ch/doc/ontology#hasDataHandling
+https://w3id.org/dpv#hasIdentifier
+https://www.w3.org/TR/vocab-dcat-2/#startDate
+https://www.w3.org/TR/vocab-dcat-2/#endDate
+https://swissdatacustodian.ch/doc/ontology#hasDataHandling</p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>Data Handling</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>concept</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandlingShape">https://swissdatacustodian.ch/doc/ontology#DataHandlingShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>Data Handling</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>type</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/shacl#NodeShape">http://www.w3.org/ns/shacl#NodeShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>concatenatedProperties</p>
+        </td>
+        <td>
+          <p>https://w3id.org/dpv#hasDataController
+https://w3id.org/dpv#hasDataSubject
+https://w3id.org/dpv#hasDataProcessor
+https://w3id.org/dpv#hasPurpose
+https://w3id.org/dpv#hasPersonalData
+https://w3id.org/dpv#hasProcessing
+https://w3id.org/dpv#hasTechnicalOrganisationalMeasure
+https://w3id.org/dpv#hasDataController
+https://w3id.org/dpv#hasDataSubject
+https://w3id.org/dpv#hasDataProcessor
+https://w3id.org/dpv#hasPurpose
+https://w3id.org/dpv#hasPersonalData
+https://w3id.org/dpv#hasProcessing
+https://w3id.org/dpv#hasTechnicalOrganisationalMeasure</p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3></h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>concept</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#LegalEntityShape">https://swissdatacustodian.ch/doc/ontology#LegalEntityShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>type</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/shacl#NodeShape">http://www.w3.org/ns/shacl#NodeShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>concatenatedProperties</p>
+        </td>
+        <td>
+          <p>https://w3id.org/dpv#hasName
+https://w3id.org/dpv#hasIdentifier</p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3></h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>concept</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#PersonalDataShape">https://swissdatacustodian.ch/doc/ontology#PersonalDataShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>type</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/shacl#NodeShape">http://www.w3.org/ns/shacl#NodeShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>concatenatedProperties</p>
+        </td>
+        <td>
+          <p>https://www.w3.org/TR/vocab-dcat-2/#downloadURL
+https://www.w3.org/TR/vocab-dcat-2/#downloadURL</p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3></h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>concept</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#SecurityScanConstraintShape">https://swissdatacustodian.ch/doc/ontology#SecurityScanConstraintShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>type</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/shacl#NodeShape">http://www.w3.org/ns/shacl#NodeShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>concatenatedProperties</p>
+        </td>
+        <td>
+          <p>https://swissdatacustodian.ch/doc/ontology#allowedVulnerabilitySeverity
+https://swissdatacustodian.ch/doc/ontology#maxAge
+https://swissdatacustodian.ch/doc/ontology#allowedVulnerabilitySeverity
+https://swissdatacustodian.ch/doc/ontology#maxAge</p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>List shape</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>concept</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/shacl-shacl#ListShape">http://www.w3.org/ns/shacl-shacl#ListShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>definition</p>
+        </td>
+        <td>
+          <p>A shape describing well-formed RDF lists. Currently does not check for non-recursion. This could be expressed using SHACL-SPARQL.</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>List shape</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>type</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/shacl#NodeShape">http://www.w3.org/ns/shacl#NodeShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>concatenatedProperties</p>
+        </td>
+        <td>
+          <p>n647fc097ba854f4892231d6a13d77bbdb47
+n647fc097ba854f4892231d6a13d77bbdb52</p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>List node shape</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>concept</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/shacl-shacl#ListNodeShape">http://www.w3.org/ns/shacl-shacl#ListNodeShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>definition</p>
+        </td>
+        <td>
+          <p>Defines constraints on what it means for a node to be a node within a well-formed RDF list. Note that this does not check whether the rdf:rest items are also well-formed lists as this would lead to unsupported recursion.</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>List node shape</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>type</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/shacl#NodeShape">http://www.w3.org/ns/shacl#NodeShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>concatenatedProperties</p>
+        </td>
+        <td>
+          <p></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3></h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>concept</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#nameShape">https://swissdatacustodian.ch/doc/ontology#nameShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>type</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/shacl#PropertyShape">http://www.w3.org/ns/shacl#PropertyShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>concatenatedProperties</p>
+        </td>
+        <td>
+          <p></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3></h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>concept</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#identifierShape">https://swissdatacustodian.ch/doc/ontology#identifierShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>type</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/shacl#PropertyShape">http://www.w3.org/ns/shacl#PropertyShape</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>concatenatedProperties</p>
+        </td>
+        <td>
+          <p></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3></h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>concept</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#">https://swissdatacustodian.ch/doc/ontology#</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>type</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/2002/07/owl#Ontology">http://www.w3.org/2002/07/owl#Ontology</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>concatenatedProperties</p>
+        </td>
+        <td>
+          <p></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+  </section>
+</body>
+
+</html>

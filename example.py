@@ -6,7 +6,7 @@ This code is not meant to be reused as is, but rather to be used as a starting p
 from jinja2 import Environment, FileSystemLoader
 import json
 import rdflib
-
+import pandas as pd
 # Define functions
 
 
@@ -36,63 +36,50 @@ def format_sections(sections):
 
 # Hardcoded variables
 
-title = "My Ontology"
-author = "John Doe"
-url = "https://www.example.com"
-abstract = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio. Fusce risus nisl, viverra et, tempor et, pretium in, sapien."
-introduction = "This is my introduction."
-note = "This is a note"
+# Execute SPARQL query and retrieve results
 
+# Load the turtle file
+graph = rdflib.Graph()
+graph.parse("C:/Users/franken/respecter/data/data.ttl", format="turtle")
 
-# Load SPARQL query results
+# Load the SPARQL query
+f = open("C:/Users/franken/respecter/data/sparql_query.sparql", "r")
+query = f.read()
 
-with open("data/result.json", "r") as f:
-    results = json.load(f)
+# Load the SPARQL query
+f2 = open("C:/Users/franken/respecter/data/sparql_query2.sparql", "r")
+query2 = f2.read()
 
-sections = results.get("results", {}).get("bindings", [])
+qres = graph.query(query)
+qres = qres.serialize(format="json")
+qres = json.loads(qres)
+qres2 = graph.query(query2)
+qres2 = qres2.serialize(format="json")
+qres2 = json.loads(qres2)
 
-# # SPARQL query
-
-# SPARQL = """
-# PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-# PREFIX owl: <http://www.w3.org/2002/07/owl#>
-# PREFIX dct: <http://purl.org/dc/terms/>
-# PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
-# SELECT ?g ?concept ?prefLabel ?definition
-# WHERE{
-#     GRAPH ?g {
-#       {
-#             ?concept skos:prefLabel ?prefLabel .
-#             OPTIONAL {
-#                 ?concept skos:definition ?definition
-#             }
-#         }
-#         FILTER(!isblank(?concept))
-#         FILTER (?g=<https://swissdatacustodian.ch/doc/ontology/contractshapes#>)#||?g=<https://swissdatacustodian.ch/doc/ontology/contractcontrolledlists#>)
-#     }
-# }
-# """
-
-# g = rdflib.Graph()
-# g.parse("data/data.ttl", format="turtle")
-# results = g.query(SPARQL)
-# sections = results.bindings  # ??
-
+sections = qres.get("results", {}).get("bindings", [])
+ont_sections = qres2.get("results", {}).get("bindings", [])
 sections = format_sections(sections)
 
 # Render template
-
+contributors = ont_sections[0].get("contributors", "")["value"]
+contributors = contributors.split("\n")
+creators = ont_sections[0].get("creators", "")["value"]
+creators = creators.split("\n")
 environment = Environment(loader=FileSystemLoader("templates"))
 template = environment.get_template("example.html")
 
+print(sections)
+
+ont_sections=ont_sections[0]
 rendered_html = template.render(
-    abstract=abstract,
-    introduction=introduction,
-    note=note,
+    abstract=ont_sections.get("abstract", "")["value"],
+    introduction=ont_sections.get("description", "")["value"],
     sections=sections,
-    title=title,
-    author=author,
-    url=url,
+    title=ont_sections.get("title", "")["value"],
+    contributors = contributors,
+    creators = creators,
+    publishDate = ont_sections.get("modified", "")["value"],
 )
 
 # Write rendered template to file
