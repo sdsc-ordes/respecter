@@ -45,21 +45,22 @@ graph.parse("C:/Users/franken/respecter/data/respec-ontology-shapes.ttl", format
 
 # Load the SPARQL query
 f = open("C:/Users/franken/respecter/data/sparql_query.sparql", "r")
-query = f.read()
+concepts_query = f.read()
 
 # Load the SPARQL query
-f2 = open("C:/Users/franken/respecter/data/sparql_query2.sparql", "r")
-query2 = f2.read()
+f2 = open("C:/Users/franken/respecter/data/sparql_ont_query.sparql", "r")
+ont_query = f2.read()
 
-qres = graph.query(query)
-qres = qres.serialize(format="json")
-qres = json.loads(qres)
-qres2 = graph.query(query2)
-qres2 = qres2.serialize(format="json")
-qres2 = json.loads(qres2)
+concepts_query_result = graph.query(concepts_query)
+concepts_query_result = concepts_query_result.serialize(format="json")
+concepts_query_result = json.loads(concepts_query_result)
 
-sections = qres.get("results", {}).get("bindings", [])
-ont_sections = qres2.get("results", {}).get("bindings", [])
+ont_query_result = graph.query(ont_query)
+ont_query_result = ont_query_result.serialize(format="json")
+ont_query_result = json.loads(ont_query_result)
+
+sections = concepts_query_result.get("results", {}).get("bindings", [])
+ont_sections = ont_query_result.get("results", {}).get("bindings", [])
 sections = format_sections(sections)
 
 # Render template
