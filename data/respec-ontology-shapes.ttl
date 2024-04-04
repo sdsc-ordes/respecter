@@ -1,182 +1,292 @@
-@prefix ex: <http://example.org/#> .
-@prefix sdc: <https://swissdatacustodian.ch/doc/ontology#> .
-@prefix dpv: <https://w3id.org/dpv#> .
-@prefix dcat: <https://www.w3.org/TR/vocab-dcat-2/#> .
-@prefix : <http://www.myprefix.org/id/> .
+@prefix ex:   <http://example.org/#> .
+@prefix sdc:  <https://swissdatacustodian.ch/doc/ontology#> .
+@prefix dpv:  <https://w3id.org/dpv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix :     <http://www.myprefix.org/id/> .
 @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix sh:   <http://www.w3.org/ns/shacl#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sdc: <https://swissdatacustodian.ch/doc/ontology#> .
+@prefix sdc:  <https://swissdatacustodian.ch/doc/ontology#> .
 @prefix shsh: <http://www.w3.org/ns/shacl-shacl#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
-@prefix sdsc: <https://ontology.datascience.ch/> .
+@prefix dct:  <http://purl.org/dc/terms/> .
 
 
-sdsc: a owl:Ontology ;
-dct:abstract "The swiss data science center ontology respect documentation creator requires certain classes and properties to be present in an ontology. This shapes graph specifies these classes and properties, and the restrictions on their values."@en ;
-    dct:contributor "Robin Franken" ;
-    dct:created "2023-02-01"^^xsd:date ;
-    dct:creator "Robin Franken" ;
-    dct:description "The swiss data science center ontology respect documentation creator requires certain classes and properties to be present in an ontology. This shapes graph specifies these classes and properties, and the restrictions on their values."@en ;
+<https://swissdatacustodian.ch/doc/ontology#> a owl:Ontology ;
+    dct:abstract "The swiss data custodian ontology provides SHACL shapes and concepts (classes and properties) to model human and machine readable contracts."@en ;
+    dct:contributor "Robin Franken", "Martin Fontanet", "Sabine Maennel", "Laure Vancauwenberghe", "Sabrina Ossey", "Cyril Matthey-Doret", "Stefan Milosavljevic" , "Luana Martelli", "Carlos Vivar Rios" ;
+    dct:created "2023-10-16"^^xsd:date ;
+    dct:creator "Robin Franken", "Martin Fontanet", "Sabrina Ossey" ;
+    dct:description "The swiss data custodian ontology provides SHACL shapes and concepts (classes and properties) to model human and machine readable contracts."@en ;
     dct:license <https://spdx.org/licenses/CC-BY-SA-4.0.html> ;
-    dct:modified "2024-02-01"^^xsd:date ;
+    dct:modified "2024-01-17"^^xsd:date ;
     #dct:source "" ;
-    dct:title "RDF Respec documentation shapes Ontology"@en ;
-    vann:preferredNamespacePrefix "sdsc" ;
-    vann:preferredNamespaceUri "https://ontology.datascience.ch/"^^xsd:string ;
+    dct:title "Swiss Data Custodian Contract Ontology"@en ;
+    vann:preferredNamespacePrefix "sdc" ;
+    vann:preferredNamespaceUri "https://w3id.org/sdc#"^^xsd:string ;
     owl:versionInfo "1"^^xsd:string 
 .
 
-sdsc:RespecOntology a sh:NodeShape, rdfs:Class ;
+#Below is the shape for a container contract, it outlines which properties we expect for a container contract
+#and how those properties should be filled in.
+
+dpv:Contract a rdfs:Class ;
+    skos:definition "Creation, completion, fulfilment, or performance of a contract involving specified processing"@en ;
+    skos:prefLabel "Contract"@en ;
+    .
+
+sdc:ContractShape
+    rdf:type sh:NodeShape ;
+    skos:prefLabel "Contract" ;
+    sh:targetClass dpv:Contract ;
+    sh:property sdc:hasIdentifierShape,
+                sdc:startDateShape,
+                sdc:endDateShape,
+                sdc:hasDataHandlingShape.
+        
+sdc:hasIdentifierShape a sh:PropertyShape ;
+    sh:path dpv:hasIdentifier ;
+    skos:prefLabel "Has identifier" ;
+    sh:datatype xsd:string ;
+    .
+sdc:startDateShape a sh:PropertyShape ;
+    sh:path dcat:startDate ;
+    skos:prefLabel "Has start date" ;
+    sh:datatype xsd:dateTime ;
+    sh:lessThanOrEquals dcat:endDate ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    .
+
+sdc:endDateShape a sh:PropertyShape ;
+    sh:path dcat:endDate ;
+    skos:prefLabel "Has end date" ;
+    sh:datatype xsd:dateTime ;
+    sh:minCount 1 ; 
+    sh:maxCount 1 ;
+    .
+
+sdc:hasDataHandlingShape a sh:PropertyShape ;
+    sh:path sdc:hasDataHandling ;
+    sh:class sdc:DataHandling ;
+    sh:minCount 1 ;
+    .
+
+
+#Below is the nodeshape for a "Data Handling". It outlines the properties we expect a data handling to have, and
+#how those properties should be filled in. 
+
+sdc:DataHandling a rdfs:Class ;
+    skos:definition "A high-level Class to describe 'data handling'. This can consist of personal data being processed for a purpose, involving entities, using technical and organisational measures, applicable risks, rights, and legal basis."@en ;
+    skos:prefLabel "Data Handling"
+    .
+
+sdc:DataHandlingShape
+    rdf:type sh:NodeShape ;
+    sh:targetClass sdc:DataHandling ;
+    skos:prefLabel "Data Handling" ;
+    sh:property sdc:hasDataControllerShape,
+                sdc:hasDataSubjectShape,
+                sdc:hasDataProcessorShape,
+                sdc:hasPersonalDataShape,
+                sdc:hasPurposeShape,
+                sdc:hasProcessingShape,
+                sdc:hasUsageShape,
+                sdc:hasTechnicalOrganisationalMeasureShape.
+    
+    
+sdc:hasDataControllerShape a sh:PropertyShape ;
+    sh:path dpv:hasDataController ;
+    skos:prefLabel "Has Data Controller" ;
+    sh:minCount 1 ;
+    sh:class dpv:DataController;
+    .
+
+sdc:hasDataSubjectShape a sh:PropertyShape ;
+    sh:path dpv:hasDataSubject ;
+    skos:prefLabel "Has Data Subject" ;
+    sh:class dpv:DataSubject
+    .
+
+sdc:hasDataProcessorShape a sh:PropertyShape ;
+    sh:path dpv:hasDataProcessor ;
+    skos:prefLabel "Has Data Processor" ;
+    sh:minCount 1 ;
+    sh:class dpv:DataProcessor ;
+    .
+
+sdc:hasPurposeShape a sh:PropertyShape ;        
+    sh:path dpv:hasPurpose ;
+    skos:prefLabel "Has purpose" ;
+    sh:class dpv:Purpose ; 
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    .
+
+sdc:hasPersonalDataShape a sh:PropertyShape ;        
+    sh:path dpv:hasPersonalData ;
+    skos:prefLabel "Has data" ;
+    sh:class dpv:PersonalData ;
+    sh:minCount 1 ;
+    .
+
+sdc:hasProcessingShape a sh:PropertyShape ;        
+    sh:path dpv:hasProcessing ;
+    skos:prefLabel "Has processing" ;
+    sh:class dpv:Processing ;
+    sh:minCount 1 ;
+    .
+
+sdc:hasTechnicalOrganisationalMeasureShape a sh:PropertyShape ;        
+    sh:path dpv:hasTechnicalOrganisationalMeasure ;
+    skos:prefLabel "Has measure" ;
+    sh:minCount 1 ;
+    sh:or ([sh:class dpv:TechnicalMeasure][sh:class dpv:OrganisationalMeasure])
+    .
+
+sdc:hasUsageShape a sh:PropertyShape ;
+    sh:path sdc:usage ;
+    skos:prefLabel "Usage" ;
+    sh:minCount 1 ;
+    sh:or ("Download" "Service")       
+    .
+
+dpv:LegalEntity a rdfs:Class ;
+    rdfs:subClassOf dpv:Entity ;
+    skos:prefLabel "Legal Entity" 
+    .
+
+sdc:LegalEntityShape a sh:NodeShape ;
+    sh:targetClass dpv:LegalEntity ;
+    sh:property sdc:nameShape ,
+                sdc:identifierShape ;
+.
+
+dpv:NaturalPerson a rdfs:Class;
+    rdfs:subClassOf dpv:Entity ;
+    skos:prefLabel "Natural Person" ;
+    skos:definition "A human being"@en ;
+.
+
+dpv:OrganisationalUnit a rdfs:Class ;
+    rdfs:subClassOf dpv:Entity ;
+    skos:prefLabel "Organisational Unit" ;
+    skos:definition "Entity within an organisation that does not constitute as a separate legal entity". 
+ 
+
+sdc:nameShape a sh:PropertyShape ;
+    sh:path dpv:hasName ;
+    sh:datatype xsd:string ;
+    .
+
+sdc:identifierShape a sh:PropertyShape ;
+    sh:path dpv:hasIdentifier ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    .
+
+sdc:downloadURLShape a sh:PropertyShape ;
+    sh:path dcat:downloadURL ;
+    sh:minCount 1 ;
+    skos:prefLabel "Download URL" ;
+    .
+
+sdc:themeShape a sh:PropertyShape ;
+    sh:path dcat:theme ;
+    sh:minCount 1 ;
+    skos:prefLabel "Theme" ;
+    .
+
+sdc:PersonalData a rdfs:Class ;
+    skos:prefLabel "Personal Data" ;
+    skos:defintion "Data directly or indirectly associated or related to an individual." ;
+    skos:example "A dataset containing PROMS (patient reported outcome measures) or other personally identifiable information." ;
+    .
+
+sdc:PersonalDataShape a sh:NodeShape ;
+    sh:property sdc:downloadURLShape,
+                sdc:themeShape ;
+                .
+
+sdc:usage a rdf:Property ;
+    skos:prefLabel "Usage" ;
+    skos:definition "A property outlining whether the data will be downloaded or used as a service." ;
+    .
+
+sdc:hasDataHandling a rdf:Property ;
+    skos:prefLabel "Has Data Handling" ;
+    skos:definition "The property which links a contract to a data handling" ;
+    .
+
+sdc:allowedVulnerabilitySeverity a rdf:Property ;
+    skos:prefLabel "Allowed vulnerability severity" ;
+    skos:definition "A list of the accepted vulnerability severity levels in a container image, such as Low, Medium or High" ;
+    .
+
+sdc:maxAge a rdf:Property ;
+    skos:prefLabel "Maximum age" ;
+    skos:definition "Indicates how old something is allowed to be" ;
+    .
+
+sdc:SecurityScanConstraint a rdfs:Class ;
+    skos:prefLabel "Security scan constraint" ;
+    skos:definition "An object which indicates the constraints on a security scan report" ;
+    .
+
+
+sdc:SecurityScanConstraintShape a sh:NodeShape ;
+    sh:targetClass sdc:SecurityScanConstraint ;
     sh:property [
-        sh:path dct:abstract ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:name "Abstract" ;
-        sh:description "The abstract of the ontology." ;
-    ] ,
-    [
-        sh:path dct:contributor ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:name "Contributor" ;
-        sh:description "The contributors of the ontology." ;
+        sh:path sdc:allowedVulnerabilitySeverity ;
+        sh:node shsh:ListShape ;
     ],
     [
-        sh:path dct:creator ;
-        sh:datatype xsd:string ;
+        sh:path sdc:maxAge ;
         sh:minCount 1 ;
-        sh:name "Creator" ;
-        sh:description "The creators of the ontology." ;
-    ],
-    [
-        sh:path dct:description ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:name "Description" ;
-        sh:description "The description of the ontology." ;
-    ],
-    [
-        sh:path dct:license ;
-        sh:datatype xsd:anyURI ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:name "License" ;
-        sh:description "The license of the ontology, expressed as an SPDX license identifier URL." ;
-    ],
-    [
-        sh:path dct:title ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:name "Title" ;
-        sh:description "The title of the ontology." ;
-    ],
-    [
-        sh:path dct:versionInfo ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:pattern "^[0-9]+.[0-9]+.[0-9]+$" ;
-        sh:name "Version" ;
-        sh:description "The version of the ontology." ;
-    ],
-    [
-        sh:path dct:modified ;
-        sh:datatype xsd:date ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:name "Modified" ;
-        sh:description "The date of the last modification of the ontology." ;
-    ],
-    [
-        sh:path dct:created ;
-        sh:datatype xsd:date ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:name "Created" ;
-        sh:description "The date of the creation of the ontology." ;
-    ],
-    [
-        sh:path vann:preferredNamespacePrefix ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:name "Preferred namespace prefix" ;
-        sh:description "The preferred namespace prefix of the ontology." ;
-    ],
-    [
-        sh:path vann:preferredNamespaceUri ;
-        sh:datatype xsd:anyURI ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:name "Preferred namespace URI" ;
-        sh:description "The preferred namespace URI of the ontology." ;
+        sh:datatype xsd:duration ;
     ].
 
-sdsc:ClassShape a sh:NodeShape ;
-    sh:targetClass rdfs:Class ;
-    sh:property [
-        sh:path skos:prefLabel ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:name "Preferred label" ;
-        sh:description "The preffered, human readable label of the class." ;
-    ],
-    [
-        sh:path skos:definition ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:name "Definition" ;
-        sh:description "The definition of the class." ;
-    ],
-    [
-        sh:path skos:example ;
-        sh:datatype xsd:string ;
-        sh:name "Example" ;
-        sh:description "An example instance of the class." ;
-    ],
-    [
-        sh:path skos:altLabel ;
-        sh:datatype xsd:string ;
-        sh:name "Alternative label" ;
-        sh:description "An alternative label for the class." ;
-    ].
+shsh:ListShape
+	a sh:NodeShape ;
+	skos:prefLabel "List shape"@en ;
+	skos:definition "A shape describing well-formed RDF lists. Currently does not check for non-recursion. This could be expressed using SHACL-SPARQL."@en ;
+	rdfs:seeAlso <https://www.w3.org/TR/shacl/#syntax-rule-SHACL-list> ;
+	sh:property [
+		sh:path [ sh:zeroOrMorePath rdf:rest ] ;
+		skos:definition "Each list member (including this node) must have the shape shsh:ListNodeShape."@en ;
+		sh:hasValue rdf:nil ;
+		sh:node shsh:ListNodeShape ;
+	] .
 
-sdsc:PropertyShape a sh:NodeShape ;
-    sh:targetClass rdf:Property ;
-    sh:property [
-        sh:path skos:prefLabel ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:name "Preferred label" ;
-        sh:description "The preffered, human readable label of the property." ;
-    ],
-    [
-        sh:path skos:definition ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:name "Definition" ;
-        sh:description "The definition of the property." ;
-    ],
-    [
-        sh:path skos:example ;
-        sh:datatype xsd:string ;
-        sh:name "Example" ;
-        sh:description "An example value for the property." ;
-    ],
-    [
-        sh:path skos:altLabel ;
-        sh:datatype xsd:string ;
-        sh:name "Alternative label" ;
-        sh:description "An alternative label for the property." ;
-    ].
+shsh:ListNodeShape
+	a sh:NodeShape ;
+	skos:prefLabel "List node shape"@en ;
+	skos:definition "Defines constraints on what it means for a node to be a node within a well-formed RDF list. Note that this does not check whether the rdf:rest items are also well-formed lists as this would lead to unsupported recursion."@en ;
+	sh:or ( [
+				sh:hasValue rdf:nil ;
+        		sh:property [
+					sh:path rdf:first ;
+					sh:maxCount 0 ;
+				] ;
+				sh:property [
+					sh:path rdf:rest ;
+					sh:maxCount 0 ;
+				] ;
+			]
+			[
+				sh:not [ sh:hasValue rdf:nil ] ;
+				sh:property [
+					sh:path rdf:first ;
+					sh:maxCount 1 ;
+					sh:minCount 1 ;
+				] ;
+				sh:property [
+					sh:path rdf:rest ;
+					sh:maxCount 1 ;
+					sh:minCount 1 ;
+				] ;
+			] ) .

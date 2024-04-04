@@ -45,13 +45,13 @@ for l in results:
                 title = (i.get('http://purl.org/dc/terms/title')[0].get('@value'))
                 authorlist = []
                 # author = (i.get('http://purl.org/dc/terms/contributor')[0].get('@value'))
-                print(author)
+                # print(author)
 
 # Execute SPARQL query and retrieve results
 
 # Load the turtle file
 graph = rdflib.Graph()
-graph.parse("C:/Users/franken/respecter/data/data.ttl", format="turtle")
+graph.parse("C:/Users/franken/respecter/data/respec-ontology-shapes.ttl", format="turtle")
 
 # Load the SPARQL query
 f = open("C:/Users/franken/respecter/data/sparql_query.sparql", "r")
