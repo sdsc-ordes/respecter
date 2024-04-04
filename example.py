@@ -36,16 +36,6 @@ def format_sections(sections):
 with open("data/data.jsonld", "r") as f:
     results = json.load(f)
 
-# Hardcoded variables
-for l in results: 
-    elements = l['@graph']
-    for i in elements:
-        if 'http://purl.org/dc/terms/title' in i:
-            if i.get('@id') == 'https://swissdatacustodian.ch/doc/ontology#':
-                title = (i.get('http://purl.org/dc/terms/title')[0].get('@value'))
-                authorlist = []
-                # author = (i.get('http://purl.org/dc/terms/contributor')[0].get('@value'))
-                # print(author)
 
 # Execute SPARQL query and retrieve results
 
