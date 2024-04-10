@@ -14,32 +14,32 @@
       github: "https://gitlab.com/data-custodian/custodian-ontology/-/blob/main/contract_shape_ontology.ttl?ref_type=heads",
       authors: [
         
-        {name: "Robin Franken"},
-        
-        {name: "Martin Fontanet"},
-        
-        {name: "Sabrina Ossey"},
-        
+    { name: "Robin Franken" },
+    
+    { name: "Martin Fontanet" },
+    
+    { name: "Sabrina Ossey" },
+    
       ],
-      editors: [
-      {name: "Robin Franken"},
-      
-      {name: "Martin Fontanet"},
-      
-      {name: "Sabine Maennel"},
-      
-      {name: "Laure Vancauwenberghe"},
-      
-      {name: "Sabrina Ossey"},
-      
-      {name: "Cyril Matthey-Doret"},
-      
-      {name: "Stefan Milosavljevic"},
-      
-      {name: "Luana Martelli"},
-      
-      {name: "Carlos Vivar Rios"},
-      
+    editors: [
+    { name: "Robin Franken" },
+    
+    { name: "Martin Fontanet" },
+    
+    { name: "Sabine Maennel" },
+    
+    { name: "Laure Vancauwenberghe" },
+    
+    { name: "Sabrina Ossey" },
+    
+    { name: "Cyril Matthey-Doret" },
+    
+    { name: "Stefan Milosavljevic" },
+    
+    { name: "Luana Martelli" },
+    
+    { name: "Carlos Vivar Rios" },
+    
     ],
     };
   </script>
@@ -53,7 +53,8 @@
     <h2>Introduction</h2>
     <p>The swiss data custodian ontology provides SHACL shapes and concepts (classes and properties) to model human and machine readable contracts.</p>
     <aside class="note" title="ReSpecter status">
-      <p>"This ontology and the tool ReSpecter is still in active development. See <a href='https://github.com/sdsc-ordes/respecter/'>ReSpecter</a> for more details on the tool."</p>
+      <p>"This ontology and the tool ReSpecter is still in active development. See <a
+          href='https://github.com/sdsc-ordes/respecter/'>ReSpecter</a> for more details on the tool."</p>
     </aside>
   </section>
   <section>
@@ -324,6 +325,562 @@
         </td>
         <td>
           <p></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+  </section>
+
+  <section>
+    <h2>Properties</h2>
+
+    
+    <h3>has identifier</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>has identifier</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>description</p>
+        </td>
+        <td>
+          <p>Indicates an identifier associated for identification or reference</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasIdentifier">https://w3id.org/dpv#hasIdentifier</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>domains</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#Contract">https://w3id.org/dpv#Contract</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>ranges</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/2001/XMLSchema#string">http://www.w3.org/2001/XMLSchema#string</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>Start date</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>Start date</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>description</p>
+        </td>
+        <td>
+          <p>The start of the period.</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>property</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/dcat#startDate">http://www.w3.org/ns/dcat#startDate</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>domains</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#Contract">https://w3id.org/dpv#Contract</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>ranges</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/2001/XMLSchema#dateTime">http://www.w3.org/2001/XMLSchema#dateTime</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>End date</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>End date</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>description</p>
+        </td>
+        <td>
+          <p>The end of the period.</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>property</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/dcat#endDate">http://www.w3.org/ns/dcat#endDate</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>domains</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#Contract">https://w3id.org/dpv#Contract</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>ranges</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/2001/XMLSchema#dateTime">http://www.w3.org/2001/XMLSchema#dateTime</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>Has Data Handling</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>Has Data Handling</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>description</p>
+        </td>
+        <td>
+          <p>The property which links a contract to a data handling</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>property</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#hasDataHandling">https://swissdatacustodian.ch/doc/ontology#hasDataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>domains</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#Contract">https://w3id.org/dpv#Contract</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>ranges</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">https://swissdatacustodian.ch/doc/ontology#DataHandling</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>has data controller</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>has data controller</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>description</p>
+        </td>
+        <td>
+          <p>Indicates association with Data Controller</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasDataController">https://w3id.org/dpv#hasDataController</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>domains</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">https://swissdatacustodian.ch/doc/ontology#DataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>ranges</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#DataController">https://w3id.org/dpv#DataController</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>has data subject</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>has data subject</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>description</p>
+        </td>
+        <td>
+          <p>Indicates association with Data Subject</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasDataSubject">https://w3id.org/dpv#hasDataSubject</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>domains</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">https://swissdatacustodian.ch/doc/ontology#DataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>ranges</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#DataSubject">https://w3id.org/dpv#DataSubject</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>has data processor</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>has data processor</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>description</p>
+        </td>
+        <td>
+          <p>Indiciates inclusion or applicability of a Data Processor</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasDataProcessor">https://w3id.org/dpv#hasDataProcessor</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>domains</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">https://swissdatacustodian.ch/doc/ontology#DataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>ranges</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#DataProcessor">https://w3id.org/dpv#DataProcessor</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>has personal data</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>has personal data</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>description</p>
+        </td>
+        <td>
+          <p>Indicates association with Personal Data</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasPersonalData">https://w3id.org/dpv#hasPersonalData</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>domains</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">https://swissdatacustodian.ch/doc/ontology#DataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>ranges</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#PersonalData">https://w3id.org/dpv#PersonalData</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>has purpose</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>has purpose</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>description</p>
+        </td>
+        <td>
+          <p>Indicates association with Purpose</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasPurpose">https://w3id.org/dpv#hasPurpose</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>domains</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">https://swissdatacustodian.ch/doc/ontology#DataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>ranges</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#Purpose">https://w3id.org/dpv#Purpose</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>Has processing</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>Has processing</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>description</p>
+        </td>
+        <td>
+          <p>Indicates association with Processing</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasProcessing">https://w3id.org/dpv#hasProcessing</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>domains</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">https://swissdatacustodian.ch/doc/ontology#DataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>ranges</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#Processing">https://w3id.org/dpv#Processing</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>has technical and organisational measure</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>label</p>
+        </td>
+        <td>
+          <p>has technical and organisational measure</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>description</p>
+        </td>
+        <td>
+          <p>Indicates use or applicability of Technical or Organisational measure</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">https://w3id.org/dpv#hasTechnicalOrganisationalMeasure</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>domains</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">https://swissdatacustodian.ch/doc/ontology#DataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>ranges</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#OrganisationalMeasure">https://w3id.org/dpv#OrganisationalMeasure</a>, <a href="https://w3id.org/dpv#TechnicalMeasure">https://w3id.org/dpv#TechnicalMeasure</a></p>
         </td>
       </tr>
       

@@ -14,12 +14,12 @@
       github: "https://gitlab.com/data-custodian/custodian-ontology/-/blob/main/contract_shape_ontology.ttl?ref_type=heads",
       authors: [
         {% for author in creators %}
-        {name: "{{ author }}"},
-        {% endfor %}
+    { name: "{{ author }}" },
+    {% endfor %}
       ],
-      editors: [{% for editor in contributors %}
-      {name: "{{ editor }}"},
-      {% endfor %}
+    editors: [{% for editor in contributors %}
+    { name: "{{ editor }}" },
+    {% endfor %}
     ],
     };
   </script>
@@ -33,16 +33,37 @@
     <h2>Introduction</h2>
     <p>{{ introduction }}</p>
     <aside class="note" title="ReSpecter status">
-      <p>"This ontology and the tool ReSpecter is still in active development. See <a href='https://github.com/sdsc-ordes/respecter/'>ReSpecter</a> for more details on the tool."</p>
+      <p>"This ontology and the tool ReSpecter is still in active development. See <a
+          href='https://github.com/sdsc-ordes/respecter/'>ReSpecter</a> for more details on the tool."</p>
     </aside>
   </section>
   <section>
     <h2>Classes</h2>
 
-    {% for section in sections %}
-    <h3>{{ section.label }}</h3>
+    {% for concept in concepts %}
+    <h3>{{ concept.label }}</h3>
     <table class="def">
-      {% for key, value in section.items() %}
+      {% for key, value in concept.items() %}
+      <tr>
+        <td>
+          <p>{{ key }}</p>
+        </td>
+        <td>
+          <p>{{ value }}</p>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endfor %}
+  </section>
+
+  <section>
+    <h2>Properties</h2>
+
+    {% for property in properties %}
+    <h3>{{ property.label }}</h3>
+    <table class="def">
+      {% for key, value in property.items() %}
       <tr>
         <td>
           <p>{{ key }}</p>
