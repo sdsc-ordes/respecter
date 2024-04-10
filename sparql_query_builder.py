@@ -40,7 +40,7 @@ def build_sparql_query(config_file_path):
     WHERE {
         {
                 ?concept a rdfs:Class.
-            OPTIONAL {?concept """ + definition_Predicate + """ ?definition}  # Replaced placeholder with variable
+            OPTIONAL {?concept """ + definition_Predicate + """ ?definition}
             OPTIONAL {?concept """ + label_Predicate + """  ?label}
             OPTIONAL {?concept """ + property_Predicate + """  ?properties}
         

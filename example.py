@@ -8,6 +8,7 @@ import json
 import rdflib
 import pandas as pd
 import sparql_query_builder as sqb
+import rdflib
 
 
 
@@ -46,29 +47,24 @@ with open("data/data.jsonld", "r") as f:
 
 # Load the turtle file
 graph = rdflib.Graph()
-graph.parse("/Users/ossey/code/python/respec/respecter/data/respec-ontology-shapes.ttl", format="turtle")
+graph.parse("data/respec-ontology-shapes.ttl", format="turtle")
 
 
 
 # Load the SPARQL query
 
-config_file_path = "/Users/ossey/code/python/respec/respecter/config/sparql_config.yaml"
-sparql_query = sqb.build_sparql_query(config_file_path)
+config_file_path = "config/sparql_config.yaml"
+concepts_query = sqb.build_sparql_query(config_file_path)
+print(f"SPARQL query: {concepts_query}")
 
-# Save the query to a file (optional)
+# Save the query to a file (for debugging)
 filename = "sparql_query_file.sparql"
 with open(filename, "w") as f:
     # Load the SPARQL query
-  f.write(sparql_query)
+  f.write(concepts_query)
   
   print(f"SPARQL query saved to file: {filename}")
 
-# Alternatively, use the query directly
-print(sparql_query)
-
-
-f = open("/Users/ossey/code/python/respec/respecter/sparql_query_file.sparql", "r")
-concepts_query = f.read()
 
 # Load the SPARQL query
 f2 = open("/Users/ossey/code/python/respec/respecter/data/sparql_query_ontology.sparql", "r")
