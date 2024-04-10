@@ -1,0 +1,6 @@
+classPerdicate: rdfs:Class
+definitionPredicate : skos:definition 
+labelPredicate : skos:prefLabel
+propertyPredicate: sh:property/sh:path
+examplePredicate : skos:example 
+         

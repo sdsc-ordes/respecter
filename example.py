@@ -7,8 +7,14 @@ from jinja2 import Environment, FileSystemLoader
 import json
 import rdflib
 import pandas as pd
+import yaml
 # Define functions
 
+
+with open("/Users/ossey/code/python/respec/respecter/config/sparql_config.yaml", "r") as f:
+    # Load the configuration
+    configuration = yaml.load(f, Loader=yaml.FullLoader)
+    print(f"configuration: {configuration}")
 
 def format_sections(sections):
     """
@@ -37,28 +43,32 @@ with open("data/data.jsonld", "r") as f:
     results = json.load(f)
 
 
+
+
+
 # Execute SPARQL query and retrieve results
 
 # Load the turtle file
 graph = rdflib.Graph()
-graph.parse("C:/Users/franken/respecter/data/respec-ontology-shapes.ttl", format="turtle")
+graph.parse("/Users/ossey/code/python/respec/respecter/data/respec-ontology-shapes.ttl", format="turtle")
 
 # Load the SPARQL query
-f = open("C:/Users/franken/respecter/data/sparql_query.sparql", "r")
+f = open("/Users/ossey/code/python/respec/respecter/data/sparql_query.sparql", "r")
 concepts_query = f.read()
 
 # Load the SPARQL query
-f2 = open("C:/Users/franken/respecter/data/sparql_query_ontology.sparql", "r")
+f2 = open("/Users/ossey/code/python/respec/respecter/data/sparql_query_ontology.sparql", "r")
 ont_query = f2.read()
 
 concepts_query_result = graph.query(concepts_query)
 concepts_query_result = concepts_query_result.serialize(format="json")
 concepts_query_result = json.loads(concepts_query_result)
-print(concepts_query_result)
+print(f"concepts_query_result{concepts_query_result}")
 
 ont_query_result = graph.query(ont_query)
 ont_query_result = ont_query_result.serialize(format="json")
 ont_query_result = json.loads(ont_query_result)
+#print(f"ont_query_result{ont_query_result}")
 
 sections = concepts_query_result.get("results", {}).get("bindings", [])
 ont_sections = ont_query_result.get("results", {}).get("bindings", [])
