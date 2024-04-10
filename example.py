@@ -60,22 +60,22 @@ class Property:
     label: str = ""
     definition: str = ""
     property: str = ""
-    domains: set = field(default_factory=set)
-    ranges: set = field(default_factory=set)
+    domain: set = field(default_factory=set)
+    range: set = field(default_factory=set)
 
     def add_domain(self, domain):
-        self.domains.add(domain)
+        self.domain.add(domain)
 
     def add_range(self, range):
-        self.ranges.add(range)
+        self.range.add(range)
 
     def to_dict(self):
         return {
-            "label": self.label,
-            "definition": self.definition,
-            "property": self.property,
-            "domains": ", ".join(self.domains),
-            "ranges": ", ".join(self.ranges),
+            "Label": self.label,
+            "Definition": self.definition,
+            "Property": self.property,
+            "Domain": ", ".join(self.domain),
+            "Range": ", ".join(self.range),
         }
 
 
@@ -88,17 +88,17 @@ class Class:
     label: str = ""
     definition: str = ""
     term: str = ""
-    properties: set = field(default_factory=set)
+    property: set = field(default_factory=set)
 
     def add_property(self, property):
-        self.properties.add(property)
+        self.property.add(property)
 
     def to_dict(self):
         return {
-            "label": self.label,
-            "definition": self.definition,
-            "term": self.term,
-            "properties": ", ".join(self.properties),
+            "Label": self.label,
+            "Definition": self.definition,
+            "Term": self.term,
+            "Property": ", ".join(self.property),
         }
 
 

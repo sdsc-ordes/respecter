@@ -41,7 +41,7 @@
     <h2>Classes</h2>
 
     {% for concept in concepts %}
-    <h3>{{ concept.label }}</h3>
+    <h3>{{ concept.Label }}</h3>
     <table class="def">
       {% for key, value in concept.items() %}
       <tr>
@@ -61,7 +61,7 @@
     <h2>Properties</h2>
 
     {% for property in properties %}
-    <h3>{{ property.label }}</h3>
+    <h3>{{ property.Label }}</h3>
     <table class="def">
       {% for key, value in property.items() %}
       <tr>
