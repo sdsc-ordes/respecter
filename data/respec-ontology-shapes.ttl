@@ -54,10 +54,16 @@ sdc:DataHandlingShape
                 sdc:hasProcessingShape,
                 sdc:hasTechnicalOrganisationalMeasureShape.
 
-sdc:PersonalData a rdfs:Class, sh:NodeShape ;
+dpv:PersonalData a rdfs:Class ;
+    skos:prefLabel "Personal Data" ;
+    skos:definition "Data directly or indirectly associated or related to an individual."@en ;
+    .
+
+sdc:PerosnalDataShape a sh:NodeShape ;
     sh:property sdc:downloadURLShape,
                 sdc:themeShape ;
                 .    
+
 sdc:LegalEntityShape a sh:NodeShape ;
     sh:targetClass dpv:LegalEntity ;
     sh:property sdc:nameShape ,
