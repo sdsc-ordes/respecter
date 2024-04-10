@@ -3,14 +3,17 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
-SELECT ?concept ?property ?datatype ?class
+SELECT ?concept ?property ?datatype ?class ?domain ?range
 WHERE{
           {
             ?concept a sh:PropertyShape .
             ?concept sh:path ?property .
         OPTIONAL {?concept sh:datatype ?datatype}
         OPTIONAL {?concept sh:class ?class}
-        
+        OPTIONAL {?concept sh:or ?list . ?list sh:class ?class}
         }
+        OPTIONAL {?nodeshape sh:property ?concept .}
+        BIND(?nodeshape AS ?domain)
+        BIND(COALESCE(?class,?datatype) AS ?range)
 }
     GROUP BY ?concept ?property ?datatype ?class

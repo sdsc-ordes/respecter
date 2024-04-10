@@ -236,6 +236,7 @@ sdc:hasTechnicalOrganisationalMeasureShape a sh:PropertyShape ;
     sh:or ([sh:class dpv:TechnicalMeasure][sh:class dpv:OrganisationalMeasure])
     .
 
+
 sdc:nameShape a sh:PropertyShape ;
     sh:path dpv:hasName ;
     sh:datatype xsd:string ;
@@ -252,12 +253,14 @@ sdc:downloadURLShape a sh:PropertyShape ;
     sh:path dcat:downloadURL ;
     sh:minCount 1 ;
     skos:prefLabel "Download URL" ;
+    sh:datatype xsd:string ;
     .
 
 sdc:themeShape a sh:PropertyShape ;
     sh:path dcat:theme ;
     sh:minCount 1 ;
     skos:prefLabel "Theme" ;
+    sh:class sdc:Theme ;
     .
 
 ######DO WE STILL NEED THESE? ################################################################################
