@@ -1,0 +1,18 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT distinct ?concept ?property ?domain ?range
+WHERE{{
+            ?concept a sh:PropertyShape .
+            ?concept sh:path ?property .
+        OPTIONAL {?concept sh:datatype ?datatype}
+        OPTIONAL {?concept sh:class ?class}
+    	OPTIONAL  {?concept sh:or/rdf:rest*/rdf:first ?option .
+  ?option ?pred ?thing .
+		}}
+        OPTIONAL {?nodeshape sh:property ?concept .}
+        BIND(?nodeshape AS ?domain)
+        BIND(COALESCE(?thing,?class,?datatype) AS ?range)}

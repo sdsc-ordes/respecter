@@ -12,7 +12,7 @@ from dataclasses import dataclass, field
 
 # Define the SPARQL query to retrieve the concepts
 CONCEPTS_SPARQL = "data/sparql_query.sparql"
-ONTOLOGY_SPARQL = "data/sparql_ont_query.sparql"
+ONTOLOGY_SPARQL = "data/sparql_query_ontology.sparql"
 PROPERTIES_SPARQL = "data/prop_query.sparql"
 
 # Define Classes
