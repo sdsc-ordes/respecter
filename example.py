@@ -11,9 +11,8 @@ from dataclasses import dataclass, field
 # Constants
 
 # Define the SPARQL query to retrieve the concepts
-CONCEPTS_SPARQL = "data/sparql_query_classes.sparql"
+CONCEPTS_SPARQL = "data/sparql_query_concepts.sparql"
 ONTOLOGY_SPARQL = "data/sparql_query_ontology.sparql"
-PROPERTIES_SPARQL = "data/sparql_query_properties.sparql"
 
 # Define Classes
 
@@ -83,21 +82,25 @@ class Property:
 # Define functions
 
 
-def format_value(value):
+def format_value(value, qname=None):
     """
     Format the value to be used in the template.
     """
     # FIXME: the following section is a hack to have a working example.
     # This should be done differently and follow the Respec syntax for URLs.
     if value["type"] == "uri":
-        return '<a href="' + value["value"] + '">' + value["value"] + "</a>"
+        if qname:
+            value_string = qname(value["value"])
+        else:
+            value_string = value["value"]
+        return '<a href="' + value["value"] + '">' + value_string + "</a>"
     elif value["type"] == "literal":
         return value["value"]
     else:  # FIXME: handle other types
         return value["value"]
 
 
-def format_section(sections):
+def format_section(sections, qname):
     """
     Format the sections to be used in the template.
     """
@@ -105,12 +108,12 @@ def format_section(sections):
     for section in sections:
         current_section = {}
         for key in section:
-            current_section[key] = format_value(section[key])
+            current_section[key] = format_value(section[key], qname=qname)
         output.append(current_section)
     return output
 
 
-def extract_properties(rdf_properties):
+def extract_properties(rdf_properties, qname):
     """
     Extract the properties from the RDF data.
     """
@@ -123,26 +126,30 @@ def extract_properties(rdf_properties):
         current_property = properties[label]
         current_property.label = label
         current_property.description = format_value(
-            property.get("propertyDefinition", {})
+            property.get("propertyDefinition", {}), qname=qname
         )
 
-        current_property.property = format_value(property.get("property", {}))
-        current_property.add_domain(format_value(property.get("domain", {})))
-        current_property.add_range(format_value(property.get("range", {})))
+        current_property.property = format_value(
+            property.get("property", {}), qname=qname
+        )
+        current_property.add_domain(
+            format_value(property.get("domain", {}), qname=qname)
+        )
+        current_property.add_range(format_value(property.get("range", {}), qname=qname))
 
         properties[label] = current_property
     return properties
 
 
-def format_properties(rdf_properties):
+def format_properties(rdf_properties, qname):
     """
     Format the properties to be used in the template.
     """
-    properties = extract_properties(rdf_properties)
+    properties = extract_properties(rdf_properties, qname)
     return [property.to_dict() for property in properties.values()]
 
 
-def format_class(rdf_class):
+def format_class(rdf_class, qname=None):
     """
     Format the class to be used in the template.
     """
@@ -186,15 +193,13 @@ graph.parse("data/respec-ontology-shapes.ttl", format="turtle")
 # Execute the SPARQL query
 concepts_query_result = apply_sparql_query_file(graph, CONCEPTS_SPARQL)
 ont_query_result = apply_sparql_query_file(graph, ONTOLOGY_SPARQL)
-properties_result = debug_sparql_query("data/prop_result.json")
-# properties_result = apply_sparql_query_file(graph, PROPERTIES_SPARQL)
 
 classes_section = concepts_query_result.get("results", {}).get("bindings", [])
 ont_section = ont_query_result.get("results", {}).get("bindings", [])
-properties_section = properties_result.get("results", {}).get("bindings", [])
+properties_section = concepts_query_result.get("results", {}).get("bindings", [])
 
-concepts = format_section(classes_section)
-properties = format_properties(properties_section)
+concepts = format_section(classes_section, qname=graph.qname)
+properties = format_properties(properties_section, qname=graph.qname)
 
 ontology = Ontology()
 ontology.import_from_rdf(ont_section[0])
