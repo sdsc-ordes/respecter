@@ -11,9 +11,9 @@ from dataclasses import dataclass, field
 # Constants
 
 # Define the SPARQL query to retrieve the concepts
-CONCEPTS_SPARQL = "data/sparql_query.sparql"
+CONCEPTS_SPARQL = "data/sparql_query_classes.sparql"
 ONTOLOGY_SPARQL = "data/sparql_query_ontology.sparql"
-PROPERTIES_SPARQL = "data/prop_query.sparql"
+PROPERTIES_SPARQL = "data/sparql_query_properties.sparql"
 
 # Define Classes
 
