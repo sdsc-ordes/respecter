@@ -19,7 +19,45 @@ PROPERTIES_SPARQL = "data/prop_query.sparql"
 
 
 @dataclass
+class Ontology:
+    """
+    Class to store the ontology metadata.
+    """
+
+    title: str = ""
+    introduction: str = ""
+    abstract: str = ""
+    publishDate: str = ""
+    contributors: list = field(default_factory=list)
+    creators: list = field(default_factory=list)
+
+    def to_dict(self):
+        return {
+            "title": self.title,
+            "introduction": self.introduction,
+            "abstract": self.abstract,
+            "publishDate": self.publishDate,
+            "contributors": self.contributors,
+            "creators": self.creators,
+        }
+
+    def import_from_rdf(self, rdf_ontology):
+        self.title = rdf_ontology.get("title", {}).get("value", "")
+        self.introduction = rdf_ontology.get("description", {}).get("value", "")
+        self.abstract = rdf_ontology.get("abstract", {}).get("value", "")
+        self.publishDate = rdf_ontology.get("modified", {}).get("value", "")
+        self.contributors = (
+            rdf_ontology.get("contributors", {}).get("value", "").split("\n")
+        )
+        self.creators = rdf_ontology.get("creators", {}).get("value", "").split("\n")
+
+
+@dataclass
 class Property:
+    """
+    Class to store the property metadata.
+    """
+
     label: str = ""
     description: str = ""
     property: str = ""
@@ -132,12 +170,11 @@ def apply_sparql_query_file(graph, sparql_filename):
 
 
 def debug_sparql_query(file):
+    """
+    Load the results of a SPARQL query from a file.
+    """
     with open(file, "r") as f:
         return json.load(f)
-
-
-with open("data/data.jsonld", "r") as f:
-    results = json.load(f)
 
 
 # Execute SPARQL query and retrieve results
@@ -159,25 +196,19 @@ properties_section = properties_result.get("results", {}).get("bindings", [])
 concepts = format_section(classes_section)
 properties = format_properties(properties_section)
 
+ontology = Ontology()
+ontology.import_from_rdf(ont_section[0])
+
 # Render template
-contributors = ont_section[0].get("contributors", "")["value"]
-contributors = contributors.split("\n")
-creators = ont_section[0].get("creators", "")["value"]
-creators = creators.split("\n")
+
 environment = Environment(loader=FileSystemLoader("templates"))
 template = environment.get_template("example.html")
 
-
-ont_section = ont_section[0]
+# Render the template
 rendered_html = template.render(
-    abstract=ont_section.get("abstract", "")["value"],
-    introduction=ont_section.get("description", "")["value"],
     concepts=concepts,
+    ontology=ontology.to_dict(),
     properties=properties,
-    title=ont_section.get("title", "")["value"],
-    contributors=contributors,
-    creators=creators,
-    publishDate=ont_section.get("modified", "")["value"],
 )
 
 # Write rendered template to file
