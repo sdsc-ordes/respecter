@@ -7,14 +7,21 @@ from jinja2 import Environment, FileSystemLoader
 import json
 import rdflib
 import pandas as pd
-import yaml
+import sparql_query_builder as sqb
 # Define functions
 
 
-with open("/Users/ossey/code/python/respec/respecter/config/sparql_config.yaml", "r") as f:
-    # Load the configuration
-    configuration = yaml.load(f, Loader=yaml.FullLoader)
-    print(f"configuration: {configuration}")
+config_file_path = "/Users/ossey/code/python/respec/respecter/config/sparql_config.yaml"
+sparql_query = sqb.build_sparql_query(config_file_path)
+
+# Save the query to a file (optional)
+filename = "sparql_query_file.sparql"
+with open(filename, "w") as f:
+  f.write(sparql_query)
+  print(f"SPARQL query saved to file: {filename}")
+
+# Alternatively, use the query directly
+print(sparql_query)
 
 def format_sections(sections):
     """
