@@ -48,12 +48,13 @@ f = open("C:/Users/franken/respecter/data/sparql_query.sparql", "r")
 concepts_query = f.read()
 
 # Load the SPARQL query
-f2 = open("C:/Users/franken/respecter/data/sparql_ont_query.sparql", "r")
+f2 = open("C:/Users/franken/respecter/data/sparql_query_ontology.sparql", "r")
 ont_query = f2.read()
 
 concepts_query_result = graph.query(concepts_query)
 concepts_query_result = concepts_query_result.serialize(format="json")
 concepts_query_result = json.loads(concepts_query_result)
+print(concepts_query_result)
 
 ont_query_result = graph.query(ont_query)
 ont_query_result = ont_query_result.serialize(format="json")
@@ -71,7 +72,7 @@ creators = creators.split("\n")
 environment = Environment(loader=FileSystemLoader("templates"))
 template = environment.get_template("example.html")
 
-print(sections)
+# print(sections)
 
 ont_sections=ont_sections[0]
 rendered_html = template.render(
