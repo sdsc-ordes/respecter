@@ -41,7 +41,7 @@
     <h2>Classes</h2>
 
     {% for concept in concepts %}
-    <h3>{{ concept.classLabel }}</h3>
+    <h3>{{ concept.label }}</h3>
     <table class="def">
       {% for key, value in concept.items() %}
       <tr>

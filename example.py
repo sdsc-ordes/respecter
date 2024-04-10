@@ -58,7 +58,7 @@ class Property:
     """
 
     label: str = ""
-    description: str = ""
+    definition: str = ""
     property: str = ""
     domains: set = field(default_factory=set)
     ranges: set = field(default_factory=set)
@@ -72,10 +72,33 @@ class Property:
     def to_dict(self):
         return {
             "label": self.label,
-            "description": self.description,
+            "definition": self.definition,
             "property": self.property,
             "domains": ", ".join(self.domains),
             "ranges": ", ".join(self.ranges),
+        }
+
+
+@dataclass
+class Class:
+    """
+    Class to store the class metadata.
+    """
+
+    label: str = ""
+    definition: str = ""
+    term: str = ""
+    properties: set = field(default_factory=set)
+
+    def add_property(self, property):
+        self.properties.add(property)
+
+    def to_dict(self):
+        return {
+            "label": self.label,
+            "definition": self.definition,
+            "term": self.term,
+            "properties": ", ".join(self.properties),
         }
 
 
@@ -100,19 +123,6 @@ def format_value(value, qname=None):
         return value["value"]
 
 
-def format_section(sections, qname):
-    """
-    Format the sections to be used in the template.
-    """
-    output = []
-    for section in sections:
-        current_section = {}
-        for key in section:
-            current_section[key] = format_value(section[key], qname=qname)
-        output.append(current_section)
-    return output
-
-
 def extract_properties(rdf_properties, qname):
     """
     Extract the properties from the RDF data.
@@ -125,7 +135,7 @@ def extract_properties(rdf_properties, qname):
 
         current_property = properties[label]
         current_property.label = label
-        current_property.description = format_value(
+        current_property.definition = format_value(
             property.get("propertyDefinition", {}), qname=qname
         )
 
@@ -149,11 +159,36 @@ def format_properties(rdf_properties, qname):
     return [property.to_dict() for property in properties.values()]
 
 
-def format_class(rdf_class, qname=None):
+def extract_classes(rdf_classes, qname):
     """
-    Format the class to be used in the template.
+    Extract the classes from the RDF data.
     """
-    return NotImplementedError
+    classes = dict()
+    for rdf_class in rdf_classes:
+        label = rdf_class.get("classLabel", {}).get("value", "")
+        if label not in classes:
+            classes[label] = Class()
+
+        current_class = classes[label]
+        current_class.label = label
+        current_class.definition = format_value(
+            rdf_class.get("classDefinition", {}), qname=qname
+        )
+        current_class.term = format_value(rdf_class.get("domain", {}), qname=qname)
+        current_class.add_property(
+            format_value(rdf_class.get("property", {}), qname=qname)
+        )
+
+        classes[label] = current_class
+    return classes
+
+
+def format_classes(rdf_classes, qname):
+    """
+    Format the classes to be used in the template.
+    """
+    classes = extract_classes(rdf_classes, qname)
+    return [class_.to_dict() for class_ in classes.values()]
 
 
 def sparql_query(graph, query):
@@ -192,17 +227,16 @@ graph.parse("data/respec-ontology-shapes.ttl", format="turtle")
 
 # Execute the SPARQL query
 concepts_query_result = apply_sparql_query_file(graph, CONCEPTS_SPARQL)
-ont_query_result = apply_sparql_query_file(graph, ONTOLOGY_SPARQL)
+ontology_query_result = apply_sparql_query_file(graph, ONTOLOGY_SPARQL)
 
-classes_section = concepts_query_result.get("results", {}).get("bindings", [])
-ont_section = ont_query_result.get("results", {}).get("bindings", [])
-properties_section = concepts_query_result.get("results", {}).get("bindings", [])
+ontology_metadata = ontology_query_result.get("results", {}).get("bindings", [])
+ontology_data = concepts_query_result.get("results", {}).get("bindings", [])
 
-concepts = format_section(classes_section, qname=graph.qname)
-properties = format_properties(properties_section, qname=graph.qname)
+concepts = format_classes(ontology_data, qname=graph.qname)
+properties = format_properties(ontology_data, qname=graph.qname)
 
 ontology = Ontology()
-ontology.import_from_rdf(ont_section[0])
+ontology.import_from_rdf(ontology_metadata[0])
 
 # Render template
 
