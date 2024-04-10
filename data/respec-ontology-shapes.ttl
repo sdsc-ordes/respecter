@@ -56,16 +56,16 @@ sdc:DataHandlingShape
 
 
 
-sdc:PersonalDataShape a sh:NodeShape ;
+sdc:PersonalDataShape rdf:type sh:NodeShape ;
     sh:targetClass dpv:PersonalData ;
     sh:property sdc:downloadURLShape,
                 sdc:themeShape ;
                 .    
 
-sdc:LegalEntityShape a sh:NodeShape ;
+sdc:LegalEntityShape rdf:type sh:NodeShape ;
     sh:targetClass dpv:LegalEntity ;
-    sh:property sdc:nameShape ,
-                sdc:identifierShape ;
+    sh:property sdc:hasNameShape ,
+                sdc:hasIdentifierShape ;
 .
 
 ###################################################################################################################
@@ -82,17 +82,21 @@ sdc:DataHandling a rdfs:Class ;
 
 dpv:LegalEntity a rdfs:Class ;
     rdfs:subClassOf dpv:Entity ;
-    skos:prefLabel "Legal Entity" 
+    skos:prefLabel "Legal Entity" ;
+    skos:definition "A human or non-human 'thing' that constitutes as an entity and which is recognised and defined in law" ;
     .
 
 dpv:NaturalPerson a rdfs:Class;
     rdfs:subClassOf dpv:Entity ;
-    skos:prefLabel "Natural Person" 
-.
+    skos:prefLabel "Natural Person" ;
+    skos:definition "A human" ;
+    .
 
 dpv:OrganisationalUnit a rdfs:Class ;
     rdfs:subClassOf dpv:Entity ;
-    skos:prefLabel "Organisational Unit" . 
+    skos:prefLabel "Organisational Unit" ;
+    skos:definition "Entity within an organisation that does not constitute as a separate legal entity" ; 
+    . 
 
 dpv:PersonalData a rdfs:Class ;
     skos:prefLabel "Personal Data" ;
@@ -150,20 +154,24 @@ dpv:hasTechnicalOrganisationalMeasure a rdf:Property ;
     skos:definition "Indicates use or applicability of Technical or Organisational measure" ;
     .
 
-
 sdc:hasDataHandling a rdf:Property ;
     skos:prefLabel "Has Data Handling" ;
     skos:definition "The property which links a contract to a data handling" ;
     .
 
-sdc:allowedVulnerabilitySeverity a rdf:Property ;
-    skos:prefLabel "Allowed vulnerability severity" ;
-    skos:definition "A list of the accepted vulnerability severity levels in a container image, such as Low, Medium or High" ;
+dpv:hasName a rdf:Property ;
+    skos:prefLabel "has name" ;
+    skos:definition "Indicates a name" ;
     .
 
-sdc:maxAge a rdf:Property ;
-    skos:prefLabel "Maximum age" ;
-    skos:definition "Indicates how old something is allowed to be" ;
+dcat:downloadURL a rdf:Property ;
+    skos:prefLabel "Download URL" ;
+    skos:definition "The URL of the downloadable file in a given format. E.g., CSV file or RDF file. The format is indicated by the distribution's dcterms:format and/or dcat:mediaType" ;
+    .
+
+dcat:theme a rdf:Property ;
+    skos:prefLabel "Theme" ;
+    skos:definition "A main category of the resource. A resource can have multiple themes." ;
     .
 
 ###################################################################################################################
@@ -246,16 +254,9 @@ sdc:hasTechnicalOrganisationalMeasureShape a sh:PropertyShape ;
     .
 
 
-sdc:nameShape a sh:PropertyShape ;
+sdc:hasNameShape a sh:PropertyShape ;
     sh:path dpv:hasName ;
     sh:datatype xsd:string ;
-    .
-
-sdc:identifierShape a sh:PropertyShape ;
-    sh:path dpv:hasIdentifier ;
-    sh:datatype xsd:string ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
     .
 
 sdc:downloadURLShape a sh:PropertyShape ;
@@ -273,6 +274,17 @@ sdc:themeShape a sh:PropertyShape ;
     .
 
 ######DO WE STILL NEED THESE? ################################################################################
+
+# sdc:allowedVulnerabilitySeverity a rdf:Property ;
+#     skos:prefLabel "Allowed vulnerability severity" ;
+#     skos:definition "A list of the accepted vulnerability severity levels in a container image, such as Low, Medium or High" ;
+#     .
+
+# sdc:maxAge a rdf:Property ;
+#     skos:prefLabel "Maximum age" ;
+#     skos:definition "Indicates how old something is allowed to be" ;
+#     .
+
 
 # sdc:SecurityScanConstraint a rdfs:Class ;
 #     skos:prefLabel "Security scan constraint" ;
