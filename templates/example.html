@@ -3,23 +3,23 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>{{title}}</title>
+  <title>{{ontology.title}}</title>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
   <script class="remove">
     // All config options at https://respec.org/docs/
     var respecConfig = {
-      publishDate: "{{ publishDate }}",
+      publishDate: "{{ ontology.publishDate }}",
       specStatus: "ED",
       shortName: "ReSpecter",
       github: "https://gitlab.com/data-custodian/custodian-ontology/-/blob/main/contract_shape_ontology.ttl?ref_type=heads",
       authors: [
-        {% for author in creators %}
-        {name: "{{ author }}"},
-        {% endfor %}
+        {% for author in ontology.creators %}
+    { name: "{{ author }}" },
+    {% endfor %}
       ],
-      editors: [{% for editor in contributors %}
-      {name: "{{ editor }}"},
-      {% endfor %}
+    editors: [{% for editor in ontology.contributors %}
+    { name: "{{ editor }}" },
+    {% endfor %}
     ],
     };
   </script>
@@ -27,22 +27,43 @@
 
 <body>
   <section id="abstract">
-    <p>{{ abstract }}</p>
+    <p>{{ ontology.abstract }}</p>
   </section>
   <section class="informative">
     <h2>Introduction</h2>
-    <p>{{ introduction }}</p>
+    <p>{{ ontology.introduction }}</p>
     <aside class="note" title="ReSpecter status">
-      <p>"This ontology and the tool ReSpecter is still in active development. See <a href='https://github.com/sdsc-ordes/respecter/'>ReSpecter</a> for more details on the tool."</p>
+      <p>"This ontology and the tool ReSpecter is still in active development. See <a
+          href='https://github.com/sdsc-ordes/respecter/'>ReSpecter</a> for more details on the tool."</p>
     </aside>
   </section>
   <section>
     <h2>Classes</h2>
 
-    {% for section in sections %}
-    <h3>{{ section.label }}</h3>
+    {% for concept in concepts %}
+    <h3>{{ concept.Label }}</h3>
     <table class="def">
-      {% for key, value in section.items() %}
+      {% for key, value in concept.items() %}
+      <tr>
+        <td>
+          <p>{{ key }}</p>
+        </td>
+        <td>
+          <p>{{ value }}</p>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endfor %}
+  </section>
+
+  <section>
+    <h2>Properties</h2>
+
+    {% for property in properties %}
+    <h3>{{ property.Label }}</h3>
+    <table class="def">
+      {% for key, value in property.items() %}
       <tr>
         <td>
           <p>{{ key }}</p>
