@@ -15,4 +15,3 @@ WHERE{
         FILTER(!isblank(?concept))
 }
     GROUP BY ?concept ?definition ?label ?example ?type
-
