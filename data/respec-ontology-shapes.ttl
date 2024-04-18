@@ -16,15 +16,14 @@
 
 
 <https://swissdatacustodian.ch/doc/ontology#> a owl:Ontology ;
-    dct:abstract "The swiss data custodian ontology provides SHACL shapes and concepts (classes and properties) to model human and machine readable contracts."@en ;
+    dct:abstract "The swiss data custodian ontology provides SHACL shapes and concepts (classes and properties) to model human and machine readable contracts." ;
     dct:contributor "Robin Franken", "Martin Fontanet", "Sabine Maennel", "Laure Vancauwenberghe", "Sabrina Ossey", "Cyril Matthey-Doret", "Stefan Milosavljevic" , "Luana Martelli", "Carlos Vivar Rios" ;
     dct:created "2023-10-16"^^xsd:date ;
     dct:creator "Robin Franken", "Martin Fontanet", "Sabrina Ossey" ;
-    dct:description "The swiss data custodian ontology provides SHACL shapes and concepts (classes and properties) to model human and machine readable contracts."@en ;
+    dct:description "The swiss data custodian ontology provides SHACL shapes and concepts (classes and properties) to model human and machine readable contracts." ;
     dct:license <https://spdx.org/licenses/CC-BY-SA-4.0.html> ;
     dct:modified "2024-01-17"^^xsd:date ;
-    #dct:source "" ;
-    dct:title "Swiss Data Custodian Contract Ontology"@en ;
+    dct:title "Swiss Data Custodian Contract Ontology" ;
     vann:preferredNamespacePrefix "sdc" ;
     vann:preferredNamespaceUri "https://w3id.org/sdc#"^^xsd:string ;
     owl:versionInfo "1"^^xsd:string 
@@ -33,10 +32,6 @@
 #Below is the shape for a container contract, it outlines which properties we expect for a container contract
 #and how those properties should be filled in.
 
-dpv:Contract a rdfs:Class ;
-    skos:definition "Creation, completion, fulfilment, or performance of a contract involving specified processing"@en ;
-    skos:prefLabel "Contract"@en ;
-    .
 
 sdc:ContractShape
     rdf:type sh:NodeShape ;
@@ -46,12 +41,146 @@ sdc:ContractShape
                 sdc:startDateShape,
                 sdc:endDateShape,
                 sdc:hasDataHandlingShape.
-        
+
+sdc:DataHandlingShape
+    rdf:type sh:NodeShape ;
+    sh:targetClass sdc:DataHandling ;
+    skos:prefLabel "Data Handling" ;
+    sh:property sdc:hasDataControllerShape,
+                sdc:hasDataSubjectShape,
+                sdc:hasDataProcessorShape,
+                sdc:hasPersonalDataShape,
+                sdc:hasPurposeShape,
+                sdc:hasProcessingShape,
+                sdc:hasTechnicalOrganisationalMeasureShape.
+
+
+
+sdc:PersonalDataShape rdf:type sh:NodeShape ;
+    sh:targetClass dpv:PersonalData ;
+    sh:property sdc:downloadURLShape,
+                sdc:themeShape ;
+                .    
+
+sdc:LegalEntityShape rdf:type sh:NodeShape ;
+    sh:targetClass dpv:LegalEntity ;
+    sh:property sdc:hasNameShape ,
+                sdc:hasIdentifierShape ;
+.
+
+###################################################################################################################
+
+dpv:Contract a rdfs:Class ;
+    skos:definition "Creation, completion, fulfilment, or performance of a contract involving specified processing" ;
+    skos:prefLabel "Contract" ;
+    .
+
+sdc:DataHandling a rdfs:Class ;
+    skos:definition "A high-level Class to describe 'data handling'. This can consist of personal data being processed for a purpose, involving entities, using technical and organisational measures, applicable risks, rights, and legal basis." ;
+    skos:prefLabel "Data Handling"
+    .
+
+dpv:LegalEntity a rdfs:Class ;
+    rdfs:subClassOf dpv:Entity ;
+    skos:prefLabel "Legal Entity" ;
+    skos:definition "A human or non-human 'thing' that constitutes as an entity and which is recognised and defined in law" ;
+    .
+
+dpv:NaturalPerson a rdfs:Class;
+    rdfs:subClassOf dpv:Entity ;
+    skos:prefLabel "Natural Person" ;
+    skos:definition "A human" ;
+    .
+
+dpv:OrganisationalUnit a rdfs:Class ;
+    rdfs:subClassOf dpv:Entity ;
+    skos:prefLabel "Organisational Unit" ;
+    skos:definition "Entity within an organisation that does not constitute as a separate legal entity" ; 
+    . 
+
+dpv:PersonalData a rdfs:Class ;
+    skos:prefLabel "Personal Data" ;
+    skos:definition "Data directly or indirectly associated or related to an individual." ;
+    .
+
+############################################################################################################
+dpv:hasIdentifier a rdf:Property ;
+    skos:prefLabel "has identifier" ;
+    skos:definition "Indicates an identifier associated for identification or reference" ;
+    .
+
+dcat:startDate a rdf:Property ;
+    skos:prefLabel "Start date" ;
+    skos:definition "The start of the period."
+    .
+
+dcat:endDate a rdf:Property ;
+    skos:prefLabel "End date" ;
+    skos:definition "The end of the period."
+    .
+
+dpv:hasDataController a rdf:Property ;    
+    skos:prefLabel "has data controller" ;
+    skos:definition "Indicates association with Data Controller" ;
+    .
+
+dpv:hasDataSubject a rdf:Property ;    
+    skos:prefLabel "has data subject" ; 
+    skos:definition "Indicates association with Data Subject" ;
+    .
+
+dpv:hasDataProcessor a rdf:Property ;    
+    skos:prefLabel "has data processor" ; 
+    skos:definition "Indiciates inclusion or applicability of a Data Processor" ;
+    .
+
+dpv:hasPurpose a rdf:Property ;
+    skos:prefLabel "has purpose" ;
+    skos:definition "Indicates association with Purpose" ;
+    .
+
+dpv:hasPersonalData a rdf:Property ;
+    skos:prefLabel "has personal data" ;
+    skos:definition "Indicates association with Personal Data" ;
+    .
+
+dpv:hasProcessing a rdf:Property ;
+    skos:prefLabel "Has processing" ;
+    skos:definition "Indicates association with Processing" ;
+    .
+
+dpv:hasTechnicalOrganisationalMeasure a rdf:Property ;
+    skos:prefLabel "has technical and organisational measure" ;
+    skos:definition "Indicates use or applicability of Technical or Organisational measure" ;
+    .
+
+sdc:hasDataHandling a rdf:Property ;
+    skos:prefLabel "Has Data Handling" ;
+    skos:definition "The property which links a contract to a data handling" ;
+    .
+
+dpv:hasName a rdf:Property ;
+    skos:prefLabel "has name" ;
+    skos:definition "Indicates a name" ;
+    .
+
+dcat:downloadURL a rdf:Property ;
+    skos:prefLabel "Download URL" ;
+    skos:definition "The URL of the downloadable file in a given format. E.g., CSV file or RDF file. The format is indicated by the distribution's dcterms:format and/or dcat:mediaType" ;
+    .
+
+dcat:theme a rdf:Property ;
+    skos:prefLabel "Theme" ;
+    skos:definition "A main category of the resource. A resource can have multiple themes." ;
+    .
+
+###################################################################################################################
 sdc:hasIdentifierShape a sh:PropertyShape ;
     sh:path dpv:hasIdentifier ;
     skos:prefLabel "Has identifier" ;
     sh:datatype xsd:string ;
     .
+
 sdc:startDateShape a sh:PropertyShape ;
     sh:path dcat:startDate ;
     skos:prefLabel "Has start date" ;
@@ -75,29 +204,6 @@ sdc:hasDataHandlingShape a sh:PropertyShape ;
     sh:minCount 1 ;
     .
 
-
-#Below is the nodeshape for a "Data Handling". It outlines the properties we expect a data handling to have, and
-#how those properties should be filled in. 
-
-sdc:DataHandling a rdfs:Class ;
-    skos:definition "A high-level Class to describe 'data handling'. This can consist of personal data being processed for a purpose, involving entities, using technical and organisational measures, applicable risks, rights, and legal basis."@en ;
-    skos:prefLabel "Data Handling"
-    .
-
-sdc:DataHandlingShape
-    rdf:type sh:NodeShape ;
-    sh:targetClass sdc:DataHandling ;
-    skos:prefLabel "Data Handling" ;
-    sh:property sdc:hasDataControllerShape,
-                sdc:hasDataSubjectShape,
-                sdc:hasDataProcessorShape,
-                sdc:hasPersonalDataShape,
-                sdc:hasPurposeShape,
-                sdc:hasProcessingShape,
-                sdc:hasUsageShape,
-                sdc:hasTechnicalOrganisationalMeasureShape.
-    
-    
 sdc:hasDataControllerShape a sh:PropertyShape ;
     sh:path dpv:hasDataController ;
     skos:prefLabel "Has Data Controller" ;
@@ -147,146 +253,94 @@ sdc:hasTechnicalOrganisationalMeasureShape a sh:PropertyShape ;
     sh:or ([sh:class dpv:TechnicalMeasure][sh:class dpv:OrganisationalMeasure])
     .
 
-sdc:hasUsageShape a sh:PropertyShape ;
-    sh:path sdc:usage ;
-    skos:prefLabel "Usage" ;
-    sh:minCount 1 ;
-    sh:or ("Download" "Service")       
-    .
 
-dpv:LegalEntity a rdfs:Class ;
-    rdfs:subClassOf dpv:Entity ;
-    skos:prefLabel "Legal Entity" 
-    .
-
-sdc:LegalEntityShape a sh:NodeShape ;
-    sh:targetClass dpv:LegalEntity ;
-    sh:property sdc:nameShape ,
-                sdc:identifierShape ;
-.
-
-dpv:NaturalPerson a rdfs:Class;
-    rdfs:subClassOf dpv:Entity ;
-    skos:prefLabel "Natural Person" ;
-    skos:definition "A human being"@en ;
-.
-
-dpv:OrganisationalUnit a rdfs:Class ;
-    rdfs:subClassOf dpv:Entity ;
-    skos:prefLabel "Organisational Unit" ;
-    skos:definition "Entity within an organisation that does not constitute as a separate legal entity". 
- 
-
-sdc:nameShape a sh:PropertyShape ;
+sdc:hasNameShape a sh:PropertyShape ;
     sh:path dpv:hasName ;
     sh:datatype xsd:string ;
-    .
-
-sdc:identifierShape a sh:PropertyShape ;
-    sh:path dpv:hasIdentifier ;
-    sh:datatype xsd:string ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
     .
 
 sdc:downloadURLShape a sh:PropertyShape ;
     sh:path dcat:downloadURL ;
     sh:minCount 1 ;
     skos:prefLabel "Download URL" ;
+    sh:datatype xsd:string ;
     .
 
 sdc:themeShape a sh:PropertyShape ;
     sh:path dcat:theme ;
     sh:minCount 1 ;
     skos:prefLabel "Theme" ;
+    sh:class sdc:Theme ;
     .
 
-sdc:PersonalData a rdfs:Class ;
-    skos:prefLabel "Personal Data" ;
-    skos:defintion "Data directly or indirectly associated or related to an individual." ;
-    skos:example "A dataset containing PROMS (patient reported outcome measures) or other personally identifiable information." ;
-    .
+######DO WE STILL NEED THESE? ################################################################################
 
-sdc:PersonalDataShape a sh:NodeShape ;
-    sh:property sdc:downloadURLShape,
-                sdc:themeShape ;
-                .
+# sdc:allowedVulnerabilitySeverity a rdf:Property ;
+#     skos:prefLabel "Allowed vulnerability severity" ;
+#     skos:definition "A list of the accepted vulnerability severity levels in a container image, such as Low, Medium or High" ;
+#     .
 
-sdc:usage a rdf:Property ;
-    skos:prefLabel "Usage" ;
-    skos:definition "A property outlining whether the data will be downloaded or used as a service." ;
-    .
-
-sdc:hasDataHandling a rdf:Property ;
-    skos:prefLabel "Has Data Handling" ;
-    skos:definition "The property which links a contract to a data handling" ;
-    .
-
-sdc:allowedVulnerabilitySeverity a rdf:Property ;
-    skos:prefLabel "Allowed vulnerability severity" ;
-    skos:definition "A list of the accepted vulnerability severity levels in a container image, such as Low, Medium or High" ;
-    .
-
-sdc:maxAge a rdf:Property ;
-    skos:prefLabel "Maximum age" ;
-    skos:definition "Indicates how old something is allowed to be" ;
-    .
-
-sdc:SecurityScanConstraint a rdfs:Class ;
-    skos:prefLabel "Security scan constraint" ;
-    skos:definition "An object which indicates the constraints on a security scan report" ;
-    .
+# sdc:maxAge a rdf:Property ;
+#     skos:prefLabel "Maximum age" ;
+#     skos:definition "Indicates how old something is allowed to be" ;
+#     .
 
 
-sdc:SecurityScanConstraintShape a sh:NodeShape ;
-    sh:targetClass sdc:SecurityScanConstraint ;
-    sh:property [
-        sh:path sdc:allowedVulnerabilitySeverity ;
-        sh:node shsh:ListShape ;
-    ],
-    [
-        sh:path sdc:maxAge ;
-        sh:minCount 1 ;
-        sh:datatype xsd:duration ;
-    ].
+# sdc:SecurityScanConstraint a rdfs:Class ;
+#     skos:prefLabel "Security scan constraint" ;
+#     skos:definition "An object which indicates the constraints on a security scan report" ;
+#     .
 
-shsh:ListShape
-	a sh:NodeShape ;
-	skos:prefLabel "List shape"@en ;
-	skos:definition "A shape describing well-formed RDF lists. Currently does not check for non-recursion. This could be expressed using SHACL-SPARQL."@en ;
-	rdfs:seeAlso <https://www.w3.org/TR/shacl/#syntax-rule-SHACL-list> ;
-	sh:property [
-		sh:path [ sh:zeroOrMorePath rdf:rest ] ;
-		skos:definition "Each list member (including this node) must have the shape shsh:ListNodeShape."@en ;
-		sh:hasValue rdf:nil ;
-		sh:node shsh:ListNodeShape ;
-	] .
 
-shsh:ListNodeShape
-	a sh:NodeShape ;
-	skos:prefLabel "List node shape"@en ;
-	skos:definition "Defines constraints on what it means for a node to be a node within a well-formed RDF list. Note that this does not check whether the rdf:rest items are also well-formed lists as this would lead to unsupported recursion."@en ;
-	sh:or ( [
-				sh:hasValue rdf:nil ;
-        		sh:property [
-					sh:path rdf:first ;
-					sh:maxCount 0 ;
-				] ;
-				sh:property [
-					sh:path rdf:rest ;
-					sh:maxCount 0 ;
-				] ;
-			]
-			[
-				sh:not [ sh:hasValue rdf:nil ] ;
-				sh:property [
-					sh:path rdf:first ;
-					sh:maxCount 1 ;
-					sh:minCount 1 ;
-				] ;
-				sh:property [
-					sh:path rdf:rest ;
-					sh:maxCount 1 ;
-					sh:minCount 1 ;
-				] ;
-			] ) .
+# sdc:SecurityScanConstraintShape a sh:NodeShape ;
+#     sh:targetClass sdc:SecurityScanConstraint ;
+#     sh:property [
+#         sh:path sdc:allowedVulnerabilitySeverity ;
+#         sh:node shsh:ListShape ;
+#     ],
+#     [
+#         sh:path sdc:maxAge ;
+#         sh:minCount 1 ;
+#         sh:datatype xsd:duration ;
+#     ].
+
+# shsh:ListShape
+# 	a sh:NodeShape ;
+# 	skos:prefLabel "List shape" ;
+# 	skos:definition "A shape describing well-formed RDF lists. Currently does not check for non-recursion. This could be expressed using SHACL-SPARQL." ;
+# 	rdfs:seeAlso <https://www.w3.org/TR/shacl/#syntax-rule-SHACL-list> ;
+# 	sh:property [
+# 		sh:path [ sh:zeroOrMorePath rdf:rest ] ;
+# 		skos:definition "Each list member (including this node) must have the shape shsh:ListNodeShape." ;
+# 		sh:hasValue rdf:nil ;
+# 		sh:node shsh:ListNodeShape ;
+# 	] .
+
+# shsh:ListNodeShape
+# 	a sh:NodeShape ;
+# 	skos:prefLabel "List node shape" ;
+# 	skos:definition "Defines constraints on what it means for a node to be a node within a well-formed RDF list. Note that this does not check whether the rdf:rest items are also well-formed lists as this would lead to unsupported recursion." ;
+# 	sh:or ( [
+# 				sh:hasValue rdf:nil ;
+#         		sh:property [
+# 					sh:path rdf:first ;
+# 					sh:maxCount 0 ;
+# 				] ;
+# 				sh:property [
+# 					sh:path rdf:rest ;
+# 					sh:maxCount 0 ;
+# 				] ;
+# 			]
+# 			[
+# 				sh:not [ sh:hasValue rdf:nil ] ;
+# 				sh:property [
+# 					sh:path rdf:first ;
+# 					sh:maxCount 1 ;
+# 					sh:minCount 1 ;
+# 				] ;
+# 				sh:property [
+# 					sh:path rdf:rest ;
+# 					sh:maxCount 1 ;
+# 					sh:minCount 1 ;
+# 				] ;
+# 			] ) .

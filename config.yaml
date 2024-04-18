@@ -1,0 +1,5 @@
+definitionPredicate : skos:definition (or rdfs:comment or dc:description or skos:scopeNote)
+labelPredicate : skos:prefLabel (or rdfs:label or dc:title or foaf:name)
+examplePredicate : skos:example (or skos:note)
+
+
