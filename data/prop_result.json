@@ -1,0 +1,437 @@
+{
+    "head": {
+        "vars": [
+            "domain",
+            "classLabel",
+            "classDefinition",
+            "property",
+            "propertyLabel",
+            "propertyDefinition",
+            "range",
+            "example"
+        ]
+    },
+    "results": {
+        "bindings": [
+            {
+                "domain": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#Contract"
+                },
+                "classLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Contract"
+                },
+                "classDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Creation, completion, fulfilment, or performance of a contract involving specified processing"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#hasIdentifier"
+                },
+                "propertyLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "has identifier"
+                },
+                "propertyDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Indicates an identifier associated for identification or reference"
+                },
+                "range": {
+                    "type": "uri",
+                    "value": "http://www.w3.org/2001/XMLSchema#string"
+                }
+            },
+            {
+                "domain": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#Contract"
+                },
+                "classLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Contract"
+                },
+                "classDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Creation, completion, fulfilment, or performance of a contract involving specified processing"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#hasIdentifier"
+                },
+                "propertyLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "has identifier"
+                },
+                "propertyDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Indicates an identifier associated for identification or reference"
+                },
+                "range": {
+                    "type": "uri",
+                    "value": "http://www.w3.org/2001/XMLSchema#string"
+                }
+            },
+            {
+                "domain": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#Contract"
+                },
+                "classLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Contract"
+                },
+                "classDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Creation, completion, fulfilment, or performance of a contract involving specified processing"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "http://www.w3.org/ns/dcat#startDate"
+                },
+                "propertyLabel": {
+                    "type": "literal",
+                    "value": "Start date"
+                },
+                "propertyDefinition": {
+                    "type": "literal",
+                    "value": "The start of the period."
+                },
+                "range": {
+                    "type": "uri",
+                    "value": "http://www.w3.org/2001/XMLSchema#dateTime"
+                }
+            },
+            {
+                "domain": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#Contract"
+                },
+                "classLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Contract"
+                },
+                "classDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Creation, completion, fulfilment, or performance of a contract involving specified processing"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "http://www.w3.org/ns/dcat#endDate"
+                },
+                "propertyLabel": {
+                    "type": "literal",
+                    "value": "End date"
+                },
+                "propertyDefinition": {
+                    "type": "literal",
+                    "value": "The end of the period."
+                },
+                "range": {
+                    "type": "uri",
+                    "value": "http://www.w3.org/2001/XMLSchema#dateTime"
+                }
+            },
+            {
+                "domain": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#Contract"
+                },
+                "classLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Contract"
+                },
+                "classDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Creation, completion, fulfilment, or performance of a contract involving specified processing"
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "https://swissdatacustodian.ch/doc/ontology#hasDataHandling"
+                },
+                "propertyLabel": {
+                    "type": "literal",
+                    "value": "Has Data Handling"
+                },
+                "propertyDefinition": {
+                    "type": "literal",
+                    "value": "The property which links a contract to a data handling"
+                },
+                "range": {
+                    "type": "uri",
+                    "value": "https://swissdatacustodian.ch/doc/ontology#DataHandling"
+                }
+            },
+            {
+                "domain": {
+                    "type": "uri",
+                    "value": "https://swissdatacustodian.ch/doc/ontology#DataHandling"
+                },
+                "classLabel": {
+                    "type": "literal",
+                    "value": "Data Handling"
+                },
+                "classDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "A high-level Class to describe 'data handling'. This can consist of personal data being processed for a purpose, involving entities, using technical and organisational measures, applicable risks, rights, and legal basis."
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#hasDataController"
+                },
+                "propertyLabel": {
+                    "type": "literal",
+                    "value": "has data controller"
+                },
+                "propertyDefinition": {
+                    "type": "literal",
+                    "value": "Indicates association with Data Controller"
+                },
+                "range": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#DataController"
+                }
+            },
+            {
+                "domain": {
+                    "type": "uri",
+                    "value": "https://swissdatacustodian.ch/doc/ontology#DataHandling"
+                },
+                "classLabel": {
+                    "type": "literal",
+                    "value": "Data Handling"
+                },
+                "classDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "A high-level Class to describe 'data handling'. This can consist of personal data being processed for a purpose, involving entities, using technical and organisational measures, applicable risks, rights, and legal basis."
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#hasDataSubject"
+                },
+                "propertyLabel": {
+                    "type": "literal",
+                    "value": "has data subject"
+                },
+                "propertyDefinition": {
+                    "type": "literal",
+                    "value": "Indicates association with Data Subject"
+                },
+                "range": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#DataSubject"
+                }
+            },
+            {
+                "domain": {
+                    "type": "uri",
+                    "value": "https://swissdatacustodian.ch/doc/ontology#DataHandling"
+                },
+                "classLabel": {
+                    "type": "literal",
+                    "value": "Data Handling"
+                },
+                "classDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "A high-level Class to describe 'data handling'. This can consist of personal data being processed for a purpose, involving entities, using technical and organisational measures, applicable risks, rights, and legal basis."
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#hasDataProcessor"
+                },
+                "propertyLabel": {
+                    "type": "literal",
+                    "value": "has data processor"
+                },
+                "propertyDefinition": {
+                    "type": "literal",
+                    "value": "Indiciates inclusion or applicability of a Data Processor"
+                },
+                "range": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#DataProcessor"
+                }
+            },
+            {
+                "domain": {
+                    "type": "uri",
+                    "value": "https://swissdatacustodian.ch/doc/ontology#DataHandling"
+                },
+                "classLabel": {
+                    "type": "literal",
+                    "value": "Data Handling"
+                },
+                "classDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "A high-level Class to describe 'data handling'. This can consist of personal data being processed for a purpose, involving entities, using technical and organisational measures, applicable risks, rights, and legal basis."
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#hasPersonalData"
+                },
+                "propertyLabel": {
+                    "type": "literal",
+                    "value": "has personal data"
+                },
+                "propertyDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Indicates association with Personal Data"
+                },
+                "range": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#PersonalData"
+                }
+            },
+            {
+                "domain": {
+                    "type": "uri",
+                    "value": "https://swissdatacustodian.ch/doc/ontology#DataHandling"
+                },
+                "classLabel": {
+                    "type": "literal",
+                    "value": "Data Handling"
+                },
+                "classDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "A high-level Class to describe 'data handling'. This can consist of personal data being processed for a purpose, involving entities, using technical and organisational measures, applicable risks, rights, and legal basis."
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#hasPurpose"
+                },
+                "propertyLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "has purpose"
+                },
+                "propertyDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Indicates association with Purpose"
+                },
+                "range": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#Purpose"
+                }
+            },
+            {
+                "domain": {
+                    "type": "uri",
+                    "value": "https://swissdatacustodian.ch/doc/ontology#DataHandling"
+                },
+                "classLabel": {
+                    "type": "literal",
+                    "value": "Data Handling"
+                },
+                "classDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "A high-level Class to describe 'data handling'. This can consist of personal data being processed for a purpose, involving entities, using technical and organisational measures, applicable risks, rights, and legal basis."
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#hasProcessing"
+                },
+                "propertyLabel": {
+                    "type": "literal",
+                    "value": "Has processing"
+                },
+                "propertyDefinition": {
+                    "type": "literal",
+                    "value": "Indicates association with Processing"
+                },
+                "range": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#Processing"
+                }
+            },
+            {
+                "domain": {
+                    "type": "uri",
+                    "value": "https://swissdatacustodian.ch/doc/ontology#DataHandling"
+                },
+                "classLabel": {
+                    "type": "literal",
+                    "value": "Data Handling"
+                },
+                "classDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "A high-level Class to describe 'data handling'. This can consist of personal data being processed for a purpose, involving entities, using technical and organisational measures, applicable risks, rights, and legal basis."
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#hasTechnicalOrganisationalMeasure"
+                },
+                "propertyLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "has technical and organisational measure"
+                },
+                "propertyDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Indicates use or applicability of Technical or Organisational measure"
+                },
+                "range": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#TechnicalMeasure"
+                }
+            },
+            {
+                "domain": {
+                    "type": "uri",
+                    "value": "https://swissdatacustodian.ch/doc/ontology#DataHandling"
+                },
+                "classLabel": {
+                    "type": "literal",
+                    "value": "Data Handling"
+                },
+                "classDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "A high-level Class to describe 'data handling'. This can consist of personal data being processed for a purpose, involving entities, using technical and organisational measures, applicable risks, rights, and legal basis."
+                },
+                "property": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#hasTechnicalOrganisationalMeasure"
+                },
+                "propertyLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "has technical and organisational measure"
+                },
+                "propertyDefinition": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Indicates use or applicability of Technical or Organisational measure"
+                },
+                "range": {
+                    "type": "uri",
+                    "value": "https://w3id.org/dpv#OrganisationalMeasure"
+                }
+            }
+        ]
+    }
+}
