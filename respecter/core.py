@@ -12,7 +12,9 @@ ONTOLOGY_SPARQL = "sparql/sparql_query_ontology.sparql"
 
 
 def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
-
+    """
+    Fetch the ontology from the RDF file and the SPARQL query.
+    """
     print(ontology_file_path)
     # Load the turtle file
     graph = rdflib.Graph()
