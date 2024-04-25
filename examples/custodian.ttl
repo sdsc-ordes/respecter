@@ -68,6 +68,15 @@ sdc:LegalEntityShape rdf:type sh:NodeShape ;
                 sdc:hasIdentifierShape ;
 .
 
+sdc:SignatureShape a sh:NodeShape ;
+    sh:targetClass sdc:Signature ;
+    sh:property sdc:hasSigneeShape,
+                sdc:hasContractShape,
+                sdc:statusShape,
+                sdc:contractHashShape,
+                sdc:identifier,
+                sdc:hasSignatureShape.
+
 ###################################################################################################################
 
 dpv:Contract a rdfs:Class ;
@@ -174,6 +183,35 @@ dcat:theme a rdf:Property ;
     skos:definition "A main category of the resource. A resource can have multiple themes." ;
     .
 
+sdc:hasSignee a rdf:Property ;
+    skos:prefLabel "has Signee" ;
+    skos:definition "Relates a resource to a signee." ;
+    .
+sdc:hasContract a rdf:Property ;
+    skos:prefLabel "has Contract" ;
+    skos:definition "" ;
+    .
+
+sdc:status a rdf:Property ;
+    skos:prefLabel "status" ;
+    skos:definition "" ;
+    .
+
+sdc:contractHash a rdf:Property ;
+    skos:prefLabel "contract Hash" ;
+    skos:definition "" ;
+    .
+
+sdc:identifier a rdf:Property ;
+    skos:prefLabel "identifier" ;
+    skos:definition "" ;
+    .
+
+sdc:hasSignature a rdf:Property ;
+    skos:prefLabel "has Signature" ;
+    skos:definition "" ;
+    .
+
 ###################################################################################################################
 sdc:hasIdentifierShape a sh:PropertyShape ;
     sh:path dpv:hasIdentifier ;
@@ -273,74 +311,39 @@ sdc:themeShape a sh:PropertyShape ;
     sh:class sdc:Theme ;
     .
 
-######DO WE STILL NEED THESE? ################################################################################
+sdc:hasSigneeShape a sh:PropertyShape ;
+    sh:path sdc:hasSignee ;
+    sh:minCount 1 ;
+    skos:prefLabel "has Signee" ;
+    sh:class dpv:Entity ;
+    .
+sdc:hasContractShape a sh:PropertyShape ;
+    sh:path sdc:hasContract ;
+    sh:minCount 1 ;
+    skos:prefLabel "has Contract" ;
+    sh:class dpv:Contract ;
+    .
+sdc:statusShape a sh:PropertyShape ;
+    sh:path sdc:status ;
+    sh:minCount 1 ;
+    skos:prefLabel "status" ;
+    sh:datatype xsd:string ;
+    .
+sdc:contractHashShape a sh:PropertyShape ;
+    sh:path sdc:contractHash ;
+    sh:minCount 1 ;
+    skos:prefLabel "contract Hash" ;
+    sh:datatype xsd:string ;
+    .
+sdc:identifier a sh:PropertyShape ;
+    sh:path sdc:identifier ;
+    sh:minCount 1 ;
+    skos:prefLabel "identifier" ;
+    sh:datatype xsd:string ;
+    .
+sdc:hasSignatureShape a sh:PropertyShape ;
+    sh:path sdc:hasSignature ;
+    skos:prefLabel "has Signature" ;
+    sh:class sdc:Signature ;
+    .
 
-# sdc:allowedVulnerabilitySeverity a rdf:Property ;
-#     skos:prefLabel "Allowed vulnerability severity" ;
-#     skos:definition "A list of the accepted vulnerability severity levels in a container image, such as Low, Medium or High" ;
-#     .
-
-# sdc:maxAge a rdf:Property ;
-#     skos:prefLabel "Maximum age" ;
-#     skos:definition "Indicates how old something is allowed to be" ;
-#     .
-
-
-# sdc:SecurityScanConstraint a rdfs:Class ;
-#     skos:prefLabel "Security scan constraint" ;
-#     skos:definition "An object which indicates the constraints on a security scan report" ;
-#     .
-
-
-# sdc:SecurityScanConstraintShape a sh:NodeShape ;
-#     sh:targetClass sdc:SecurityScanConstraint ;
-#     sh:property [
-#         sh:path sdc:allowedVulnerabilitySeverity ;
-#         sh:node shsh:ListShape ;
-#     ],
-#     [
-#         sh:path sdc:maxAge ;
-#         sh:minCount 1 ;
-#         sh:datatype xsd:duration ;
-#     ].
-
-# shsh:ListShape
-# 	a sh:NodeShape ;
-# 	skos:prefLabel "List shape" ;
-# 	skos:definition "A shape describing well-formed RDF lists. Currently does not check for non-recursion. This could be expressed using SHACL-SPARQL." ;
-# 	rdfs:seeAlso <https://www.w3.org/TR/shacl/#syntax-rule-SHACL-list> ;
-# 	sh:property [
-# 		sh:path [ sh:zeroOrMorePath rdf:rest ] ;
-# 		skos:definition "Each list member (including this node) must have the shape shsh:ListNodeShape." ;
-# 		sh:hasValue rdf:nil ;
-# 		sh:node shsh:ListNodeShape ;
-# 	] .
-
-# shsh:ListNodeShape
-# 	a sh:NodeShape ;
-# 	skos:prefLabel "List node shape" ;
-# 	skos:definition "Defines constraints on what it means for a node to be a node within a well-formed RDF list. Note that this does not check whether the rdf:rest items are also well-formed lists as this would lead to unsupported recursion." ;
-# 	sh:or ( [
-# 				sh:hasValue rdf:nil ;
-#         		sh:property [
-# 					sh:path rdf:first ;
-# 					sh:maxCount 0 ;
-# 				] ;
-# 				sh:property [
-# 					sh:path rdf:rest ;
-# 					sh:maxCount 0 ;
-# 				] ;
-# 			]
-# 			[
-# 				sh:not [ sh:hasValue rdf:nil ] ;
-# 				sh:property [
-# 					sh:path rdf:first ;
-# 					sh:maxCount 1 ;
-# 					sh:minCount 1 ;
-# 				] ;
-# 				sh:property [
-# 					sh:path rdf:rest ;
-# 					sh:maxCount 1 ;
-# 					sh:minCount 1 ;
-# 				] ;
-# 			] ) .
