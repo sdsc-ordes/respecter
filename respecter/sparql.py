@@ -1,9 +1,10 @@
+import json
 import yaml
 from dataclasses import dataclass, field
 
 
 @dataclass
-class Config:
+class SparqlConfig:
     """
     Class to store the configuration metadata.
 
@@ -20,7 +21,7 @@ class Config:
 
     def __init__(self, config_file_path):
         """
-        Initialize the Config class.
+        Initialize the SparqlConfig class.
 
         Args:
             config_file_path (str): Path to the YAML file containing SPARQL predicate definitions.
@@ -66,7 +67,7 @@ def build_sparql_query(config_file_path):
         str: The complete SPARQL query string.
     """
 
-    config = Config(config_file_path)
+    config = SparqlConfig(config_file_path)
 
     # SPARQL clauses
     select_clause = "SELECT ?domain ?classLabel ?classDefinition ?property ?propertyLabel ?propertyDefinition ?range ?example "
@@ -135,3 +136,31 @@ def build_sparql_query(config_file_path):
     )
 
     return sparql_query
+
+
+def sparql_query(graph, query):
+    """
+    Execute a SPARQL query on a graph and return the results.
+    """
+    query_result = graph.query(query)
+    query_result = query_result.serialize(format="json")
+    query_result = json.loads(query_result)
+    return query_result
+
+
+def apply_sparql_query_file(graph, sparql_filename):
+    """
+    Execute a SPARQL query on a graph and return the results.
+    """
+    # Load the SPARQL query
+    with open(sparql_filename, "r") as f:
+        query = f.read()
+    return sparql_query(graph, query)
+
+
+def debug_sparql_query(file):
+    """
+    Load the results of a SPARQL query from a file.
+    """
+    with open(file, "r") as f:
+        return json.load(f)
