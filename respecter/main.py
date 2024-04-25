@@ -6,6 +6,7 @@ This code is not meant to be reused as is, but rather to be used as a starting p
 from jinja2 import Environment, FileSystemLoader
 import json
 import rdflib
+import os
 from models import Ontology
 from helpers import format_classes, format_properties
 from sparql import apply_sparql_query_file, build_sparql_query
@@ -13,8 +14,8 @@ from sparql import apply_sparql_query_file, build_sparql_query
 # Constants
 
 # Define the SPARQL query to retrieve the concepts
-CONCEPTS_SPARQL = "data/sparql_query_concepts.sparql"
-ONTOLOGY_SPARQL = "data/sparql_query_ontology.sparql"
+ONTOLOGY_SPARQL = "sparql/sparql_query_ontology.sparql"
+DEBUG = False
 
 
 # Define functions
@@ -31,17 +32,18 @@ config_file_path = "config/sparql_config.yaml"
 concepts_query = build_sparql_query(config_file_path)
 
 # Save the query to a file (for debugging)
-filename = "sparql_query_file.sparql"
-with open(filename, "w") as f:
-    # Load the SPARQL query
-    f.write(concepts_query)
-
-    print(f"SPARQL query saved to file: {filename}")
+if DEBUG:
+    os.makedirs("debug", exist_ok=True)
+    filename = "debug/sparql_query_file.sparql"
+    with open(filename, "w") as file:
+        # Load the SPARQL query
+        file.write(concepts_query)
+        print(f"SPARQL query saved to file: {filename}")
 
 
 # Load the SPARQL query
-f2 = open("data/sparql_query_ontology.sparql", "r")
-ont_query = f2.read()
+with open(ONTOLOGY_SPARQL, "r") as file:
+    ont_query = file.read()
 
 concepts_query_result = graph.query(concepts_query)
 concepts_query_result = concepts_query_result.serialize(format="json")
