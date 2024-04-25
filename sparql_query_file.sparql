@@ -1,0 +1,20 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    PREFIX dct: <http://purl.org/dc/terms/>
+    PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
+    PREFIX sh: <http://www.w3.org/ns/shacl#>
+    
+SELECT ?concept ?definition ?label ?type (GROUP_CONCAT(?properties; separator="\n") as ?Properties)
+
+    WHERE {
+        {
+                ?concept a rdfs:Class.
+            OPTIONAL {?concept skos:definition ?definition}
+            OPTIONAL {?concept skos:prefLabel  ?label}
+            OPTIONAL {?concept sh:property/sh:path  ?properties}
+        
+            }
+            FILTER(!isblank(?concept))
+    }
+    
+GROUP BY ?concept ?definition ?label ?example ?type

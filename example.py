@@ -6,6 +6,8 @@ This code is not meant to be reused as is, but rather to be used as a starting p
 from jinja2 import Environment, FileSystemLoader
 import json
 import rdflib
+import sparql_query_builder as sqb
+import rdflib
 from dataclasses import dataclass, field
 
 # Constants
@@ -26,7 +28,7 @@ class Ontology:
     title: str = ""
     introduction: str = ""
     abstract: str = ""
-    publishDate: str = ""
+    publish_date: str = ""
     contributors: list = field(default_factory=list)
     creators: list = field(default_factory=list)
 
@@ -35,7 +37,7 @@ class Ontology:
             "title": self.title,
             "introduction": self.introduction,
             "abstract": self.abstract,
-            "publishDate": self.publishDate,
+            "publish_date": self.publish_date,
             "contributors": self.contributors,
             "creators": self.creators,
         }
@@ -44,7 +46,7 @@ class Ontology:
         self.title = rdf_ontology.get("title", {}).get("value", "")
         self.introduction = rdf_ontology.get("description", {}).get("value", "")
         self.abstract = rdf_ontology.get("abstract", {}).get("value", "")
-        self.publishDate = rdf_ontology.get("modified", {}).get("value", "")
+        self.publish_date = rdf_ontology.get("modified", {}).get("value", "")
         self.contributors = (
             rdf_ontology.get("contributors", {}).get("value", "").split("\n")
         )
@@ -223,10 +225,28 @@ def debug_sparql_query(file):
 
 # Load the turtle file
 graph = rdflib.Graph()
-graph.parse("data/respec-ontology-shapes.ttl", format="turtle")
+graph.parse("data/data_new.ttl", format="turtle")
+# Load the SPARQL query
 
-# Execute the SPARQL query
-concepts_query_result = apply_sparql_query_file(graph, CONCEPTS_SPARQL)
+config_file_path = "config/sparql_config.yaml"
+concepts_query = sqb.build_sparql_query(config_file_path)
+
+# Save the query to a file (for debugging)
+filename = "sparql_query_file.sparql"
+with open(filename, "w") as f:
+    # Load the SPARQL query
+    f.write(concepts_query)
+
+    print(f"SPARQL query saved to file: {filename}")
+
+
+# Load the SPARQL query
+f2 = open("data/sparql_query_ontology.sparql", "r")
+ont_query = f2.read()
+
+concepts_query_result = graph.query(concepts_query)
+concepts_query_result = concepts_query_result.serialize(format="json")
+concepts_query_result = json.loads(concepts_query_result)
 ontology_query_result = apply_sparql_query_file(graph, ONTOLOGY_SPARQL)
 
 ontology_metadata = ontology_query_result.get("results", {}).get("bindings", [])
@@ -234,6 +254,7 @@ ontology_data = concepts_query_result.get("results", {}).get("bindings", [])
 
 concepts = format_classes(ontology_data, qname=graph.qname)
 properties = format_properties(ontology_data, qname=graph.qname)
+
 
 ontology = Ontology()
 ontology.import_from_rdf(ontology_metadata[0])
