@@ -12,7 +12,9 @@ pip3 install -r requirements.txt
 
 # Usage
 
-The script `respecter/cli.py` can be used to generate a ReSpec styled HTML page from an ontology serialized in RDF. The following command will generate a ReSpec styled HTML page from the ontology `custodian.ttl` and save it under the name `custodian.html`:
+The script `respecter/cli.py` can be used to generate a ReSpec styled HTML page from an ontology serialized in RDF. 
+
+The following command will generate a ReSpec styled HTML page from the ontology `custodian.ttl` and save it under the name `custodian.html`:
 
 ```sh
 python3 respecter/cli.py examples/custodian.ttl --output custodian.html

@@ -19,7 +19,7 @@ def cli():
 
 def version_callback(value: bool):
     if value:
-        print(f"ReSpecter, version {__version__}")
+        typer.echo(f"ReSpecter, version {__version__}")
         # Exits successfully
         raise typer.Exit()
 
@@ -68,6 +68,7 @@ def main(
         )
     with open(output, "w") as f:
         f.write(template)
+    typer.echo(f"HTML page saved to {output}")
 
 
 if __name__ == "__main__":
