@@ -225,12 +225,11 @@ def debug_sparql_query(file):
 
 # Load the turtle file
 graph = rdflib.Graph()
-graph.parse("data/respec-ontology-shapes.ttl", format="turtle")
+graph.parse("data/data_new.ttl", format="turtle")
 # Load the SPARQL query
 
 config_file_path = "config/sparql_config.yaml"
 concepts_query = sqb.build_sparql_query(config_file_path)
-print(f"SPARQL query: {concepts_query}")
 
 # Save the query to a file (for debugging)
 filename = "sparql_query_file.sparql"
@@ -253,9 +252,9 @@ ontology_query_result = apply_sparql_query_file(graph, ONTOLOGY_SPARQL)
 ontology_metadata = ontology_query_result.get("results", {}).get("bindings", [])
 ontology_data = concepts_query_result.get("results", {}).get("bindings", [])
 
-
 concepts = format_classes(ontology_data, qname=graph.qname)
 properties = format_properties(ontology_data, qname=graph.qname)
+
 
 ontology = Ontology()
 ontology.import_from_rdf(ontology_metadata[0])
