@@ -6,7 +6,6 @@ This code is not meant to be reused as is, but rather to be used as a starting p
 from jinja2 import Environment, FileSystemLoader
 import json
 import rdflib
-import pandas as pd
 import sparql_query_builder as sqb
 import rdflib
 from dataclasses import dataclass, field
@@ -29,7 +28,7 @@ class Ontology:
     title: str = ""
     introduction: str = ""
     abstract: str = ""
-    publishDate: str = ""
+    publish_date: str = ""
     contributors: list = field(default_factory=list)
     creators: list = field(default_factory=list)
 
@@ -38,7 +37,7 @@ class Ontology:
             "title": self.title,
             "introduction": self.introduction,
             "abstract": self.abstract,
-            "publishDate": self.publishDate,
+            "publish_date": self.publish_date,
             "contributors": self.contributors,
             "creators": self.creators,
         }
@@ -47,7 +46,7 @@ class Ontology:
         self.title = rdf_ontology.get("title", {}).get("value", "")
         self.introduction = rdf_ontology.get("description", {}).get("value", "")
         self.abstract = rdf_ontology.get("abstract", {}).get("value", "")
-        self.publishDate = rdf_ontology.get("modified", {}).get("value", "")
+        self.publish_date = rdf_ontology.get("modified", {}).get("value", "")
         self.contributors = (
             rdf_ontology.get("contributors", {}).get("value", "").split("\n")
         )
@@ -237,9 +236,9 @@ print(f"SPARQL query: {concepts_query}")
 filename = "sparql_query_file.sparql"
 with open(filename, "w") as f:
     # Load the SPARQL query
-  f.write(concepts_query)
-  
-  print(f"SPARQL query saved to file: {filename}")
+    f.write(concepts_query)
+
+    print(f"SPARQL query saved to file: {filename}")
 
 
 # Load the SPARQL query

@@ -1,7 +1,7 @@
 import yaml
 
+
 def build_sparql_query(config_file_path):
-    
     """
     Builds a SPARQL query string based on a YAML configuration file.
 
@@ -11,8 +11,7 @@ def build_sparql_query(config_file_path):
     Returns:
         str: The complete SPARQL query string.
     """
-  
-  
+
     # Define the SPARQL prefixes
     prefixes = """PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
     PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -21,38 +20,45 @@ def build_sparql_query(config_file_path):
     PREFIX sh: <http://www.w3.org/ns/shacl#>
     """
 
-
     with open(config_file_path, "r") as f:
         # Load the configuration
-        config= yaml.load(f, Loader=yaml.FullLoader)
+        config = yaml.load(f, Loader=yaml.FullLoader)
         print(f"configuration: {config}")
-        
-    # Definition predicate URI from the config
-    definition_Predicate = config["definitionPredicate"]
-    label_Predicate = config["labelPredicate"]
-    property_Predicate = config["propertyPredicate"]
 
+    # Definition predicate URI from the config
+    definition_predicate = config["definitionPredicate"]
+    label_predicate = config["labelPredicate"]
+    property_predicate = config["propertyPredicate"]
 
     # SPARQL clauses
     select_clause = 'SELECT ?concept ?definition ?label ?type (GROUP_CONCAT(?properties; separator="\\n") as ?Properties)'
 
-    where_clause_template = """
+    where_clause_template = (
+        """
     WHERE {
         {
                 ?concept a rdfs:Class.
-            OPTIONAL {?concept """ + definition_Predicate + """ ?definition}
-            OPTIONAL {?concept """ + label_Predicate + """  ?label}
-            OPTIONAL {?concept """ + property_Predicate + """  ?properties}
+            OPTIONAL {?concept """
+        + definition_predicate
+        + """ ?definition}
+            OPTIONAL {?concept """
+        + label_predicate
+        + """  ?label}
+            OPTIONAL {?concept """
+        + property_predicate
+        + """  ?properties}
         
             }
             FILTER(!isblank(?concept))
     }
     """
+    )
 
     group_by_clause = "GROUP BY ?concept ?definition ?label ?example ?type"
 
     #  SPARQL Combined clauses
-    sparql_query = f"{prefixes}\n{select_clause}\n{where_clause_template}\n{group_by_clause}"
-    
+    sparql_query = (
+        f"{prefixes}\n{select_clause}\n{where_clause_template}\n{group_by_clause}"
+    )
+
     return sparql_query
-    
