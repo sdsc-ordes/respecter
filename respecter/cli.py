@@ -1,5 +1,6 @@
 import click
 import typer
+import os
 from typing import Optional
 from core import fetch_ontology, render_template
 
@@ -37,6 +38,11 @@ def main(
     debug: Optional[bool] = typer.Option(
         False, "--debug", help="Enable debugging mode."
     ),
+    output: Optional[str] = typer.Option(
+        "output.html",
+        "--output",
+        help="Path to the output HTML file.",
+    ),
     version: Optional[bool] = typer.Option(
         None,
         "--version",
@@ -54,7 +60,13 @@ def main(
     )
     template = render_template(ontology, concepts, properties)
 
-    with open("output.html", "w") as f:
+    # Write rendered template to file
+    if os.path.exists(output):
+        click.confirm(
+            f"The file {output} already exists. Do you want to overwrite it?",
+            abort=True,
+        )
+    with open(output, "w") as f:
         f.write(template)
 
 
