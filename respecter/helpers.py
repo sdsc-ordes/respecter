@@ -31,6 +31,11 @@ def format_value(value, qname=None):
         return '<a href="' + value["value"] + '">' + value_string + "</a>"
     elif value.get("type") == "literal":
         return value["value"]
+    elif value.get("type") == None:
+        # Display a warning message
+        print("Warning: missing value encountered.")
+        print(value)
+        return ""
     else:  # FIXME: handle other types
         # Display a warning message
         print(
