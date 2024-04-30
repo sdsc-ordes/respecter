@@ -1,4 +1,4 @@
-from models import Class, Property
+from models import Class, Property, Enumeration
 
 
 def format_classes(rdf_classes, qname):
@@ -8,6 +8,12 @@ def format_classes(rdf_classes, qname):
     classes = extract_classes(rdf_classes, qname)
     return [class_.to_dict() for class_ in classes.values()]
 
+def format_enumerations(rdf_enumerations, qname):
+    """
+    Format the enumerations to be used in the template.
+    """
+    enumerations = extract_enumerations(rdf_enumerations, qname)
+    return [enumeration.to_dict() for enumeration in enumerations.values()]
 
 def format_properties(rdf_properties, qname):
     """
@@ -98,3 +104,29 @@ def extract_classes(rdf_classes, qname):
 
         classes[label] = current_class
     return classes
+
+def extract_enumerations(rdf_enumerations, qname):
+    """
+    Extract the enumerations from the RDF data.
+    """
+    enumerations = dict()
+    for rdf_enumeration in rdf_enumerations:
+        label = rdf_enumeration.get("enumerationLabel", {}).get("value", "")
+        if label not in enumerations:
+            enumerations[label] = Enumeration()
+
+        current_enumeration = enumerations[label]
+        current_enumeration.label = label
+        current_enumeration.definition = format_value(
+            rdf_enumeration.get("enumerationDefinition", {}), qname=qname
+        )
+        current_enumeration.term = format_value(rdf_enumeration.get("enumerationValue", {}), qname=qname)
+        current_enumeration.add_property(
+            format_value(rdf_enumeration.get("property", {}), qname=qname)
+        )
+        current_enumeration.add_group(
+            format_value(rdf_enumeration.get("group", {}), qname=qname)
+        )
+
+        enumerations[label] = current_enumeration
+    return enumerations

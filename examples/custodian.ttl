@@ -13,6 +13,7 @@
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix dct:  <http://purl.org/dc/terms/> .
+@prefix schema: <http://schema.org/> .
 
 
 <https://swissdatacustodian.ch/doc/ontology#> a owl:Ontology ;
@@ -265,7 +266,7 @@ sdc:hasDataProcessorShape a sh:PropertyShape ;
 sdc:hasPurposeShape a sh:PropertyShape ;        
     sh:path dpv:hasPurpose ;
     skos:prefLabel "Has purpose" ;
-    sh:class dpv:Purpose ; 
+    sh:class sdc:PurposeEnumeration ; 
     sh:minCount 1 ;
     sh:maxCount 1 ;
     .
@@ -273,14 +274,14 @@ sdc:hasPurposeShape a sh:PropertyShape ;
 sdc:hasPersonalDataShape a sh:PropertyShape ;        
     sh:path dpv:hasPersonalData ;
     skos:prefLabel "Has data" ;
-    sh:class dpv:PersonalData ;
+    sh:class sdc:PersonalDataEnumeration ;
     sh:minCount 1 ;
     .
 
 sdc:hasProcessingShape a sh:PropertyShape ;        
     sh:path dpv:hasProcessing ;
     skos:prefLabel "Has processing" ;
-    sh:class dpv:Processing ;
+    sh:class sdc:ProcessingEnumeration ;
     sh:minCount 1 ;
     .
 
@@ -288,7 +289,7 @@ sdc:hasTechnicalOrganisationalMeasureShape a sh:PropertyShape ;
     sh:path dpv:hasTechnicalOrganisationalMeasure ;
     skos:prefLabel "Has measure" ;
     sh:minCount 1 ;
-    sh:or ([sh:class dpv:TechnicalMeasure][sh:class dpv:OrganisationalMeasure])
+    sh:or ([sh:class sdc:TechnicalMeasureEnumeration][sh:class sdc:OrganisationalMeasureEnumeration])
     .
 
 
@@ -315,7 +316,7 @@ sdc:hasSigneeShape a sh:PropertyShape ;
     sh:path sdc:hasSignee ;
     sh:minCount 1 ;
     skos:prefLabel "has Signee" ;
-    sh:class dpv:Entity ;
+    sh:class sdc:LegalEntityEnumeration ;
     .
 sdc:hasContractShape a sh:PropertyShape ;
     sh:path sdc:hasContract ;
@@ -347,3 +348,411 @@ sdc:hasSignatureShape a sh:PropertyShape ;
     sh:class sdc:Signature ;
     .
 
+
+
+
+
+#High level Enumeration type class, under which all enumeration classes fall
+sdc:EnumerationType a rdfs:Class ;
+    rdfs:subClassOf schema:Enumeration ;
+    skos:definition "The superclass of all user-defined enumeration classes where the allowed enumeration items are individuals" ;
+    skos:example "PurposeEnumeration being Academic Research, Commercial Research or Legal Compliance." ;
+    skos:prefLabel "Enumeration type" ;
+.
+
+#Enumeration classes
+
+sdc:PurposeEnumeration a rdfs:Class ;
+    skos:definition "An enumeration class for different purposes to be typed as" ;
+    rdfs:subClassOf sdc:EnumerationType ;
+    skos:prefLabel "Purpose Enumeration" ;
+.
+
+sdc:LegalEntityEnumeration a rdfs:Class ;
+    skos:definition "An enumeration class for different legal entities to be typed as" ;
+    rdfs:subClassOf sdc:EnumerationType ;
+    skos:prefLabel "Legal Entity Enumeration" ;
+.
+
+sdc:OrganisationalMeasureEnumeration a rdfs:Class ;
+    skos:definition "An enumeration class for different organisational measures to be typed as" ;
+    rdfs:subClassOf sdc:EnumerationType ;
+    skos:prefLabel "Organisational Measure Enumeration" ;
+.
+
+sdc:TechnicalMeasureEnumeration a rdfs:Class ;
+    skos:definition "An enumeration class for different technical measures to be typed as" ;
+    rdfs:subClassOf sdc:EnumerationType ;
+    skos:prefLabel "Technical Measure Enumeration" ;
+.
+
+sdc:RepresentativeEnumeration a rdfs:Class ;
+    skos:definition "An enumeration class for different representatives to be typed as" ;
+    rdfs:subClassOf sdc:EnumerationType ;
+    skos:prefLabel "Representative Enumeration" ;
+.
+
+sdc:SecurityMethodEnumeration a rdfs:Class ;
+    rdfs:subClassOf sdc:TechnicalMeasureEnumeration ;
+    skos:definition "An enumeration class for different security measures to be typed as" ;
+    skos:prefLabel "Security measure Enumeration" ;
+.
+
+sdc:ProcessingEnumeration a rdfs:Class ;
+    rdfs:subClassOf sdc:EnumerationType ;
+    skos:definition "An enumeration class for different processings to be typed as" ;
+    skos:prefLabel "Processing Enumeration" ;
+.
+
+sdc:PersonalDataEnumeration a rdfs:Class ;
+    rdfs:subClassOf sdc:EnumerationType ;
+    skos:definition "An enumeration class for different personal datasets to be typed as" ;
+    skos:prefLabel "Personal Data Enumeration" ;
+.
+
+
+#A subset of dpv purposes. 
+
+sdc:AcademicResearch a sdc:PurposeEnumeration; 
+    skos:related dpv:AcademicResearch ;
+    skos:prefLabel "Academic Research" ;
+    skos:definition "Purposes associated with conducting or assisting with research conducted in an academic context e.g. within universities" ;
+    .
+
+sdc:CommercialResearch a sdc:PurposeEnumeration;
+    skos:prefLabel "Commercial Research" ;
+        skos:related dpv:CommercialResearch ;
+    skos:definition "Purposes associated with conducting research in a commercial setting or with intention to commercialise e.g. in a company or sponsored by a company" ; 
+    .
+
+sdc:FulfilmentOfObligation a sdc:PurposeEnumeration; 
+    skos:related dpv:FulfilmentOfObligation ;
+    skos:prefLabel "Fulfilment of Obligation" ;
+    skos:definition "Purposes associated with carrying out data processing to fulfill an obligation" ;
+    .
+
+sdc:ImproveExistingProductsandServices a sdc:PurposeEnumeration; 
+    skos:related dpv:ImproveExistingProductsandServices ;
+    skos:prefLabel "Improve Existing Products and Services" ;
+    skos:definition "Purposes associated with improving existing products and services" ;
+    .
+
+sdc:InternalResourceOptimisation a sdc:PurposeEnumeration; 
+    skos:related dpv:InternalResourceOptimisation ;
+    skos:prefLabel "Internal Resource Optimisation" ;
+    skos:definition "Purposes associated with optimisation of internal resource availability and usage for organisation" ;
+    .
+
+sdc:LegalCompliance a sdc:PurposeEnumeration; 
+    skos:related dpv:LegalCompliance ;
+    skos:prefLabel "Legal Compliance" ;
+    skos:definition "Purposes associated with carrying out data processing to fulfill a legal or statutory obligation" ;
+    .
+
+sdc:QualityControl a sdc:PurposeEnumeration;  
+    skos:prefLabel "Quality control" .
+
+#sdc:MedicalRegistry a sdc:PurposeEnumeration;  
+#    skos:prefLabel "Medical Registry" .
+
+#sdc:DiseaseSpecific a sdc:PurposeEnumeration; 
+#    rdfs:subClassOf sdc:MedicalRegistry ; 
+#    skos:prefLabel "Disease-specific" .
+
+#sdc:DrugAndDevice a sdc:PurposeEnumeration; 
+#    rdfs:subClassOf sdc:MedicalRegistry ; 
+#    skos:prefLabel "Drug and device-specific" .
+
+#sdc:ProcedureOrTreatment a sdc:PurposeEnumeration; 
+#    rdfs:subClassOf sdc:MedicalRegistry ; 
+#    skos:prefLabel "Procedure or treatment" .
+
+#sdc:PublicHealthSurveillance a sdc:PurposeEnumeration; 
+#    skos:prefLabel "Public Health Surveillance" .
+    
+sdc:ResearchAndDevelopment a sdc:PurposeEnumeration; 
+    skos:related dpv:ResearchAndDevelopment ;
+    skos:prefLabel "Research and Development" ;
+    skos:definition "Purposes associated with conducting research and development for new methods, products, or services" ;
+    .
+
+#A list of possible entities, more can be added depending on usecase.
+
+sdc:USZ a sdc:LegalEntityEnumeration;
+  skos:prefLabel "USZ - Universitätsspital Zürich" ;
+  skos:altLabel "USZ" .
+
+sdc:Balgrist a sdc:LegalEntityEnumeration;
+  skos:prefLabel "Balgrist - Universitätsklinik Balgrist" ;
+  skos:altLabel "Balgrist" .
+
+sdc:KiSpi a sdc:LegalEntityEnumeration;
+  skos:prefLabel "KiSpi - Kinderspital Zürich" ;
+  skos:altLabel "KiSpi" .
+
+sdc:SDSC a sdc:LegalEntityEnumeration;
+  skos:prefLabel "SDSC - Swiss Data Science Center" ;
+  skos:altLabel "SDSC" .
+
+sdc:ETH a sdc:LegalEntityEnumeration;
+  skos:prefLabel "ETH Zürich" ;
+  skos:altLabel "ETHZ" .
+
+sdc:CHUV a sdc:LegalEntityEnumeration;
+  skos:prefLabel "CHUV - Centre hospitalier universitaire vaudois" ;
+  skos:altLabel "CHUV" .
+
+sdc:SIS a sdc:LegalEntityEnumeration;
+  skos:prefLabel "SIS - Leonhard Med ETH Zürich" ;
+  skos:altLabel "SIS" .
+
+sdc:SENSA a sdc:LegalEntityEnumeration;
+  skos:prefLabel "SENSA UNIL" ;
+  skos:altLabel "SENSA" .
+
+sdc:DataController a sdc:LegalEntityEnumeration ;
+    skos:related dpv:DataController ;
+  skos:prefLabel "Data Controller";
+  skos:defintion "The individual or organisation that decides (or controls) the purpose(s) of processing personal data." .
+
+sdc:DataSubject a sdc:LegalEntityEnumeration ;
+    skos:related dpv:DataSubject ;
+  skos:prefLabel "Data Subject";
+  skos:defintion "The individual (or category of individuals) whose personal data is being processed" .
+
+sdc:Recipient a sdc:LegalEntityEnumeration ;
+    skos:related dpv:Recipient ;
+  skos:prefLabel "Recipient";
+  skos:defintion "Entities that receive personal data" .
+
+sdc:Representative a sdc:LegalEntityEnumeration ;
+    skos:related dpv:Representative ;
+  skos:prefLabel "Representative";
+  skos:defintion "A representative of a legal entity" .
+
+sdc:Authority a sdc:LegalEntityEnumeration ;
+    skos:related dpv:Authority ;
+  skos:prefLabel "Authority";
+  skos:defintion "An authority with the power to create or enforce laws, or determine their compliance." .
+
+sdc:DataExporter a sdc:LegalEntityEnumeration ;
+    skos:related dpv:DataExporter ;
+  skos:prefLabel "Data Exporter";
+  skos:defintion "An entity that 'exports' data where exporting is considered a form of data transfer" .
+
+sdc:Organisation a sdc:LegalEntityEnumeration ;
+    skos:related dpv:Organisation ;
+  skos:prefLabel "Organisation";
+  skos:defintion "A general term reflecting a company or a business or a group acting as a unit" .
+
+sdc:DataProtectionOfficer a sdc:RepresentativeEnumeration ;
+    skos:related dpv:DataProtectionOfficer ;
+  skos:prefLabel "Data Protection Officer";
+  skos:defintion "An entity within or authorised by an organisation to monitor internal compliance, inform and advise on data protection obligations and act as a contact point for data subjects and the supervisory authority." .
+
+
+#A subset of organisational measures from DPV
+
+sdc:CybersecurityTraining a sdc:OrganisationalMeasureEnumeration ;
+    skos:related dpv:CybersecurityTraining ;
+    skos:prefLabel "Cybersecurity training" ;
+    skos:definition "Training methods related to cybersecurity" ;
+    .
+
+sdc:DataProtectionImpactAssessment a sdc:OrganisationalMeasureEnumeration ;
+    skos:prefLabel "Data Protection Impact Assessment" ;
+    .
+
+sdc:DataTransferAndProcessingAgreement a sdc:OrganisationalMeasureEnumeration ;
+    skos:prefLabel "Data Transfer and Processing Agreement" ;
+    .
+
+sdc:DataTransferAndUseAgreement a sdc:OrganisationalMeasureEnumeration ;
+    skos:prefLabel "Data Transfer and Use Agreement" ;
+    .
+
+sdc:EthicsBoardApproval a sdc:OrganisationalMeasureEnumeration ;
+    skos:prefLabel "Ethics board approval" 
+    .
+
+sdc:ConsortiumAgreement a sdc:OrganisationalMeasureEnumeration ;
+    skos:prefLabel "Consortium Agreement" ;
+    .
+
+sdc:ComplianceMonitoring a sdc:OrganisationalMeasureEnumeration ;
+    skos:related dpv:ComplianceMonitoring ;
+    skos:prefLabel "Compliance Monitoring" ;
+    skos:definition "Monitoring of compliance (e.g. internal policy, regulations)" ;
+    .
+
+sdc:DataProtectionTraining a sdc:OrganisationalMeasureEnumeration ;
+    skos:related dpv:DataProtectionTraining ;
+    skos:prefLabel "Data Protection Training" ;
+    skos:definition "Training intended to increase knowledge regarding data protection" ;
+    .
+
+sdc:IdentityManagementMethod a sdc:OrganisationalMeasureEnumeration ;
+    skos:related dpv:IdentityManagementMethod ;
+    skos:prefLabel "Identity Management Method" ;
+    skos:definition "Management of identity and identity-based processes" ;
+    .
+
+sdc:NDA a sdc:OrganisationalMeasureEnumeration ;
+    skos:related dpv:NDA ;
+    skos:prefLabel "Non-Disclosure Agreement (NDA)" ;
+    skos:definition "Non-disclosure Agreements e.g. preserving confidentiality of information" ;
+    .
+
+#A subset of Personal Data types from sdc
+
+sdc:GenericPROMS a sdc:PersonalDataEnumeration ;
+    skos:prefLabel "Generic PROMS" ;
+    .
+
+sdc:Lowvalueindicators a sdc:PersonalDataEnumeration ;
+    skos:prefLabel "Low value indicators" ;
+    .
+
+sdc:DischargeDataSet a sdc:PersonalDataEnumeration ;
+    skos:prefLabel "Discharge DataSet" ;
+    .
+
+#A subset of technical measures from DPV.
+
+sdc:AccessControlMethod a sdc:TechnicalMeasureEnumeration ;
+    skos:related dpv:AccessControlMethod ;
+    skos:prefLabel "Access Control Method" ;
+    skos:definition "Methods which restrict access to a place or resource" ;
+    .
+
+sdc:ActivityMonitoring a sdc:TechnicalMeasureEnumeration ;
+    skos:related dpv:ActivityMonitoring ;
+    skos:prefLabel "Activity Monitoring" ;
+    skos:definition "Monitoring of activities including assessing whether they have been successfully initiated and completed" ;
+    .
+
+sdc:AuthenticationProtocols a sdc:TechnicalMeasureEnumeration ;
+    skos:related dpv:AuthenticationProtocols ;
+    skos:prefLabel "Authentication Protocols" ;
+    skos:definition "Protocols involving validation of identity i.e. authentication of a person or information" ;
+    .
+
+sdc:AuthorisationProtocols a sdc:TechnicalMeasureEnumeration ;
+    skos:related dpv:AuthorisationProtocols ;
+    skos:prefLabel "Authorisation Protocols" ;
+    skos:definition "Protocols involving authorisation of roles or profiles to determine permission, rights, or privileges" ;
+    .
+
+sdc:CryptographicMethods a sdc:TechnicalMeasureEnumeration ;
+    skos:related dpv:CryptographicMethods ;
+    skos:prefLabel "Cryptographic Methods" ;
+    skos:definition "Use of cryptographic methods to perform tasks" ;
+    .
+
+sdc:DataSanitisationTechnique a sdc:TechnicalMeasureEnumeration ;
+    skos:related dpv:DataSanitisationTechnique ;
+    skos:prefLabel "Data Sanitisation Technique" ;
+    skos:definition "Removal of sensitive information from a data or document" ;
+    .
+
+sdc:Encryption a sdc:TechnicalMeasureEnumeration ;
+    skos:related dpv:Encryption ;
+    skos:prefLabel "Encryption" ;
+    skos:definition "Technical measures consisting of encryption" ;
+    .
+
+sdc:SecurityMethod a sdc:TechnicalMeasureEnumeration ;
+    skos:related dpv:SecurityMethod ;
+    skos:prefLabel "Security Method" ;
+    skos:definition "Methods that relate to creating and providing security" ;
+    .
+
+sdc:DistributedSystemSecurity a sdc:SecurityMethodEnumeration;
+    skos:related dpv:DistributedSystemSecurity ;
+    skos:prefLabel "DistributedSystemSecurity" ;
+    skos:definition "Security implementations provided using or over a distributed system" ;
+    .
+
+sdc:VirtualisationSecurity  a sdc:SecurityMethodEnumeration;
+    skos:related dpv:VirtualisationSecurity ;
+    skos:prefLabel "Virtualisation Security" ;
+    skos:definition "Security implemented at or through virtualised environments" ;
+    .
+
+sdc:VulnerabilityTestingMethods a sdc:SecurityMethodEnumeration;
+    skos:related dpv:VulnerabilityTestingMethods ;
+    skos:prefLabel "Vulnerability Testing Methods" ;
+    skos:definition "Methods that assess or discover vulnerabilities in a system" ;
+    .
+
+sdc:WebSecurityProtocols a sdc:SecurityMethodEnumeration;
+    skos:related dpv:WebSecurityProtocols ;
+    skos:prefLabel "WebSecurity Protocols" ;
+    skos:definition "Security implemented at or over web-based protocols" ;
+    .
+
+sdc:FileSystemSecurity a sdc:SecurityMethodEnumeration;
+    skos:related dpv:FileSystemSecurity ;
+    skos:prefLabel "FileSystem Security" ;
+    skos:definition "Security implemented over a file system" ;
+    .
+
+sdc:ContainerSecurityMeasure a sdc:SecurityMethodEnumeration;
+    skos:prefLabel "Container Security Measure" ;
+    .
+
+#A subset of types of Processing from DPV.
+
+sdc:Analyse a sdc:ProcessingEnumeration ;
+    skos:related dpv:Analyse ;
+    skos:prefLabel "Analyse" ;
+    skos:definition "To study or examine the data in detail" ;
+    .
+
+sdc:Modify a sdc:ProcessingEnumeration ;
+    skos:related dpv:Modify ;
+    skos:prefLabel "Modify" ;
+    skos:definition "To modify or change data" ;
+    .
+
+sdc:Monitor a sdc:ProcessingEnumeration ;
+    skos:related dpv:Monitor ;
+    skos:prefLabel "Monitor" ;
+    skos:definition "To monitor data for some criteria" ;
+    .
+
+sdc:Query a sdc:ProcessingEnumeration ;
+    skos:related dpv:Query ;
+    skos:prefLabel "Query" ;
+    skos:definition "To query or make enquiries over data" ;
+    .
+
+sdc:Share a sdc:ProcessingEnumeration ;
+    skos:related dpv:Share ;
+    skos:prefLabel "Share" ;
+    skos:definition "To give data (or a portion of it) to others" ;
+    .
+
+sdc:Store a sdc:ProcessingEnumeration ;
+    skos:related dpv:Store ;
+    skos:prefLabel "Store" ;
+    skos:definition "To keep data for future use" ;
+    .
+
+sdc:Transfer a sdc:ProcessingEnumeration ;
+    skos:related dpv:Transfer ;
+    skos:prefLabel "Transfer" ;
+    skos:definition "To move data from one place to another" ;
+    .
+
+sdc:Transform a sdc:ProcessingEnumeration ;
+    skos:related dpv:Transform ;
+    skos:prefLabel "Transform" ;
+    skos:definition "To change the form or nature of data" ;
+    .
+
+sdc:Use a sdc:ProcessingEnumeration ;
+    skos:related dpv:Use ;
+    skos:prefLabel "Use" ;
+    skos:definition "To use data" ;
+    .

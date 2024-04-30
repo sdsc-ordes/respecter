@@ -84,3 +84,31 @@ class Class:
             "Term": self.term,
             "Property": ", ".join(self.property),
         }
+    
+@dataclass
+class Enumeration:
+    """
+    Class to store the enumeration instances metadata.
+    """
+
+    label: str = ""
+    definition: str = ""
+    term: str = ""
+    group: set = field(default_factory=set)
+    property: set = field(default_factory=set)
+
+    def add_property(self, property):
+        self.property.add(property)
+    
+    def add_group(self, group):
+        self.group.add(group)
+
+    def to_dict(self):
+        return {
+            "Label": self.label,
+            "Definition": self.definition,
+            "Term": self.term,
+            "Group": ", ".join(self.group),
+            "Property": ", ".join(self.property),
+        }
+        

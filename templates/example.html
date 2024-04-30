@@ -76,6 +76,27 @@
     </table>
     {% endfor %}
   </section>
+
+  <section>
+    <h2>Enumeration Values</h2>
+
+    {% for enum in enumerations %}
+    <h3>{{ enum.Label }}</h3>
+    
+    <table class="def">
+      {% for key, value in enum.items() %}
+      <tr>
+        <td>
+          <p>{{ key }}</p>
+        </td>
+        <td>
+          <p>{{ value }}</p>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endfor %}
+  </section>
 </body>
 
 </html>
