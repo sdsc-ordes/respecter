@@ -23,15 +23,23 @@ def format_value(value, qname=None):
     """
     # FIXME: the following section is a hack to have a working example.
     # This should be done differently and follow the Respec syntax for URLs.
-    if value["type"] == "uri":
+    if value.get("type") == "uri":
         if qname:
             value_string = qname(value["value"])
         else:
             value_string = value["value"]
         return '<a href="' + value["value"] + '">' + value_string + "</a>"
-    elif value["type"] == "literal":
+    elif value.get("type") == "literal":
         return value["value"]
     else:  # FIXME: handle other types
+        # Display a warning message
+        print(
+            "Warning: unknown type '"
+            + value.get("type")
+            + "' for value '"
+            + value.get("value")
+            + "'"
+        )
         return value["value"]
 
 
