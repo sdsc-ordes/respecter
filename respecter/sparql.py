@@ -56,12 +56,13 @@ class SparqlConfig:
         return self.predicates.get(predicate_name)
 
 
-def build_sparql_query(config_file_path):
+def build_sparql_query(config_file_path: str, query_type: str) -> str:
     """
     Builds a SPARQL query string based on a YAML configuration file.
 
     Args:
         config_file_path (str): Path to the YAML file containing SPARQL predicate definitions.
+        query_type (str): Type of query, either "enumerations" or "concepts".
 
     Returns:
         str: The complete SPARQL query string.
@@ -69,28 +70,60 @@ def build_sparql_query(config_file_path):
 
     config = SparqlConfig(config_file_path)
 
-    # SPARQL clauses
-    select_clause = "SELECT ?domain ?classLabel ?classDefinition ?property ?propertyLabel ?propertyDefinition ?range ?example "
-
-    where_clause_template = (
+    enumerations_query = (
         """
-    WHERE {
+        PREFIX sh: <http://www.w3.org/ns/shacl#>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        PREFIX dct: <http://purl.org/dc/terms/>
+        PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
+        PREFIX sh: <http://www.w3.org/ns/shacl#>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX vann: <http://purl.org/vocab/vann/>
+        prefix schema: <http://schema.org/>
+        prefix sd: <https://w3id.org/okn/o/sd#>
+        prefix bio: <https://bioschemas.org/>
+        prefix spe: <https://openschemas.github.io/spec-container/specifications/>
+        prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+        prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+        prefix sh:   <http://www.w3.org/ns/shacl#>
+        prefix xsd:  <http://www.w3.org/2001/XMLSchema#> 
+        prefix shsh: <http://www.w3.org/ns/shacl-shacl#> 
+        prefix owl: <http://www.w3.org/2002/07/owl#> 
+        prefix dcterms: <http://purl.org/dc/terms/> 
+        prefix ex: <https://epfl.ch/example/> 
+        prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
+
+        SELECT DISTINCT ?enumerationValue ?enumerationLabel ?enumerationDefinition ?property ?propertyLabel ?group ?groupLabel
+        WHERE { {
+        ?propertyShape a sh:PropertyShape .
+                ?propertyShape sh:path ?property.
+                OPTIONAL{
+                    ?property """ + config.get_predicate("label") + """ ?propertyLabel}
+        { 
+            ?propertyShape sh:class ?group .
+            ?group rdfs:subClassOf """ + config.get_type("enumeration") + """ .
+            ?enumerationValue a ?group .
+                    ?group """ + config.get_predicate("label") + """ ?groupLabel .
+                    OPTIONAL{?enumerationValue """ + config.get_predicate("definition") + """ ?enumerationDefinition .}
+                    OPTIONAL{?enumerationValue """ + config.get_predicate("label") + """ ?enumerationLabel.}
+        }
+        UNION
         {
-                ?concept a """
-        + config.get_type("class")
-        + """.
-            OPTIONAL {?concept """
-        + config.get_predicate("definition")
-        + """ ?definition}
-            OPTIONAL {?concept """
-        + config.get_predicate("label")
-        + """  ?label}
-            OPTIONAL {?concept sh:property/sh:path ?properties}
-        
-            }
-            FILTER(!isblank(?concept))
-    }
-    """
+            ?propertyShape sh:or/rdf:rest*/rdf:first/sh:class ?enumerationType2 .
+            ?enumerationType2 rdfs:subClassOf """ + config.get_type("enumeration") + """.
+            ?enumerationValue a ?enumerationType2 .
+                    OPTIONAL{?enumerationValue """ + config.get_predicate("label") +""" ?enumerationDefinition .}
+                        OPTIONAL{?enumerationValue """ + config.get_predicate("label") +""" ?enumerationLabel.}
+                        
+        }
+        }
+            BIND(coalesce(?enumerationType1, ?enumerationType2) as ?range)
+            ?range """+ config.get_predicate("label") + """ ?rangeLabel.
+            ?range """+ config.get_predicate("definition") + """ ?rangeDefinition.
+        }
+"""
     )
 
     sparql_query = (
@@ -98,18 +131,33 @@ def build_sparql_query(config_file_path):
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX sh: <http://www.w3.org/ns/shacl#>
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        PREFIX dct: <http://purl.org/dc/terms/>
+        PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
+        PREFIX sh: <http://www.w3.org/ns/shacl#>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX vann: <http://purl.org/vocab/vann/>
+        prefix schema: <http://schema.org/>
+        prefix sd: <https://w3id.org/okn/o/sd#>
+        prefix bio: <https://bioschemas.org/>
+        prefix spe: <https://openschemas.github.io/spec-container/specifications/>
+        prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+        prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+        prefix sh:   <http://www.w3.org/ns/shacl#>
+        prefix xsd:  <http://www.w3.org/2001/XMLSchema#> 
+        prefix shsh: <http://www.w3.org/ns/shacl-shacl#> 
+        prefix owl: <http://www.w3.org/2002/07/owl#> 
+        prefix dcterms: <http://purl.org/dc/terms/> 
+        prefix ex: <https://epfl.ch/example/> 
+        prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
         
         SELECT ?domain ?classLabel ?classDefinition ?property ?propertyLabel ?propertyDefinition ?range ?example
         WHERE{
-        ?nodeshape sh:targetClass ?domain .
+        
         ?nodeshape sh:property ?propertyShape .
         
-        ?domain """
-        + config.get_predicate("label")
-        + """ ?classLabel .
-        ?domain """
-        + config.get_predicate("definition")
-        + """ ?classDefinition.
+        
 
         ?property a """
         + config.get_type("property")
@@ -130,13 +178,23 @@ def build_sparql_query(config_file_path):
         OPTIONAL {?propertyShape sh:or/rdf:rest*/rdf:first ?option .
                 ?option ?pred ?thing .}
         OPTIONAL {?nodeshape sh:property ?property .}
-    
+        OPTIONAL{?nodeshape sh:targetClass ?domain1 .}
+        BIND(COALESCE(?domain1,?nodeshape) as ?domain).
+        ?domain """
+        + config.get_predicate("label")
+        + """ ?classLabel .
+        ?domain """
+        + config.get_predicate("definition")
+        + """ ?classDefinition.
         BIND(COALESCE(?thing,?classRestriction,?datatype) AS ?range)}
 """
     )
-
-    return sparql_query
-
+    if query_type == "enumerations":
+        return enumerations_query
+    elif query_type == "concepts":
+        return sparql_query
+    else:
+        raise ValueError("Invalid query type, please choose between concepts or enumerations.")
 
 def sparql_query(graph, query):
     """

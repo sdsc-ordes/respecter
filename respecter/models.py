@@ -95,6 +95,7 @@ class Enumeration:
     definition: str = ""
     term: str = ""
     group: set = field(default_factory=set)
+    groupLabel: str = ""
     property: set = field(default_factory=set)
 
     def add_property(self, property):
@@ -102,6 +103,11 @@ class Enumeration:
     
     def add_group(self, group):
         self.group.add(group)
+    
+    def add_groupLabel(self, groupLabel):
+        self.groupLabel = groupLabel
+    
+
 
     def to_dict(self):
         return {
@@ -109,6 +115,7 @@ class Enumeration:
             "Definition": self.definition,
             "Term": self.term,
             "Group": ", ".join(self.group),
+            "GroupLabel": self.groupLabel,
             "Property": ", ".join(self.property),
         }
         

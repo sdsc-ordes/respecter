@@ -21,7 +21,7 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
     graph.parse(ontology_file_path, format="turtle")  # TODO: accept other formats
     # Load the SPARQL query
 
-    concepts_query = build_sparql_query(sparql_config_file_path)
+    concepts_query = build_sparql_query(sparql_config_file_path, "concepts")
 
     # Save the query to a file (for debugging)
     if debug:
@@ -36,7 +36,10 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
     concepts_query_result = concepts_query_result.serialize(format="json")
     concepts_query_result = json.loads(concepts_query_result)
 
-    enumerations_query_result = apply_sparql_query_file(graph, ENUMERATIONS_SPARQL)
+    enumerations_query = build_sparql_query(sparql_config_file_path, "enumerations")
+    enumerations_query_result = graph.query(enumerations_query)
+    enumerations_query_result = enumerations_query_result.serialize(format="json")
+    enumerations_query_result = json.loads(enumerations_query_result)
     enumerations_data = enumerations_query_result.get("results", {}).get("bindings", [])
 
     ontology_query_result = apply_sparql_query_file(graph, ONTOLOGY_SPARQL)

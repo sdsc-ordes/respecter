@@ -1,6 +1,7 @@
 type:
   class: <http://www.w3.org/2000/01/rdf-schema#Class>
   property: <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>
+  enumeration: <https://swissdatacustodian.ch/doc/ontology#EnumerationType> #<https://epfl.ch/example/EnumerationType> OR <https://swissdatacustodian.ch/doc/ontology#>
 
 predicate:
   definition: <http://www.w3.org/2004/02/skos/core#definition>
