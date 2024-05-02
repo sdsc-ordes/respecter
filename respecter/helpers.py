@@ -13,7 +13,6 @@ def format_enumerations(rdf_enumerations, qname):
     Format the enumerations to be used in the template.
     """
     enumerations = extract_enumerations(rdf_enumerations, qname)
-    print(enumerations)
     return [enumeration.to_dict() for enumeration in enumerations.values()]
 
 def format_properties(rdf_properties, qname):
