@@ -4,7 +4,7 @@ import rdflib
 import os
 from models import Ontology, Class, Property, Enumeration
 from helpers import format_classes, format_properties, format_enumerations
-from respecter.sparql import apply_sparql_query_file, build_concepts_query, build_enumerations_query
+from sparql import apply_sparql_query_file, build_concepts_query, build_enumerations_query
 from typing import List
 
 # Define the SPARQL query to retrieve the concepts
