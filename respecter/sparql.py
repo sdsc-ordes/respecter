@@ -55,17 +55,15 @@ class SparqlConfig:
             raise ValueError(f"Predicate {predicate_name} not found in config file")
         return self.predicates.get(predicate_name)
 
-
-def build_sparql_query(config_file_path: str, query_type: str) -> str:
+def build_enumerations_query(config_file_path: str) -> str:
     """
-    Builds a SPARQL query string based on a YAML configuration file.
+    Builds a SPARQL query string for enumerations based on a YAML configuration file.
 
     Args:
         config_file_path (str): Path to the YAML file containing SPARQL predicate definitions.
-        query_type (str): Type of query, either "enumerations" or "concepts".
 
     Returns:
-        str: The complete SPARQL query string.
+        str: The complete SPARQL query string for enumerations.
     """
 
     config = SparqlConfig(config_file_path)
@@ -123,8 +121,24 @@ def build_sparql_query(config_file_path: str, query_type: str) -> str:
             ?range """+ config.get_predicate("label") + """ ?rangeLabel.
             ?range """+ config.get_predicate("definition") + """ ?rangeDefinition.
         }
-"""
-    )
+        """
+        )
+
+    return enumerations_query
+
+
+def build_concepts_query(config_file_path: str) -> str:
+    """
+    Builds a SPARQL query string for concepts based on a YAML configuration file.
+
+    Args:
+        config_file_path (str): Path to the YAML file containing SPARQL predicate definitions.
+
+    Returns:
+        str: The complete SPARQL query string for concepts.
+    """
+
+    config = SparqlConfig(config_file_path)
 
     sparql_query = (
         """
@@ -187,14 +201,10 @@ def build_sparql_query(config_file_path: str, query_type: str) -> str:
         + config.get_predicate("definition")
         + """ ?classDefinition.
         BIND(COALESCE(?thing,?classRestriction,?datatype) AS ?range)}
-"""
-    )
-    if query_type == "enumerations":
-        return enumerations_query
-    elif query_type == "concepts":
-        return sparql_query
-    else:
-        raise ValueError("Invalid query type, please choose between concepts or enumerations.")
+        """
+        )
+
+    return sparql_query
 
 def sparql_query(graph, query):
     """

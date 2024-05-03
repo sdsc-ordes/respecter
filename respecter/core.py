@@ -4,7 +4,7 @@ import rdflib
 import os
 from models import Ontology, Class, Property, Enumeration
 from helpers import format_classes, format_properties, format_enumerations
-from sparql import apply_sparql_query_file, build_sparql_query
+from respecter.sparql import apply_sparql_query_file, build_concepts_query, build_enumerations_query
 from typing import List
 
 # Define the SPARQL query to retrieve the concepts
@@ -21,7 +21,7 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
     graph.parse(ontology_file_path, format="turtle")  # TODO: accept other formats
     # Load the SPARQL query
 
-    concepts_query = build_sparql_query(sparql_config_file_path, "concepts")
+    concepts_query = build_concepts_query(sparql_config_file_path)
 
     # Save the query to a file (for debugging)
     if debug:
@@ -36,7 +36,7 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
     concepts_query_result = concepts_query_result.serialize(format="json")
     concepts_query_result = json.loads(concepts_query_result)
 
-    enumerations_query = build_sparql_query(sparql_config_file_path, "enumerations")
+    enumerations_query = build_enumerations_query(sparql_config_file_path)
     enumerations_query_result = graph.query(enumerations_query)
     enumerations_query_result = enumerations_query_result.serialize(format="json")
     enumerations_query_result = json.loads(enumerations_query_result)
