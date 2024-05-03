@@ -4,12 +4,15 @@ import rdflib
 import os
 from models import Ontology, Class, Property, Enumeration
 from helpers import format_classes, format_properties, format_enumerations
-from sparql import apply_sparql_query_file, build_concepts_query, build_enumerations_query
+from sparql import (
+    apply_sparql_query_file,
+    build_concepts_query,
+    build_enumerations_query,
+)
 from typing import List
 
 # Define the SPARQL query to retrieve the concepts
-ONTOLOGY_SPARQL = "sparql/sparql_query_ontology.sparql"
-ENUMERATIONS_SPARQL = "sparql/sparql_query_enumerations.sparql"
+ONTOLOGY_SPARQL = "sparql_queries/sparql_query_ontology.sparql"
 
 
 def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
@@ -50,7 +53,7 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
     concepts = format_classes(ontology_data, qname=graph.qname)
     properties = format_properties(ontology_data, qname=graph.qname)
     enumerations = format_enumerations(enumerations_data, qname=graph.qname)
-    
+
     ontology = Ontology()
     ontology.import_from_rdf(ontology_metadata[0])
 
@@ -58,7 +61,10 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
 
 
 def render_template(
-    ontology: Ontology, concepts: List[Class], properties: List[Property], enumerations: List[Enumeration]
+    ontology: Ontology,
+    concepts: List[Class],
+    properties: List[Property],
+    enumerations: List[Enumeration],
 ):
     # Render template
 
@@ -70,7 +76,6 @@ def render_template(
         ontology=ontology.to_dict(),
         properties=properties,
         enumerations=enumerations,
-        
     )
 
     return rendered_html

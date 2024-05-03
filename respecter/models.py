@@ -84,7 +84,8 @@ class Class:
             "Term": self.term,
             "Property": ", ".join(self.property),
         }
-    
+
+
 @dataclass
 class Enumeration:
     """
@@ -100,14 +101,12 @@ class Enumeration:
 
     def add_property(self, property):
         self.property.add(property)
-    
+
     def add_group(self, group):
         self.group.add(group)
-    
+
     def add_groupLabel(self, groupLabel):
         self.groupLabel = groupLabel
-    
-
 
     def to_dict(self):
         return {
@@ -118,4 +117,3 @@ class Enumeration:
             "GroupLabel": self.groupLabel,
             "Property": ", ".join(self.property),
         }
-        

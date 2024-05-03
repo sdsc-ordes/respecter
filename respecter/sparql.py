@@ -55,6 +55,7 @@ class SparqlConfig:
             raise ValueError(f"Predicate {predicate_name} not found in config file")
         return self.predicates.get(predicate_name)
 
+
 def build_enumerations_query(config_file_path: str) -> str:
     """
     Builds a SPARQL query string for enumerations based on a YAML configuration file.
@@ -98,31 +99,51 @@ def build_enumerations_query(config_file_path: str) -> str:
         ?propertyShape a sh:PropertyShape .
                 ?propertyShape sh:path ?property.
                 OPTIONAL{
-                    ?property """ + config.get_predicate("label") + """ ?propertyLabel}
+                    ?property """
+        + config.get_predicate("label")
+        + """ ?propertyLabel}
         { 
             ?propertyShape sh:class ?group .
-            ?group rdfs:subClassOf """ + config.get_type("enumeration") + """ .
+            ?group rdfs:subClassOf """
+        + config.get_type("enumeration")
+        + """ .
             ?enumerationValue a ?group .
-                    ?group """ + config.get_predicate("label") + """ ?groupLabel .
-                    OPTIONAL{?enumerationValue """ + config.get_predicate("definition") + """ ?enumerationDefinition .}
-                    OPTIONAL{?enumerationValue """ + config.get_predicate("label") + """ ?enumerationLabel.}
+                    ?group """
+        + config.get_predicate("label")
+        + """ ?groupLabel .
+                    OPTIONAL{?enumerationValue """
+        + config.get_predicate("definition")
+        + """ ?enumerationDefinition .}
+                    OPTIONAL{?enumerationValue """
+        + config.get_predicate("label")
+        + """ ?enumerationLabel.}
         }
         UNION
         {
             ?propertyShape sh:or/rdf:rest*/rdf:first/sh:class ?enumerationType2 .
-            ?enumerationType2 rdfs:subClassOf """ + config.get_type("enumeration") + """.
+            ?enumerationType2 rdfs:subClassOf """
+        + config.get_type("enumeration")
+        + """.
             ?enumerationValue a ?enumerationType2 .
-                    OPTIONAL{?enumerationValue """ + config.get_predicate("label") +""" ?enumerationDefinition .}
-                        OPTIONAL{?enumerationValue """ + config.get_predicate("label") +""" ?enumerationLabel.}
+                    OPTIONAL{?enumerationValue """
+        + config.get_predicate("label")
+        + """ ?enumerationDefinition .}
+                        OPTIONAL{?enumerationValue """
+        + config.get_predicate("label")
+        + """ ?enumerationLabel.}
                         
         }
         }
             BIND(coalesce(?enumerationType1, ?enumerationType2) as ?range)
-            ?range """+ config.get_predicate("label") + """ ?rangeLabel.
-            ?range """+ config.get_predicate("definition") + """ ?rangeDefinition.
+            ?range """
+        + config.get_predicate("label")
+        + """ ?rangeLabel.
+            ?range """
+        + config.get_predicate("definition")
+        + """ ?rangeDefinition.
         }
         """
-        )
+    )
 
     return enumerations_query
 
@@ -202,9 +223,10 @@ def build_concepts_query(config_file_path: str) -> str:
         + """ ?classDefinition.
         BIND(COALESCE(?thing,?classRestriction,?datatype) AS ?range)}
         """
-        )
+    )
 
     return sparql_query
+
 
 def sparql_query(graph, query):
     """
