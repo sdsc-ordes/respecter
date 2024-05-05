@@ -21,7 +21,7 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
     """
     # Load the turtle file
     graph = rdflib.Graph()
-    graph.parse(ontology_file_path, format="turtle")  # TODO: accept other formats
+    graph.parse(ontology_file_path)  
     # Load the SPARQL query
 
     concepts_query = build_concepts_query(sparql_config_file_path)
@@ -35,23 +35,23 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
             file.write(concepts_query)
             print(f"SPARQL query saved to file: {filename}")
 
-    concepts_query_result = graph.query(concepts_query)
-    concepts_query_result = concepts_query_result.serialize(format="json")
-    concepts_query_result = json.loads(concepts_query_result)
-
-    enumerations_query = build_enumerations_query(sparql_config_file_path)
-    enumerations_query_result = graph.query(enumerations_query)
-    enumerations_query_result = enumerations_query_result.serialize(format="json")
-    enumerations_query_result = json.loads(enumerations_query_result)
-    enumerations_data = enumerations_query_result.get("results", {}).get("bindings", [])
 
     ontology_query_result = apply_sparql_query_file(graph, ONTOLOGY_SPARQL)
 
-    ontology_metadata = ontology_query_result.get("results", {}).get("bindings", [])
-    ontology_data = concepts_query_result.get("results", {}).get("bindings", [])
+    concepts_query_result = graph.query(concepts_query).serialize(format="json")
+    concepts_query_result = json.loads(concepts_query_result)
 
-    concepts = format_classes(ontology_data, qname=graph.qname)
-    properties = format_properties(ontology_data, qname=graph.qname)
+    enumerations_query = build_enumerations_query(sparql_config_file_path)
+    enumerations_query_result = graph.query(enumerations_query).serialize(format="json")
+    enumerations_query_result = json.loads(enumerations_query_result)
+      
+
+    ontology_metadata = ontology_query_result.get("results", {}).get("bindings", [])
+    concepts_data = concepts_query_result.get("results", {}).get("bindings", [])
+    enumerations_data = enumerations_query_result.get("results", {}).get("bindings", [])
+
+    concepts = format_classes(concepts_data, qname=graph.qname)
+    properties = format_properties(concepts_data, qname=graph.qname)
     enumerations = format_enumerations(enumerations_data, qname=graph.qname)
 
     ontology = Ontology()
@@ -66,8 +66,6 @@ def render_template(
     properties: List[Property],
     enumerations: List[Enumeration],
 ):
-    # Render template
-
     environment = Environment(loader=FileSystemLoader("templates"))
     template = environment.get_template("example.html")
     # Render the template

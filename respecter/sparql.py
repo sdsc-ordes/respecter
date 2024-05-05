@@ -77,19 +77,14 @@ def build_enumerations_query(config_file_path: str) -> str:
         PREFIX owl: <http://www.w3.org/2002/07/owl#>
         PREFIX dct: <http://purl.org/dc/terms/>
         PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
-        PREFIX sh: <http://www.w3.org/ns/shacl#>
-        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX vann: <http://purl.org/vocab/vann/>
         prefix schema: <http://schema.org/>
         prefix sd: <https://w3id.org/okn/o/sd#>
         prefix bio: <https://bioschemas.org/>
         prefix spe: <https://openschemas.github.io/spec-container/specifications/>
-        prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
         prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
-        prefix sh:   <http://www.w3.org/ns/shacl#>
         prefix xsd:  <http://www.w3.org/2001/XMLSchema#> 
         prefix shsh: <http://www.w3.org/ns/shacl-shacl#> 
-        prefix owl: <http://www.w3.org/2002/07/owl#> 
         prefix dcterms: <http://purl.org/dc/terms/> 
         prefix ex: <https://epfl.ch/example/> 
         prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
@@ -163,26 +158,20 @@ def build_concepts_query(config_file_path: str) -> str:
 
     sparql_query = (
         """
-        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX sh: <http://www.w3.org/ns/shacl#>
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX owl: <http://www.w3.org/2002/07/owl#>
         PREFIX dct: <http://purl.org/dc/terms/>
         PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
-        PREFIX sh: <http://www.w3.org/ns/shacl#>
-        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX vann: <http://purl.org/vocab/vann/>
         prefix schema: <http://schema.org/>
         prefix sd: <https://w3id.org/okn/o/sd#>
         prefix bio: <https://bioschemas.org/>
         prefix spe: <https://openschemas.github.io/spec-container/specifications/>
-        prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
         prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
-        prefix sh:   <http://www.w3.org/ns/shacl#>
         prefix xsd:  <http://www.w3.org/2001/XMLSchema#> 
         prefix shsh: <http://www.w3.org/ns/shacl-shacl#> 
-        prefix owl: <http://www.w3.org/2002/07/owl#> 
         prefix dcterms: <http://purl.org/dc/terms/> 
         prefix ex: <https://epfl.ch/example/> 
         prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
