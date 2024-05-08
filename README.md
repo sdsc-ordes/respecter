@@ -1,6 +1,6 @@
 # respecter
 ReSpecter is a CLI tool which turns a RDF serialization of an ontology into a ReSpec styled HTML page using Jinja templates. The generated HTML page contains an overview of the classes, properties and enumeration types in your ontology, and creates links between them based on the SHACL shapes present in the ontology.
-ReSpecter is supposed to make it easier for non-RDF aware humans to browse through concepts in an ontology, and refer to specific concepts using URL's. Similar tooling exists ([pyLODE](https://github.com/RDFLib/pyLODE), [Widoco](https://github.com/dgarijo/Widoco) but does not allow for the configurationability and SHACL support which ReSpecter does, or does not provide nicely structured w3c ReSpec style html. 
+respecter is supposed to make it easier for non-RDF aware humans to browse through concepts in an ontology, and refer to specific concepts using URL's. Similar tooling exists ([pyLODE](https://github.com/RDFLib/pyLODE), [Widoco](https://github.com/dgarijo/Widoco) but does not allow for the configurationability and SHACL support which respecter does, or does not provide nicely structured w3c ReSpec style html. 
 
 # Installation
 
