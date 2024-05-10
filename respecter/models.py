@@ -138,6 +138,10 @@ class Enumeration:
             "Label": self.label,
             "Definition": self.definition,
             "Term": self.term,
-            "Groups": [g.to_dict() for g in self.enumeration_group],
+            "Groups": ", ".join([g.to_string() for g in self.enumeration_group]),
             "Property": ", ".join(self.property),
         }
+
+    def __lt__(self, other):
+        """Used to sort the enumerations by label."""
+        return self.label < other.label
