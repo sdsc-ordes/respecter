@@ -127,6 +127,9 @@ def extract_enumerations(rdf_enumerations, qname):
         current_enumeration.term = format_value(
             rdf_enumeration.get("enumerationValue", {}), qname=qname
         )
+        current_enumeration.term = format_value(
+            rdf_enumeration.get("enumerationValue", {}), qname=qname
+        )
         current_enumeration.add_property(
             format_value(rdf_enumeration.get("property", {}), qname=qname)
         )
