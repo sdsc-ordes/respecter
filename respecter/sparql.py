@@ -116,7 +116,9 @@ def build_enumerations_query(config_file_path: str) -> str:
         UNION
         {
         ?propertyShape sh:or/rdf:rest*/rdf:first/sh:class ?group .
-        ?group rdfs:subClassOf sdc:EnumerationType .
+        ?group rdfs:subClassOf """
+        + config.get_type("enumeration")
+        + """ .
         ?enumerationValue a ?group .
         ?group """
         + config.get_predicate("label")
