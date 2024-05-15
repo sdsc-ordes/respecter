@@ -69,7 +69,8 @@ def build_enumerations_query(config_file_path: str) -> str:
 
     config = SparqlConfig(config_file_path)
 
-    enumerations_query = """
+    enumerations_query = (
+        """
         PREFIX sh: <http://www.w3.org/ns/shacl#>
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
@@ -93,31 +94,52 @@ def build_enumerations_query(config_file_path: str) -> str:
         ?propertyShape a sh:PropertyShape .
                 ?propertyShape sh:path ?property.
                 OPTIONAL{
-                    ?property """ + config.get_predicate("label") + """ ?propertyLabel}
+                    ?property """
+        + config.get_predicate("label")
+        + """ ?propertyLabel}
         { 
             ?propertyShape sh:class ?group .
-            ?group rdfs:subClassOf """ + config.get_type("enumeration") + """ .
+            ?group rdfs:subClassOf """
+        + config.get_type("enumeration")
+        + """ .
             ?enumerationValue a ?group .
-                    ?group """ + config.get_predicate("label") + """ ?groupLabel .
-                    OPTIONAL{?enumerationValue """ + config.get_predicate("definition") + """ ?enumerationDefinition .}
-        OPTIONAL{?enumerationValue """ + config.get_predicate("label") + """ ?enumerationLabel.}
+                    ?group """
+        + config.get_predicate("label")
+        + """ ?groupLabel .
+                    OPTIONAL{?enumerationValue """
+        + config.get_predicate("definition")
+        + """ ?enumerationDefinition .}
+        OPTIONAL{?enumerationValue """
+        + config.get_predicate("label")
+        + """ ?enumerationLabel.}
         }
         UNION
         {
         ?propertyShape sh:or/rdf:rest*/rdf:first/sh:class ?group .
         ?group rdfs:subClassOf sdc:EnumerationType .
         ?enumerationValue a ?group .
-        ?group """ + config.get_predicate("label") + """ ?groupLabel.
-        OPTIONAL{?enumerationValue """ + config.get_predicate("definition") + """ ?enumerationDefinition .}
-        OPTIONAL{?enumerationValue """+ config.get_predicate("label") + """ ?enumerationLabel.}
+        ?group """
+        + config.get_predicate("label")
+        + """ ?groupLabel.
+        OPTIONAL{?enumerationValue """
+        + config.get_predicate("definition")
+        + """ ?enumerationDefinition .}
+        OPTIONAL{?enumerationValue """
+        + config.get_predicate("label")
+        + """ ?enumerationLabel.}
                         
         }
         }
         BIND(coalesce(?enumerationType1, ?enumerationType2) as ?range)
-        ?range """+ config.get_predicate("label")+ """ ?rangeLabel.
-        ?range """+ config.get_predicate("definition")+ """ ?rangeDefinition.
+        ?range """
+        + config.get_predicate("label")
+        + """ ?rangeLabel.
+        ?range """
+        + config.get_predicate("definition")
+        + """ ?rangeDefinition.
         }
         """
+    )
 
     return enumerations_query
 
