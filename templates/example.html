@@ -76,47 +76,38 @@
     </table>
     {% endfor %}
   </section>
-<body>
-  <section>
-    <h2>Enumeration Values</h2>
 
-    {# initialize the dictionary #}
-    {% set enum_dict = {} %}
+  <body>
+    <section>
+      <h2>Enumeration Values</h2>
 
-    {% for enum in enumerations %}
-      {# check if the group already exists in the dictionary #}
-      {% if enum.GroupLabel in enum_dict %}
-        {# append the enum item to the existing group #}
-        {% set _ = enum_dict[enum.GroupLabel].append({enum.Label: enum.items()}) %}
-      {% else %}
-        {# create a new group in the dictionary #}
-        {% set _ = enum_dict.update({enum.GroupLabel: [{enum.Label: enum.items()}]}) %}
-      {% endif %}
-    {% endfor %}
-
-    {# iterate over the enum_dict to display the groups and their items #}
-    {% for group, items in enum_dict.items() %}
-      <h3>{{ group }}</h3>
-      {% for item in items %}
-        <h4>{{ item.keys() | join(", ") }}</h4>
-        <table class="def">
-          {% for label, values in item.items() %}
-            {% for key, value in values %}
-              <tr>
-                <td>
-                  <p>{{ key }}</p>
-                </td>
-                <td>
-                  <p>{{ value }}</p>
-                </td>
-              </tr>
-            {% endfor %}
-          {% endfor %}
-        </table>
+      {# iterate over the enum_dict to display the groups and their items #}
+      {% for group in grouped_enumerations.values() %}
+      <h3>{{ group.label }}</h3>
+      <table class="def">
+        <tr>
+          <td>Term</td>
+          <td>{{ group.term }}</td>
+        </tr>
+      </table>
+      {% for item in group.enumerations %}
+      <h4>{{ item.Label }}</h4>
+      <table class="def">
+        {% for key, value in item.items() %}
+        <tr>
+          <td>
+            <p>{{ key }}</p>
+          </td>
+          <td>
+            <p>{{ value }}</p>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
       {% endfor %}
-    {% endfor %}
-  </section>
-</body>
+      {% endfor %}
+    </section>
+  </body>
 
 
 </html>
