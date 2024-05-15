@@ -84,3 +84,64 @@ class Class:
             "Term": self.term,
             "Property": ", ".join(self.property),
         }
+
+
+@dataclass
+class EnumerationGroup:
+    """
+    Class to store the enumeration group metadata.
+    """
+
+    label: str = ""
+    definition: str = ""
+    term: str = ""
+
+    def to_string(self):
+        return f"{self.term}"
+
+    def to_dict(self):
+        return {
+            "Label": self.label,
+            "Definition": self.definition,
+            "Term": self.term,
+        }
+
+    def __hash__(self) -> int:
+        return hash(self.term)  # TODO: Check if this is correct
+
+
+@dataclass
+class Enumeration:
+    """
+    Class to store the enumeration instances metadata.
+    """
+
+    label: str = ""
+    definition: str = ""
+    term: str = ""
+    enumeration_group: set = field(default_factory=set)
+    property: set = field(default_factory=set)
+
+    def add_property(self, property):
+        self.property.add(property)
+
+    def add_enumeration_group(self, enumeration_group: EnumerationGroup):
+        """
+        Add a group to the enumeration.
+        Parameters:
+            group (EnumerationGroup): The group to add to the enumeration.
+        """
+        self.enumeration_group.add(enumeration_group)
+
+    def to_dict(self):
+        return {
+            "Label": self.label,
+            "Definition": self.definition,
+            "Term": self.term,
+            "Groups": ", ".join([g.to_string() for g in self.enumeration_group]),
+            "Property": ", ".join(self.property),
+        }
+
+    def __lt__(self, other):
+        """Used to sort the enumerations by label."""
+        return self.label < other.label

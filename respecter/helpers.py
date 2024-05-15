@@ -1,19 +1,25 @@
-from models import Class, Property
+from models import Class, Property, Enumeration, EnumerationGroup
+from typing import Dict, List
 
 
-def format_classes(rdf_classes, qname):
+def format_classes(classes):
     """
     Format the classes to be used in the template.
     """
-    classes = extract_classes(rdf_classes, qname)
     return [class_.to_dict() for class_ in classes.values()]
 
 
-def format_properties(rdf_properties, qname):
+def format_enumerations(enumerations: List[Enumeration]):
+    """
+    Format the enumerations to be used in the template.
+    """
+    return [enumeration.to_dict() for enumeration in enumerations]
+
+
+def format_properties(properties):
     """
     Format the properties to be used in the template.
     """
-    properties = extract_properties(rdf_properties, qname)
     return [property.to_dict() for property in properties.values()]
 
 
@@ -98,3 +104,62 @@ def extract_classes(rdf_classes, qname):
 
         classes[label] = current_class
     return classes
+
+
+def extract_enumerations(rdf_enumerations, qname):
+    """
+    Extract the enumerations from the RDF data.
+    """
+    enumerations = dict()
+    for rdf_enumeration in rdf_enumerations:
+        label = rdf_enumeration.get("enumerationLabel", {}).get("value", "")
+        if label not in enumerations:
+            enumerations[label] = Enumeration()
+
+        current_enumeration = enumerations[label]
+        current_enumeration.label = label
+        current_enumeration.definition = format_value(
+            rdf_enumeration.get("enumerationDefinition", {}), qname=qname
+        )
+        current_enumeration.term = format_value(
+            rdf_enumeration.get("enumerationValue", {}), qname=qname
+        )
+        current_enumeration.term = format_value(
+            rdf_enumeration.get("enumerationValue", {}), qname=qname
+        )
+        current_enumeration.add_property(
+            format_value(rdf_enumeration.get("property", {}), qname=qname)
+        )
+        group_label = format_value(rdf_enumeration.get("groupLabel", {}), qname=qname)
+        group_term = format_value(rdf_enumeration.get("group", {}), qname=qname)
+        enumeration_group = EnumerationGroup(label=group_label, term=group_term)
+        current_enumeration.add_enumeration_group(enumeration_group)
+
+        enumerations[label] = current_enumeration
+    return enumerations
+
+
+def group_format_enumerations(enumerations: Dict[str, Enumeration]):
+    """
+    Group the enumerations by the group term.
+    """
+    grouped_enumerations = dict()
+    for _, enumeration in enumerations.items():
+        for enumeration_group in enumeration.enumeration_group:
+            if enumeration_group.term not in grouped_enumerations:
+                grouped_enumerations[enumeration_group.term] = {
+                    "term": enumeration_group.term,
+                    "label": enumeration_group.label,
+                    "enumerations": [],
+                }
+            grouped_enumerations[enumeration_group.term]["enumerations"].append(
+                enumeration
+            )
+    for group_label, group_data in grouped_enumerations.items():
+        enumerations = group_data["enumerations"]
+        sorted_enumerations = sorted(enumerations)
+        print(sorted_enumerations)
+        grouped_enumerations[group_label]["enumerations"] = format_enumerations(
+            sorted_enumerations
+        )
+    return grouped_enumerations

@@ -53,12 +53,12 @@ def main(
     """
     Turns a RDF serialization of an ontology into a ReSpec styled HTML page
     """
-    ontology, concepts, properties = fetch_ontology(
+    ontology, concepts, properties, enumerations = fetch_ontology(
         ontology_file_path=ontology,
         sparql_config_file_path=sparql_config_path,
         debug=debug,
     )
-    template = render_template(ontology, concepts, properties)
+    template = render_template(ontology, concepts, properties, enumerations)
 
     # Write rendered template to file
     if os.path.exists(output):

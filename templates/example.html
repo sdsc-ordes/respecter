@@ -76,6 +76,38 @@
     </table>
     {% endfor %}
   </section>
-</body>
+
+  <body>
+    <section>
+      <h2>Enumeration Values</h2>
+
+      {# iterate over the enum_dict to display the groups and their items #}
+      {% for group in grouped_enumerations.values() %}
+      <h3>{{ group.label }}</h3>
+      <table class="def">
+        <tr>
+          <td>Term</td>
+          <td>{{ group.term }}</td>
+        </tr>
+      </table>
+      {% for item in group.enumerations %}
+      <h4>{{ item.Label }}</h4>
+      <table class="def">
+        {% for key, value in item.items() %}
+        <tr>
+          <td>
+            <p>{{ key }}</p>
+          </td>
+          <td>
+            <p>{{ value }}</p>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% endfor %}
+      {% endfor %}
+    </section>
+  </body>
+
 
 </html>
