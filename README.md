@@ -4,7 +4,7 @@ respecter is supposed to make it easier for non-RDF aware humans to browse throu
 
 # Installation
 
-Create a virtual python environment and install the dependencies with 
+Create a virtual python environment and install the dependencies from requirements.txt .
 
 # Usage
 
