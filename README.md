@@ -5,7 +5,9 @@ respecter is supposed to make it easier for non-RDF aware humans to browse throu
 # Installation
 
 Create a virtual python environment and install the dependencies from requirements.txt with:
-```pip install -r requirements.txt```
+```sh
+pip install -r requirements.txt
+```
 
 # Usage
 
