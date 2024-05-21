@@ -24,3 +24,9 @@ To know more about the available options, run:
 ```sh
 python3 respecter/cli.py --help
 ```
+# Copyright
+Copyright © 2024 Swiss Data Science Center (SDSC), www.datascience.ch. All rights reserved. The SDSC operates as a 'Société Simple' (einfache Gesellschaft) under Swiss law, jointly established and legally represented by the École Polytechnique Fédérale de Lausanne (EPFL) and the Eidgenössische Technische Hochschule Zürich (ETH Zürich). This copyright encompasses all materials, software, documentation, and other content created and developed by the SDSC.
+# License Information
+The respecter software is distributed as open-source under the Apache-2.0 license. Details about the license can be found in the LICENSE file included within the distribution package.
+# Ethical Use and Legal Compliance Disclaimer
+Please note that this software should not be used to harm any individual or entity. Users and developers must adhere to ethical guidelines and use the software responsibly and legally.
