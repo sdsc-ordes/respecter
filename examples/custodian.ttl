@@ -18,9 +18,9 @@
 
 <https://swissdatacustodian.ch/doc/ontology#> a owl:Ontology ;
     dct:abstract "The swiss data custodian ontology provides SHACL shapes and concepts (classes and properties) to model human and machine readable contracts." ;
-    dct:contributor "Robin Franken", "Martin Fontanet", "Sabine Maennel", "Laure Vancauwenberghe", "Sabrina Ossey", "Cyril Matthey-Doret", "Stefan Milosavljevic" , "Luana Martelli", "Carlos Vivar Rios" ;
+    dct:contributor "SDSC ORDES Team" ;
     dct:created "2023-10-16"^^xsd:date ;
-    dct:creator "Robin Franken", "Martin Fontanet", "Sabrina Ossey" ;
+    dct:creator "Robin Franken", "Martin Fontanet", "Sabrina Ossey", "Oksana Riba" ;
     dct:description "The swiss data custodian ontology provides SHACL shapes and concepts (classes and properties) to model human and machine readable contracts." ;
     dct:license <https://spdx.org/licenses/CC-BY-SA-4.0.html> ;
     dct:modified "2024-01-17"^^xsd:date ;
