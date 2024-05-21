@@ -1,0 +1,4 @@
+debug/*
+.venv
+__pycache__/
+*.html
