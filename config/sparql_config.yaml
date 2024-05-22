@@ -14,12 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+#Please use full length, unprefixed URI's below
 type:
-  class: <http://www.w3.org/2000/01/rdf-schema#Class>
-  property: <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>
-  enumeration: <https://swissdatacustodian.ch/doc/ontology#EnumerationType> #<https://epfl.ch/example/EnumerationType> OR <https://swissdatacustodian.ch/doc/ontology#>
+  class: <http://www.w3.org/2000/01/rdf-schema#Class> #the class type in the ontology (could also be skos:Concept, owl:Class, etc.)
+  property: <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> #the property type in the ontology (could also be owl:ObjectProperty, owl:DatatypeProperty, etc.)
+  enumeration: <https://epfl.ch/example/EnumerationType> #the enumeration type in the ontology, (could also be schema:Enumeration, etc.)
 
 predicate:
-  definition: <http://www.w3.org/2004/02/skos/core#definition>
-  label: <http://www.w3.org/2004/02/skos/core#prefLabel>
-  example: <http://www.w3.org/2004/02/skos/core#example>
+  definition: <http://www.w3.org/2000/01/rdf-schema#comment> # For example: <http://www.w3.org/2004/02/skos/core#definition> or <http://www.w3.org/2000/01/rdf-schema#comment> 
+  label: <http://www.w3.org/2000/01/rdf-schema#label> # For example: <http://www.w3.org/2004/02/skos/core#prefLabel> or <http://www.w3.org/2000/01/rdf-schema#label>
+  example: <http://www.w3.org/2004/02/skos/core#example> # For example: <http://www.w3.org/2004/02/skos/core#example>
