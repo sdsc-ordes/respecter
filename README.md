@@ -10,8 +10,9 @@ pip install -r requirements.txt
 ```
 
 # Usage
+Edit the `config\sparql_config.yaml` file in order to specify which URI's you want to use for fetching semantic information inside your ontology. These URI's will be used in the SPARQL query to fetch the data from your ontology.
 
-The script `respecter/cli.py` can be used to generate a ReSpec styled HTML page from an ontology serialized in RDF. 
+The script `respecter/cli.py` can then be used to generate a ReSpec styled HTML page from an ontology serialized in RDF. 
 
 The following command will generate a ReSpec styled HTML page from the ontology `custodian.ttl` and save it under the name `custodian.html`:
 
