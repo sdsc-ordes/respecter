@@ -23,18 +23,22 @@ def format_properties(properties):
     return [property.to_dict() for property in properties.values()]
 
 
-def format_value(value, qname=None):
+def format_value(value, qname=None, current_ontology_url=None):
     """
     Format the value to be used in the template.
     """
     # FIXME: the following section is a hack to have a working example.
     # This should be done differently and follow the Respec syntax for URLs.
     if value.get("type") == "uri":
+        if current_ontology_url and value["value"].startswith(current_ontology_url):
+            value_uri = value["value"].replace(current_ontology_url, "#")
+        else:
+            value_uri = value["value"]
         if qname:
             value_string = qname(value["value"])
         else:
             value_string = value["value"]
-        return '<a href="' + value["value"] + '">' + value_string + "</a>"
+        return '<a href="' + value_uri + '">' + value_string + "</a>"
     elif value.get("type") == "literal":
         return value["value"]
     elif value.get("type") == None:
@@ -54,7 +58,7 @@ def format_value(value, qname=None):
         return value["value"]
 
 
-def extract_properties(rdf_properties, qname):
+def extract_properties(rdf_properties, qname, current_ontology_url=None):
     """
     Extract the properties from the RDF data.
     """
@@ -67,22 +71,36 @@ def extract_properties(rdf_properties, qname):
         current_property = properties[label]
         current_property.label = label
         current_property.definition = format_value(
-            property.get("propertyDefinition", {}), qname=qname
+            property.get("propertyDefinition", {}),
+            qname=qname,
+            current_ontology_url=current_ontology_url,
         )
 
         current_property.property = format_value(
-            property.get("property", {}), qname=qname
+            property.get("property", {}),
+            qname=qname,
+            current_ontology_url=current_ontology_url,
         )
         current_property.add_domain(
-            format_value(property.get("domain", {}), qname=qname)
+            format_value(
+                property.get("domain", {}),
+                qname=qname,
+                current_ontology_url=current_ontology_url,
+            )
         )
-        current_property.add_range(format_value(property.get("range", {}), qname=qname))
+        current_property.add_range(
+            format_value(
+                property.get("range", {}),
+                qname=qname,
+                current_ontology_url=current_ontology_url,
+            )
+        )
 
         properties[label] = current_property
     return properties
 
 
-def extract_classes(rdf_classes, qname):
+def extract_classes(rdf_classes, qname, current_ontology_url=None):
     """
     Extract the classes from the RDF data.
     """
@@ -95,18 +113,28 @@ def extract_classes(rdf_classes, qname):
         current_class = classes[label]
         current_class.label = label
         current_class.definition = format_value(
-            rdf_class.get("classDefinition", {}), qname=qname
+            rdf_class.get("classDefinition", {}),
+            qname=qname,
+            current_ontology_url=current_ontology_url,
         )
-        current_class.term = format_value(rdf_class.get("domain", {}), qname=qname)
+        current_class.term = format_value(
+            rdf_class.get("domain", {}),
+            qname=qname,
+            current_ontology_url=current_ontology_url,
+        )
         current_class.add_property(
-            format_value(rdf_class.get("property", {}), qname=qname)
+            format_value(
+                rdf_class.get("property", {}),
+                qname=qname,
+                current_ontology_url=current_ontology_url,
+            )
         )
 
         classes[label] = current_class
     return classes
 
 
-def extract_enumerations(rdf_enumerations, qname):
+def extract_enumerations(rdf_enumerations, qname, current_ontology_url=None):
     """
     Extract the enumerations from the RDF data.
     """
@@ -119,19 +147,37 @@ def extract_enumerations(rdf_enumerations, qname):
         current_enumeration = enumerations[label]
         current_enumeration.label = label
         current_enumeration.definition = format_value(
-            rdf_enumeration.get("enumerationDefinition", {}), qname=qname
+            rdf_enumeration.get("enumerationDefinition", {}),
+            qname=qname,
+            current_ontology_url=current_ontology_url,
         )
         current_enumeration.term = format_value(
-            rdf_enumeration.get("enumerationValue", {}), qname=qname
+            rdf_enumeration.get("enumerationValue", {}),
+            qname=qname,
+            current_ontology_url=current_ontology_url,
         )
         current_enumeration.term = format_value(
-            rdf_enumeration.get("enumerationValue", {}), qname=qname
+            rdf_enumeration.get("enumerationValue", {}),
+            qname=qname,
+            current_ontology_url=current_ontology_url,
         )
         current_enumeration.add_property(
-            format_value(rdf_enumeration.get("property", {}), qname=qname)
+            format_value(
+                rdf_enumeration.get("property", {}),
+                qname=qname,
+                current_ontology_url=current_ontology_url,
+            )
         )
-        group_label = format_value(rdf_enumeration.get("groupLabel", {}), qname=qname)
-        group_term = format_value(rdf_enumeration.get("group", {}), qname=qname)
+        group_label = format_value(
+            rdf_enumeration.get("groupLabel", {}),
+            qname=qname,
+            current_ontology_url=current_ontology_url,
+        )
+        group_term = format_value(
+            rdf_enumeration.get("group", {}),
+            qname=qname,
+            current_ontology_url=current_ontology_url,
+        )
         enumeration_group = EnumerationGroup(label=group_label, term=group_term)
         current_enumeration.add_enumeration_group(enumeration_group)
 
@@ -142,6 +188,19 @@ def extract_enumerations(rdf_enumerations, qname):
 def group_format_enumerations(enumerations: Dict[str, Enumeration]):
     """
     Group the enumerations by the group term.
+
+    Args:
+        enumerations: A dictionary of enumerations.
+
+    Returns:
+        A dictionary of grouped enumerations.
+
+    Dictionary format:
+    {
+        "term": str,
+        "label": str,
+        "enumerations": List[Dict[str, str]]
+    }
     """
     grouped_enumerations = dict()
     for _, enumeration in enumerations.items():

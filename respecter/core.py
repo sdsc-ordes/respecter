@@ -56,9 +56,21 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
     concepts_data = concepts_query_result.get("results", {}).get("bindings", [])
     enumerations_data = enumerations_query_result.get("results", {}).get("bindings", [])
 
-    concepts = extract_classes(concepts_data, qname=graph.qname)
-    properties = extract_properties(concepts_data, qname=graph.qname)
-    enumerations = extract_enumerations(enumerations_data, qname=graph.qname)
+    concepts = extract_classes(
+        concepts_data,
+        qname=graph.qname,
+        current_ontology_url="https://swissdatacustodian.ch/doc/ontology#",
+    )
+    properties = extract_properties(
+        concepts_data,
+        qname=graph.qname,
+        current_ontology_url="https://swissdatacustodian.ch/doc/ontology#",
+    )
+    enumerations = extract_enumerations(
+        enumerations_data,
+        qname=graph.qname,
+        current_ontology_url="https://swissdatacustodian.ch/doc/ontology#",
+    )
 
     ontology = Ontology()
     ontology.import_from_rdf(ontology_metadata[0])
