@@ -95,7 +95,7 @@ def extract_properties(rdf_properties, qname, current_ontology_url=None):
             qname=qname,
             current_ontology_url=current_ontology_url,
         )
-        current_property.fragment_identifier = extract_fragment_identifier(
+        current_property.fragment_identifier = extract_fragment_identifier(  # TODO: refactor this to use the separator from the sparql config
             property.get("property", {}).get("value", "")
         )
         current_property.property = format_value(
@@ -139,7 +139,7 @@ def extract_classes(rdf_classes, qname, current_ontology_url=None):
             qname=qname,
             current_ontology_url=current_ontology_url,
         )
-        current_class.fragment_identifier = extract_fragment_identifier(
+        current_class.fragment_identifier = extract_fragment_identifier(  # TODO: refactor this to use the separator from the sparql config
             rdf_class.get("domain", {}).get("value", "")
         )
         current_class.term = format_value(
@@ -176,7 +176,7 @@ def extract_enumerations(rdf_enumerations, qname, current_ontology_url=None):
             qname=qname,
             current_ontology_url=current_ontology_url,
         )
-        current_enumeration.fragment_identifier = extract_fragment_identifier(
+        current_enumeration.fragment_identifier = extract_fragment_identifier(  # TODO: refactor this to use the separator from the sparql config
             rdf_enumeration.get("enumerationValue", {}).get("value", "")
         )
         current_enumeration.term = format_value(

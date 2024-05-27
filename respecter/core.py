@@ -12,11 +12,7 @@ from helpers import (
     format_enumerations,
     group_format_enumerations,
 )
-from sparql import (
-    apply_sparql_query_file,
-    build_concepts_query,
-    build_enumerations_query,
-)
+from sparql import apply_sparql_query_file, SparqlConfig
 from typing import List
 
 # Define the SPARQL query to retrieve the concepts
@@ -32,7 +28,9 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
     graph.parse(ontology_file_path)
     # Load the SPARQL query
 
-    concepts_query = build_concepts_query(sparql_config_file_path)
+    sparql_config = SparqlConfig(sparql_config_file_path)
+
+    concepts_query = sparql_config.build_concepts_query()
 
     # Save the query to a file (for debugging)
     if debug:
@@ -48,7 +46,7 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
     concepts_query_result = graph.query(concepts_query).serialize(format="json")
     concepts_query_result = json.loads(concepts_query_result)
 
-    enumerations_query = build_enumerations_query(sparql_config_file_path)
+    enumerations_query = sparql_config.build_enumerations_query()
     enumerations_query_result = graph.query(enumerations_query).serialize(format="json")
     enumerations_query_result = json.loads(enumerations_query_result)
 
@@ -59,17 +57,20 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
     concepts = extract_classes(
         concepts_data,
         qname=graph.qname,
-        current_ontology_url="https://swissdatacustodian.ch/doc/ontology#",
+        current_ontology_url=sparql_config.get_uri_base()
+        + sparql_config.get_uri_separator(),
     )
     properties = extract_properties(
         concepts_data,
         qname=graph.qname,
-        current_ontology_url="https://swissdatacustodian.ch/doc/ontology#",
+        current_ontology_url=sparql_config.get_uri_base()
+        + sparql_config.get_uri_separator(),
     )
     enumerations = extract_enumerations(
         enumerations_data,
         qname=graph.qname,
-        current_ontology_url="https://swissdatacustodian.ch/doc/ontology#",
+        current_ontology_url=sparql_config.get_uri_base()
+        + sparql_config.get_uri_separator(),
     )
 
     ontology = Ontology()
