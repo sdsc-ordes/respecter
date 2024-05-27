@@ -41,7 +41,7 @@
     <h2>Classes</h2>
 
     {% for concept in concepts %}
-    <h3>{{ concept.Label }}</h3>
+    <h3 id="{{ concept.FragmentIdentifier }}">{{ concept.Label }}</h3>
     <table class="def">
       {% for key, value in concept.items() %}
       <tr>
@@ -61,7 +61,7 @@
     <h2>Properties</h2>
 
     {% for property in properties %}
-    <h3>{{ property.Label }}</h3>
+    <h3 id="{{ property.FragmentIdentifier }}">{{ property.Label }}</h3>
     <table class="def">
       {% for key, value in property.items() %}
       <tr>
@@ -83,7 +83,7 @@
 
       {# iterate over the enum_dict to display the groups and their items #}
       {% for group in grouped_enumerations.values() %}
-      <h3>{{ group.label }}</h3>
+      <h3 id="{{ group.FragmentIdentifier }}">{{ group.label }}</h3>
       <table class="def">
         <tr>
           <td>Term</td>
@@ -91,7 +91,7 @@
         </tr>
       </table>
       {% for item in group.enumerations %}
-      <h4>{{ item.Label }}</h4>
+      <h4 id="{{ item.FragmentIdentifier }}">{{ item.Label }}</h4>
       <table class="def">
         {% for key, value in item.items() %}
         <tr>

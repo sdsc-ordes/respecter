@@ -58,6 +58,26 @@ def format_value(value, qname=None, current_ontology_url=None):
         return value["value"]
 
 
+def extract_fragment_identifier(uri_reference: str, separator="#"):
+    """
+    Extract the fragment identifier from the URI reference.
+
+    Args:
+        uri_reference: The URI reference.
+        separator: The separator to use to split the URI reference.
+
+    Returns:
+        The fragment identifier.
+
+    Examples:
+        >>> extract_fragment_identifier("https://example.com#fragment")
+        "fragment"
+    """
+    if separator in uri_reference:
+        return uri_reference.split("#")[1]
+    return ""
+
+
 def extract_properties(rdf_properties, qname, current_ontology_url=None):
     """
     Extract the properties from the RDF data.
@@ -75,7 +95,9 @@ def extract_properties(rdf_properties, qname, current_ontology_url=None):
             qname=qname,
             current_ontology_url=current_ontology_url,
         )
-
+        current_property.fragment_identifier = extract_fragment_identifier(
+            property.get("property", {}).get("value", "")
+        )
         current_property.property = format_value(
             property.get("property", {}),
             qname=qname,
@@ -117,6 +139,9 @@ def extract_classes(rdf_classes, qname, current_ontology_url=None):
             qname=qname,
             current_ontology_url=current_ontology_url,
         )
+        current_class.fragment_identifier = extract_fragment_identifier(
+            rdf_class.get("domain", {}).get("value", "")
+        )
         current_class.term = format_value(
             rdf_class.get("domain", {}),
             qname=qname,
@@ -151,10 +176,8 @@ def extract_enumerations(rdf_enumerations, qname, current_ontology_url=None):
             qname=qname,
             current_ontology_url=current_ontology_url,
         )
-        current_enumeration.term = format_value(
-            rdf_enumeration.get("enumerationValue", {}),
-            qname=qname,
-            current_ontology_url=current_ontology_url,
+        current_enumeration.fragment_identifier = extract_fragment_identifier(
+            rdf_enumeration.get("enumerationValue", {}).get("value", "")
         )
         current_enumeration.term = format_value(
             rdf_enumeration.get("enumerationValue", {}),
