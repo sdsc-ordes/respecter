@@ -146,14 +146,7 @@ def build_enumerations_query(config_file_path: str) -> str:
         + """ ?enumerationLabel.}
                         
         }
-        }
-        BIND(coalesce(?enumerationType1, ?enumerationType2) as ?range)
-        ?range """
-        + config.get_predicate("label")
-        + """ ?rangeLabel.
-        ?range """
-        + config.get_predicate("definition")
-        + """ ?rangeDefinition.
+        }    
         }
         """
     )
