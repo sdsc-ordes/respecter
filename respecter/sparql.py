@@ -33,6 +33,7 @@ class SparqlConfig:
 
     types: dict = field(default_factory=dict)
     predicates: dict = field(default_factory=dict)
+    prefixes: dict = field(default_factory=dict)
 
     def __init__(self, config_file_path):
         """
@@ -50,9 +51,13 @@ class SparqlConfig:
             raise ValueError('Element "type" not found in config file')
         if "predicate" not in _yaml_config:
             raise ValueError('Element "predicate" not found in config file')
+        if "prefix" not in _yaml_config:
+            raise ValueError('Element "prefix" not found in config file')
+        
 
         self.types = _yaml_config["type"]
         self.predicates = _yaml_config["predicate"]
+        self.prefixes = _yaml_config["prefix"]
 
     def get_type(self, type_name):
         """
@@ -69,7 +74,15 @@ class SparqlConfig:
         if predicate_name not in self.predicates:
             raise ValueError(f"Predicate {predicate_name} not found in config file")
         return self.predicates.get(predicate_name)
-
+    
+    def get_prefixes(self):
+        """
+        Get the prefixes from the config file.
+        """
+        prefixes = ""
+        for prefix, uri in self.prefixes.items():
+            prefixes += f"PREFIX {prefix}: {uri}\n"
+        return prefixes
 
 def build_enumerations_query(config_file_path: str) -> str:
     """
@@ -82,27 +95,12 @@ def build_enumerations_query(config_file_path: str) -> str:
         str: The complete SPARQL query string for enumerations.
     """
 
-    config = SparqlConfig(config_file_path)
-
+    config = SparqlConfig(config_file_path) 
     enumerations_query = (
+        
+        config.get_prefixes()
+        +
         """
-        PREFIX sh: <http://www.w3.org/ns/shacl#>
-        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-        PREFIX owl: <http://www.w3.org/2002/07/owl#>
-        PREFIX dct: <http://purl.org/dc/terms/>
-        PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
-        PREFIX vann: <http://purl.org/vocab/vann/>
-        prefix schema: <http://schema.org/>
-        prefix sd: <https://w3id.org/okn/o/sd#>
-        prefix bio: <https://bioschemas.org/>
-        prefix spe: <https://openschemas.github.io/spec-container/specifications/>
-        prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
-        prefix xsd:  <http://www.w3.org/2001/XMLSchema#> 
-        prefix shsh: <http://www.w3.org/ns/shacl-shacl#> 
-        prefix dcterms: <http://purl.org/dc/terms/> 
-        prefix ex: <https://epfl.ch/example/> 
-        prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
 
         SELECT DISTINCT ?enumerationValue ?enumerationLabel ?enumerationDefinition ?property ?propertyLabel ?group ?groupLabel
         WHERE { {
@@ -150,7 +148,7 @@ def build_enumerations_query(config_file_path: str) -> str:
         }
         """
     )
-
+    print(enumerations_query)
     return enumerations_query
 
 
@@ -168,25 +166,10 @@ def build_concepts_query(config_file_path: str) -> str:
     config = SparqlConfig(config_file_path)
 
     sparql_query = (
+        config.get_prefixes()
+        +
         """
-        PREFIX sh: <http://www.w3.org/ns/shacl#>
-        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-        PREFIX owl: <http://www.w3.org/2002/07/owl#>
-        PREFIX dct: <http://purl.org/dc/terms/>
-        PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
-        PREFIX vann: <http://purl.org/vocab/vann/>
-        prefix schema: <http://schema.org/>
-        prefix sd: <https://w3id.org/okn/o/sd#>
-        prefix bio: <https://bioschemas.org/>
-        prefix spe: <https://openschemas.github.io/spec-container/specifications/>
-        prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
-        prefix xsd:  <http://www.w3.org/2001/XMLSchema#> 
-        prefix shsh: <http://www.w3.org/ns/shacl-shacl#> 
-        prefix dcterms: <http://purl.org/dc/terms/> 
-        prefix ex: <https://epfl.ch/example/> 
-        prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
-        
+                
         SELECT ?domain ?classLabel ?classDefinition ?property ?propertyLabel ?propertyDefinition ?range ?example
         WHERE{
         
