@@ -36,8 +36,25 @@
       <p>"This ontology and the tool ReSpecter is still in active development. See <a
           href='https://github.com/sdsc-ordes/respecter/'>ReSpecter</a> for more details on the tool."</p>
     </aside>
+    <body>
+
+      <h1>Download File Example</h1>
+      
+      <button onclick="downloadFile()">Download File</button>
+      
+      <script>
+      function downloadFile() {
+          const link = document.createElement('a');
+          link.href = '{{ontology.url}}';
+          link.download = '';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      }
+      </script>
+      </body>
+      <body>  
   </section>
-  <section>
     <h2>Classes</h2>
 
     {% for concept in concepts %}
