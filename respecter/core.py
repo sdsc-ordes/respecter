@@ -78,6 +78,13 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
 
     return ontology, concepts, properties, enumerations
 
+def fix_prefixes(rendered_html):
+    """
+    Fixes a bug caused by rdflib replacing the prefix "schema" with "schema1".
+    """
+    if "schema1" in rendered_html:
+        rendered_html = rendered_html.replace("schema1", "schema")
+    return rendered_html
 
 def render_template(
     ontology: Ontology,
@@ -96,5 +103,5 @@ def render_template(
         properties=format_properties(properties),
         grouped_enumerations=grouped_enumerations,
     )
-
+    rendered_html = fix_prefixes(rendered_html)
     return rendered_html

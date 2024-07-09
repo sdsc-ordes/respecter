@@ -11,7 +11,7 @@
       publishDate: "{{ ontology.publishDate }}",
       specStatus: "ED",
       shortName: "ReSpecter",
-      github: "https://gitlab.com/data-custodian/custodian-ontology/-/blob/main/contract_shape_ontology.ttl?ref_type=heads",
+      github: "{{ ontology.url }}",
       authors: [
         {% for author in ontology.creators %}
     { name: "{{ author }}" },
