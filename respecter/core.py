@@ -51,6 +51,7 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
     enumerations_query_result = json.loads(enumerations_query_result)
 
     ontology_metadata = ontology_query_result.get("results", {}).get("bindings", [])
+    print(ontology_metadata)
     concepts_data = concepts_query_result.get("results", {}).get("bindings", [])
     enumerations_data = enumerations_query_result.get("results", {}).get("bindings", [])
 
@@ -93,7 +94,6 @@ def render_template(
     enumerations: List[Enumeration],
 ):
     grouped_enumerations = group_format_enumerations(enumerations)
-    print(grouped_enumerations)
     environment = Environment(loader=FileSystemLoader("templates"))
     template = environment.get_template("example.html")
     # Render the template

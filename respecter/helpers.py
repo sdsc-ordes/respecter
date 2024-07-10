@@ -44,7 +44,6 @@ def format_value(value, qname=None, current_ontology_url=None):
     elif value.get("type") == None:
         # Display a warning message
         print("Warning: missing value encountered.")
-        print(value)
         return ""
     else:  # FIXME: handle other types
         # Display a warning message
@@ -240,7 +239,6 @@ def group_format_enumerations(enumerations: Dict[str, Enumeration]):
     for group_label, group_data in grouped_enumerations.items():
         enumerations = group_data["enumerations"]
         sorted_enumerations = sorted(enumerations)
-        print(sorted_enumerations)
         grouped_enumerations[group_label]["enumerations"] = format_enumerations(
             sorted_enumerations
         )

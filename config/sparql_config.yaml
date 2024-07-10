@@ -1,6 +1,6 @@
 ontology:
-  uri_base: "https://swissdatacustodian.ch/doc/ontology"
-  separator: "#"
+  uri_base: "https://epfl.ch/example"
+  separator: "/"
 
 type:
   class: <http://www.w3.org/2000/01/rdf-schema#Class> #the class type in the ontology (could also be skos:Concept, owl:Class, etc.)
