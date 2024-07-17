@@ -5,7 +5,7 @@ PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX vann: <http://purl.org/vocab/vann/>
-SELECT DISTINCT ?ontology ?abstract (GROUP_CONCAT(DISTINCT ?contributor; separator="\n") as ?contributors) (GROUP_CONCAT(DISTINCT ?creator; separator="\n") as ?creators) ?description ?license ?modified ?title ?prefix ?uri ?version
+SELECT DISTINCT ?ontology ?abstract (GROUP_CONCAT(DISTINCT ?contributor; separator="\n") as ?contributors) (GROUP_CONCAT(DISTINCT ?creator; separator="\n") as ?creators) ?description ?license ?modified ?title ?prefix ?uri ?version ?download_url
 WHERE{
     {?ontology rdf:type owl:Ontology;
             dct:abstract ?abstract;
@@ -16,7 +16,8 @@ WHERE{
             dct:license ?license;
             dct:modified ?modified;
             dct:title ?title;
+            dct:downloadURL ?download_url ;
             vann:preferredNamespacePrefix ?prefix;
             vann:preferredNamespaceUri ?uri;
             owl:versionInfo ?version.}}
-    GROUP BY  ?ontology ?abstract ?created  ?description ?license ?modified ?title ?prefix ?uri ?version
+    GROUP BY  ?ontology ?abstract ?created ?download_url ?description ?license ?modified ?title ?prefix ?uri ?version
