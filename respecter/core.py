@@ -51,7 +51,6 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
     enumerations_query_result = json.loads(enumerations_query_result)
 
     ontology_metadata = ontology_query_result.get("results", {}).get("bindings", [])
-    print(ontology_metadata)
     concepts_data = concepts_query_result.get("results", {}).get("bindings", [])
     enumerations_data = enumerations_query_result.get("results", {}).get("bindings", [])
 
@@ -73,10 +72,8 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
         current_ontology_url=sparql_config.get_uri_base()
         + sparql_config.get_uri_separator(),
     )
-
     ontology = Ontology()
     ontology.import_from_rdf(ontology_metadata[0])
-
     return ontology, concepts, properties, enumerations
 
 def fix_prefixes(rendered_html):
