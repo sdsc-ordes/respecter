@@ -13,6 +13,7 @@ class Ontology:
     publish_date: str = ""
     contributors: list = field(default_factory=list)
     creators: list = field(default_factory=list)
+    download_url: str = ""
 
     def to_dict(self):
         return {
@@ -22,6 +23,7 @@ class Ontology:
             "publish_date": self.publish_date,
             "contributors": self.contributors,
             "creators": self.creators,
+            "download_url": self.download_url,
         }
 
     def import_from_rdf(self, rdf_ontology):
@@ -33,6 +35,7 @@ class Ontology:
             rdf_ontology.get("contributors", {}).get("value", "").split("\n")
         )
         self.creators = rdf_ontology.get("creators", {}).get("value", "").split("\n")
+        self.download_url = rdf_ontology.get("download_url", {}).get("value", "")
 
 
 @dataclass
