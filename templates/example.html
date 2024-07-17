@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <!-- <meta charset="utf-8" /> -->
+  <meta charset="utf-8" />
   <title>{{ontology.title}}</title>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
   <script class="remove">
@@ -38,15 +38,14 @@
     </aside>
     <body>
 
-      <h1>Download File Example</h1>
-      
+      <h1>Download File</h1>
       <button onclick="downloadFile()">Download File</button>
       
       <script>
       function downloadFile() {
           const link = document.createElement('a');
-          link.href = '{{ontology.url}}';
-          link.download = '';
+          link.href = '{{ontology.download_url}}';
+          link.download = 'ontology.ttl';
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
