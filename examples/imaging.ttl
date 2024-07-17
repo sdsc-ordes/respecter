@@ -38,6 +38,7 @@
     dct:license <https://spdx.org/licenses/CC-BY-SA-4.0.html> ;
     dct:modified "2024-05-06"^^xsd:date ;
     dct:title "Imaging Plaza Ontology" ;
+    dct:downloadURL "https://raw.githubusercontent.com/sdsc-ordes/imaging-plaza-ontology/picklists-restructure/imaging-ontology-combined.ttl" ;
     vann:preferredNamespacePrefix "ex" ;
     vann:preferredNamespaceUri "https://imaging-plaza.epfl.ch/ontology#"^^xsd:string ;
     owl:versionInfo "0.6.0"^^xsd:string ;
