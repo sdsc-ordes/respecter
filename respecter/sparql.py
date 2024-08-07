@@ -97,6 +97,8 @@ class SparqlConfig:
             prefix dcterms: <http://purl.org/dc/terms/> 
             prefix ex: <https://epfl.ch/example/> 
             prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
+            prefix sdc:  <https://swissdatacustodian.ch/doc/ontology#>
+            prefix dpv:  <https://w3id.org/dpv#> 
 
             SELECT DISTINCT ?enumerationValue ?enumerationLabel ?enumerationDefinition ?property ?propertyLabel ?group ?groupLabel
             WHERE { {
@@ -177,6 +179,8 @@ class SparqlConfig:
             prefix dcterms: <http://purl.org/dc/terms/> 
             prefix ex: <https://epfl.ch/example/> 
             prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
+            prefix sdc:  <https://swissdatacustodian.ch/doc/ontology#>
+            prefix dpv:  <https://w3id.org/dpv#> 
             
             SELECT ?domain ?classLabel ?classDefinition ?property ?propertyLabel ?propertyDefinition ?range ?example
             WHERE{
@@ -243,3 +247,4 @@ def debug_sparql_query(file):
     """
     with open(file, "r") as f:
         return json.load(f)
+
