@@ -29,9 +29,15 @@ def format_value(value, qname=None, current_ontology_url=None):
     """
     # FIXME: the following section is a hack to have a working example.
     # This should be done differently and follow the Respec syntax for URLs.
+    
     if value.get("type") == "uri":
         if current_ontology_url and value["value"].startswith(current_ontology_url):
             value_uri = value["value"].replace(current_ontology_url, "#")
+          
+        elif is_swissdatacustodian_ontology_uri(value["value"]):
+            fragment_identifier = extract_fragment_identifier(value["value"])
+            value_uri = f"#{fragment_identifier}"
+                  
         else:
             value_uri = value["value"]
         if qname:
@@ -76,6 +82,23 @@ def extract_fragment_identifier(uri_reference: str, separator="#"):
         return uri_reference.split("#")[1]
     return ""
 
+def is_swissdatacustodian_ontology_uri(uri: str) -> bool:
+  """
+  Checks if the given URI starts with the base URL for the Swiss Data Custodian ontology.
+
+  Args:
+      uri (str): The URI to be checked.
+
+  Returns:
+      bool: True if the URI starts with the base URL, False otherwise.
+  """
+
+  # Ensure the URI is a string and not empty
+  if not isinstance(uri, str) or not uri.strip():
+    return False
+
+  # Check if the URI starts with the base URL (case-sensitive)
+  return uri.startswith("https://swissdatacustodian.ch/doc/ontology#")
 
 def extract_properties(rdf_properties, qname, current_ontology_url=None):
     """
