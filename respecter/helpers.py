@@ -20,6 +20,7 @@ def format_properties(properties):
     """
     Format the properties to be used in the template.
     """
+
     return [property.to_dict() for property in properties.values()]
 
 
@@ -34,7 +35,7 @@ def format_value(value, qname=None, current_ontology_url=None):
         if current_ontology_url and value["value"].startswith(current_ontology_url):
             value_uri = value["value"].replace(current_ontology_url, "#")
           
-        elif is_swissdatacustodian_ontology_uri(value["value"]):
+        elif is_sdc_base_uri(value["value"]):
             fragment_identifier = extract_fragment_identifier(value["value"])
             value_uri = f"#{fragment_identifier}"
                   
@@ -82,7 +83,7 @@ def extract_fragment_identifier(uri_reference: str, separator="#"):
         return uri_reference.split("#")[1]
     return ""
 
-def is_swissdatacustodian_ontology_uri(uri: str) -> bool:
+def is_sdc_base_uri(uri: str) -> bool:
   """
   Checks if the given URI starts with the base URL for the Swiss Data Custodian ontology.
 
