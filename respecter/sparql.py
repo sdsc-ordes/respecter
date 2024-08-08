@@ -97,8 +97,6 @@ class SparqlConfig:
             prefix dcterms: <http://purl.org/dc/terms/> 
             prefix ex: <https://epfl.ch/example/> 
             prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
-            prefix sdc:  <https://swissdatacustodian.ch/doc/ontology#>
-            prefix dpv:  <https://w3id.org/dpv#> 
 
             SELECT DISTINCT ?enumerationValue ?enumerationLabel ?enumerationDefinition ?property ?propertyLabel ?group ?groupLabel
             WHERE { {
@@ -126,11 +124,14 @@ class SparqlConfig:
             }
             UNION
             {
-                ?propertyShape sh:or/rdf:rest*/rdf:first/sh:class ?enumerationType2 .
-                ?enumerationType2 rdfs:subClassOf """
+                ?propertyShape sh:or/rdf:rest*/rdf:first/sh:class ?group .
+                ?group rdfs:subClassOf """
             + self.get_type("enumeration")
             + """.
-                ?enumerationValue a ?enumerationType2 .
+                ?enumerationValue a ?group .
+                ?group """
+            + self.get_predicate("label")
+            + """ ?groupLabel .
                         OPTIONAL{?enumerationValue """
             + self.get_predicate("label")
             + """ ?enumerationDefinition .}
@@ -139,13 +140,6 @@ class SparqlConfig:
             + """ ?enumerationLabel.}
             }
             }
-                BIND(coalesce(?enumerationType1, ?enumerationType2) as ?range)
-                ?range """
-            + self.get_predicate("label")
-            + """ ?rangeLabel.
-                ?range """
-            + self.get_predicate("definition")
-            + """ ?rangeDefinition.
             }
             """
         )
