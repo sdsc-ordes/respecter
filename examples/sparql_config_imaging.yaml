@@ -1,17 +1,16 @@
-ontology: # Replace with the actual ontology base URI
-  uri_base: ${uri_base}
-  separator: ${separator}
+ontology:
+  uri_base: "https://epfl.ch/example"
+  separator: "/"
 
 type:
-  class: ${class} #the class type in the ontology (could also be skos:Concept, owl:Class, etc.)
-  property: ${property} 
-  enumeration: ${enumerationType}
+  class: <http://www.w3.org/2000/01/rdf-schema#Class> 
+  property: <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>
+  enumeration: <https://epfl.ch/example/EnumerationType> 
 
 predicate:
-  definition: ${definition}
-  label:  ${label}
-  example: ${example}
-
+  definition: <http://www.w3.org/2000/01/rdf-schema#comment> 
+  label: <http://www.w3.org/2000/01/rdf-schema#label> 
+  example: <http://www.w3.org/2004/02/skos/core#example> 
 
 prefix:
   sh: <http://www.w3.org/ns/shacl#>
@@ -31,4 +30,3 @@ prefix:
   dcterms: <http://purl.org/dc/terms/> 
   ex: <https://epfl.ch/example/> 
   md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
-  dpv:  <https://w3id.org/dpv#>

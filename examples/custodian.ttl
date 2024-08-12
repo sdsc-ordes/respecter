@@ -78,7 +78,7 @@ sdc:SignatureShape a sh:NodeShape ;
                 sdc:identifier,
                 sdc:hasSignatureShape.
 
-###################################################################################################################
+# ###################################################################################################################
 
 dpv:Contract a rdfs:Class ;
     skos:definition "Creation, completion, fulfilment, or performance of a contract involving specified processing" ;
@@ -130,17 +130,17 @@ dcat:endDate a rdf:Property ;
     .
 
 dpv:hasDataController a rdf:Property ;    
-    skos:prefLabel "has data controller" ;
+    skos:prefLabel "Has data controller" ;
     skos:definition "Indicates association with Data Controller" ;
     .
 
 dpv:hasDataSubject a rdf:Property ;    
-    skos:prefLabel "has data subject" ; 
+    skos:prefLabel "Has data subject" ; 
     skos:definition "Indicates association with Data Subject" ;
     .
 
 dpv:hasDataProcessor a rdf:Property ;    
-    skos:prefLabel "has data processor" ; 
+    skos:prefLabel "Has data processor" ; 
     skos:definition "Indiciates inclusion or applicability of a Data Processor" ;
     .
 
@@ -155,7 +155,7 @@ dpv:hasPersonalData a rdf:Property ;
     .
 
 dpv:hasProcessing a rdf:Property ;
-    skos:prefLabel "Has processing" ;
+    skos:prefLabel "has processing" ;
     skos:definition "Indicates association with Processing" ;
     .
 
@@ -348,10 +348,6 @@ sdc:hasSignatureShape a sh:PropertyShape ;
     sh:class sdc:Signature ;
     .
 
-
-
-
-
 #High level Enumeration type class, under which all enumeration classes fall
 sdc:EnumerationType a rdfs:Class ;
     rdfs:subClassOf schema:Enumeration ;
@@ -379,7 +375,6 @@ sdc:OrganisationalMeasureEnumeration a rdfs:Class ;
     rdfs:subClassOf sdc:EnumerationType ;
     skos:prefLabel "Organisational Measure Enumeration" ;
 .
-
 sdc:TechnicalMeasureEnumeration a rdfs:Class ;
     skos:definition "An enumeration class for different technical measures to be typed as" ;
     rdfs:subClassOf sdc:EnumerationType ;

@@ -20,6 +20,7 @@ def format_properties(properties):
     """
     Format the properties to be used in the template.
     """
+
     return [property.to_dict() for property in properties.values()]
 
 
@@ -29,9 +30,11 @@ def format_value(value, qname=None, current_ontology_url=None):
     """
     # FIXME: the following section is a hack to have a working example.
     # This should be done differently and follow the Respec syntax for URLs.
+    
     if value.get("type") == "uri":
         if current_ontology_url and value["value"].startswith(current_ontology_url):
             value_uri = value["value"].replace(current_ontology_url, "#")
+                  
         else:
             value_uri = value["value"]
         if qname:
@@ -116,7 +119,6 @@ def extract_properties(rdf_properties, qname, current_ontology_url=None):
                 current_ontology_url=current_ontology_url,
             )
         )
-
         properties[label] = current_property
     return properties
 
@@ -200,10 +202,14 @@ def extract_enumerations(rdf_enumerations, qname, current_ontology_url=None):
             qname=qname,
             current_ontology_url=current_ontology_url,
         )
-        enumeration_group = EnumerationGroup(label=group_label, term=group_term)
+        group_fragment_identifier = extract_fragment_identifier(  # TODO: refactor this to use the separator from the sparql config
+            rdf_enumeration.get("group", {}).get("value", "")                                         
+        )
+        enumeration_group = EnumerationGroup(label=group_label, term=group_term, fragment_identifier=group_fragment_identifier)
         current_enumeration.add_enumeration_group(enumeration_group)
 
         enumerations[label] = current_enumeration
+        
     return enumerations
 
 
@@ -231,6 +237,7 @@ def group_format_enumerations(enumerations: Dict[str, Enumeration]):
                 grouped_enumerations[enumeration_group.term] = {
                     "term": enumeration_group.term,
                     "label": enumeration_group.label,
+                    "fragment_identifier": enumeration_group.fragment_identifier,
                     "enumerations": [],
                 }
             grouped_enumerations[enumeration_group.term]["enumerations"].append(
