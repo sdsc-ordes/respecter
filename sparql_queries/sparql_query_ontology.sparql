@@ -3,16 +3,27 @@ PREFIX vann: <http://purl.org/vocab/vann/>
 
 SELECT ?ontology ?title ?description ?prefix ?uri ?version ?abstract ?modified ?license (GROUP_CONCAT(DISTINCT ?contributor; separator="\n") as ?contributors) (GROUP_CONCAT(DISTINCT ?creator; separator="\n") as ?creators)
 WHERE {
-  ?ontology dct:title ?title ;
-           dct:description ?description ;
-           dct:abstract ?abstract;
-           dct:contributor ?contributor;
-           dct:creator ?creator;
-           dct:license ?license;
-           dct:modified ?modified;
-           vann:preferredNamespacePrefix ?prefix ;
-           vann:preferredNamespaceUri ?uri ;
-           owl:versionInfo ?version .
+  OPTIONAL {?ontology dct:title ?title ;}
+  
+  OPTIONAL {?ontology dct:description ?description ;}
+  
+  OPTIONAL {?ontology dct:abstract ?abstract;}
+
+  OPTIONAL {?ontology dct:contributor ?contributor; }
+
+  OPTIONAL {?ontology dct:creator ?creator;}
+
+  OPTIONAL {?ontology dct:license ?license;}
+
+  OPTIONAL {?ontology dct:modified ?modified;}
+
+  OPTIONAL {?ontology vann:preferredNamespacePrefix ?prefix ;}
+
+  OPTIONAL {?ontology vann:preferredNamespaceUri ?uri ; }
+
+  OPTIONAL {?ontology owl:versionInfo ?version  }
+.
+           
 } 
 
 
