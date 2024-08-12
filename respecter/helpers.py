@@ -34,10 +34,6 @@ def format_value(value, qname=None, current_ontology_url=None):
     if value.get("type") == "uri":
         if current_ontology_url and value["value"].startswith(current_ontology_url):
             value_uri = value["value"].replace(current_ontology_url, "#")
-          
-        elif is_sdc_base_uri(value["value"]):
-            fragment_identifier = extract_fragment_identifier(value["value"])
-            value_uri = f"#{fragment_identifier}"
                   
         else:
             value_uri = value["value"]
@@ -83,23 +79,6 @@ def extract_fragment_identifier(uri_reference: str, separator="#"):
         return uri_reference.split("#")[1]
     return ""
 
-def is_sdc_base_uri(uri: str) -> bool:
-  """
-  Checks if the given URI starts with the base URL for the Swiss Data Custodian ontology.
-
-  Args:
-      uri (str): The URI to be checked.
-
-  Returns:
-      bool: True if the URI starts with the base URL, False otherwise.
-  """
-
-  # Ensure the URI is a string and not empty
-  if not isinstance(uri, str) or not uri.strip():
-    return False
-
-  # Check if the URI starts with the base URL (case-sensitive)
-  return uri.startswith("https://swissdatacustodian.ch/doc/ontology#")
 
 def extract_properties(rdf_properties, qname, current_ontology_url=None):
     """
@@ -140,7 +119,6 @@ def extract_properties(rdf_properties, qname, current_ontology_url=None):
                 current_ontology_url=current_ontology_url,
             )
         )
-
         properties[label] = current_property
     return properties
 
@@ -224,10 +202,14 @@ def extract_enumerations(rdf_enumerations, qname, current_ontology_url=None):
             qname=qname,
             current_ontology_url=current_ontology_url,
         )
-        enumeration_group = EnumerationGroup(label=group_label, term=group_term)
+        group_fragment_identifier = extract_fragment_identifier(  # TODO: refactor this to use the separator from the sparql config
+            rdf_enumeration.get("group", {}).get("value", "")                                         
+        )
+        enumeration_group = EnumerationGroup(label=group_label, term=group_term, fragment_identifier=group_fragment_identifier)
         current_enumeration.add_enumeration_group(enumeration_group)
 
         enumerations[label] = current_enumeration
+        
     return enumerations
 
 
@@ -255,6 +237,7 @@ def group_format_enumerations(enumerations: Dict[str, Enumeration]):
                 grouped_enumerations[enumeration_group.term] = {
                     "term": enumeration_group.term,
                     "label": enumeration_group.label,
+                    "fragment_identifier": enumeration_group.fragment_identifier,
                     "enumerations": [],
                 }
             grouped_enumerations[enumeration_group.term]["enumerations"].append(
