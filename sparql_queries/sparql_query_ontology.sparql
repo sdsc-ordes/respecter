@@ -16,28 +16,5 @@ WHERE {
 } 
 
 
-# PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-# PREFIX owl: <http://www.w3.org/2002/07/owl#>
-# PREFIX dct: <http://purl.org/dc/terms/>
-# PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
-# PREFIX sh: <http://www.w3.org/ns/shacl#>
-# PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-# PREFIX vann: <http://purl.org/vocab/vann/>
-# SELECT DISTINCT ?ontology ?abstract (GROUP_CONCAT(DISTINCT ?contributor; separator="\n") as ?contributors) (GROUP_CONCAT(DISTINCT ?creator; separator="\n") as ?creators) ?description ?license ?modified ?title ?prefix ?uri ?version ?download_url
-# WHERE{
-#     {?ontology rdf:type owl:Ontology;
-#             dct:abstract ?abstract;
-#             dct:contributor ?contributor;
-#             dct:created ?created;
-#             dct:creator ?creator;
-#             dct:description ?description;
-#             dct:license ?license;
-#             dct:modified ?modified;
-#             dct:title ?title;
-#             dct:downloadURL ?download_url ;
-#             vann:preferredNamespacePrefix ?prefix;
-#             vann:preferredNamespaceUri ?uri;
-#             owl:versionInfo ?version.}}
-#     GROUP BY  ?ontology ?abstract ?created ?download_url ?description ?license ?modified ?title ?prefix ?uri ?version
 
 
