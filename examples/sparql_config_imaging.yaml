@@ -1,0 +1,32 @@
+ontology:
+  uri_base: "https://epfl.ch/example"
+  separator: "/"
+
+type:
+  class: <http://www.w3.org/2000/01/rdf-schema#Class> 
+  property: <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>
+  enumeration: <https://epfl.ch/example/EnumerationType> 
+
+predicate:
+  definition: <http://www.w3.org/2000/01/rdf-schema#comment> 
+  label: <http://www.w3.org/2000/01/rdf-schema#label> 
+  example: <http://www.w3.org/2004/02/skos/core#example> 
+
+prefix:
+  sh: <http://www.w3.org/ns/shacl#>
+  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+  skos: <http://www.w3.org/2004/02/skos/core#>
+  owl: <http://www.w3.org/2002/07/owl#>
+  dct: <http://purl.org/dc/terms/>
+  dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
+  vann: <http://purl.org/vocab/vann/>
+  schema: <http://schema.org/>
+  sd: <https://w3id.org/okn/o/sd#>
+  bio: <https://bioschemas.org/>
+  spe: <https://openschemas.github.io/spec-container/specifications/>
+  rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+  xsd:  <http://www.w3.org/2001/XMLSchema#> 
+  shsh: <http://www.w3.org/ns/shacl-shacl#> 
+  dcterms: <http://purl.org/dc/terms/> 
+  ex: <https://epfl.ch/example/> 
+  md4i: <http://w3id.org/nfdi4ing/metadata4ing#>

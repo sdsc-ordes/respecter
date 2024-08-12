@@ -1,0 +1,34 @@
+ontology:
+  uri_base: "https://swissdatacustodian.ch/doc/ontology"
+  separator: "#"
+
+type:
+  class: <http://www.w3.org/2000/01/rdf-schema#Class> #the class type in the ontology (could also be skos:Concept, owl:Class, etc.)
+  property: <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> #the property type in the ontology (could also be owl:ObjectProperty, owl:DatatypeProperty, etc.)
+  enumeration: <https://swissdatacustodian.ch/doc/ontology#EnumerationType> 
+
+predicate:
+  definition: <http://www.w3.org/2004/02/skos/core#definition>
+  label:  <http://www.w3.org/2004/02/skos/core#prefLabel>
+  example: <http://www.w3.org/2004/02/skos/core#example>
+
+prefix:
+  sh: <http://www.w3.org/ns/shacl#>
+  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+  skos: <http://www.w3.org/2004/02/skos/core#>
+  owl: <http://www.w3.org/2002/07/owl#>
+  dct: <http://purl.org/dc/terms/>
+  dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
+  vann: <http://purl.org/vocab/vann/>
+  schema: <http://schema.org/>
+  sd: <https://w3id.org/okn/o/sd#>
+  bio: <https://bioschemas.org/>
+  spe: <https://openschemas.github.io/spec-container/specifications/>
+  rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+  xsd:  <http://www.w3.org/2001/XMLSchema#> 
+  shsh: <http://www.w3.org/ns/shacl-shacl#> 
+  dcterms: <http://purl.org/dc/terms/> 
+  ex: <https://epfl.ch/example/> 
+  md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
+  sdc:  <https://swissdatacustodian.ch/doc/ontology#> # For the custodian
+  dpv:  <https://w3id.org/dpv#>
