@@ -1,6 +1,6 @@
 ontology:
-  uri_base: "https://epfl.ch/example"
-  separator: "/"
+  uri_base: "https://swissdatacustodian.ch/doc/ontology"
+  separator: "#"
 
 type:
   class: <http://www.w3.org/2000/01/rdf-schema#Class> #the class type in the ontology (could also be skos:Concept, owl:Class, etc.)
@@ -12,6 +12,7 @@ predicate:
   #definition: <http://www.w3.org/2000/01/rdf-schema#comment> # For example: <http://www.w3.org/2004/02/skos/core#definition> or <http://www.w3.org/2000/01/rdf-schema#comment> 
   #label: <http://www.w3.org/2000/01/rdf-schema#label> # For example: <http://www.w3.org/2004/02/skos/core#prefLabel> or <http://www.w3.org/2000/01/rdf-schema#label>
   #example: <http://www.w3.org/2004/02/skos/core#example> # For example: <http://www.w3.org/2004/02/skos/core#example>
+
   definition: <http://www.w3.org/2004/02/skos/core#definition>
   label:  <http://www.w3.org/2004/02/skos/core#prefLabel>
   example: <http://www.w3.org/2004/02/skos/core#example>
