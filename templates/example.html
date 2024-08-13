@@ -29,6 +29,7 @@
   <section id="abstract">
     <p>{{ ontology.abstract }}</p>
   </section>
+
   <section class="informative">
     <h2>Introduction</h2>
     <p>{{ ontology.introduction }}</p>
@@ -36,11 +37,9 @@
       <p>"This ontology and the tool ReSpecter is still in active development. See <a
           href='https://github.com/sdsc-ordes/respecter/'>ReSpecter</a> for more details on the tool."</p>
     </aside>
-    <body>
-
-      <h1>Download File</h1>
+    <section>
+      <h3>Download File</h3>
       <button onclick="downloadFile()">Download File</button>
-      
       <script>
       function downloadFile() {
           const link = document.createElement('a');
@@ -51,9 +50,10 @@
           document.body.removeChild(link);
       }
       </script>
-      </body>
-      <body>  
+    </section> 
   </section>
+
+  <section>
     <h2>Classes</h2>
 
     {% for concept in concepts %}
@@ -93,37 +93,37 @@
     {% endfor %}
   </section>
 
-  <body>
-    <section>
-      <h2>Enumeration Values</h2>
 
-      {# iterate over the enum_dict to display the groups and their items #}
-      {% for group in grouped_enumerations.values() %}
-      <h3 id="{{ group.FragmentIdentifier }}">{{ group.label }}</h3>
-      <table class="def">
-        <tr>
-          <td>Term</td>
-          <td>{{ group.term }}</td>
-        </tr>
-      </table>
-      {% for item in group.enumerations %}
-      <h4 id="{{ item.FragmentIdentifier }}">{{ item.Label }}</h4>
-      <table class="def">
-        {% for key, value in item.items() %}
-        <tr>
-          <td>
-            <p>{{ key }}</p>
-          </td>
-          <td>
-            <p>{{ value }}</p>
-          </td>
-        </tr>
-        {% endfor %}
-      </table>
+  <section>
+    <h2>Enumeration Values</h2>
+
+    {# iterate over the enum_dict to display the groups and their items #}
+    {% for group in grouped_enumerations.values() %}
+    <h3 id="{{ group.FragmentIdentifier }}">{{ group.label }}</h3>
+    <table class="def">
+      <tr>
+        <td>Term</td>
+        <td>{{ group.term }}</td>
+      </tr>
+    </table>
+    {% for item in group.enumerations %}
+    <h4 id="{{ item.FragmentIdentifier }}">{{ item.Label }}</h4>
+    <table class="def">
+      {% for key, value in item.items() %}
+      <tr>
+        <td>
+          <p>{{ key }}</p>
+        </td>
+        <td>
+          <p>{{ value }}</p>
+        </td>
+      </tr>
       {% endfor %}
-      {% endfor %}
-    </section>
-  </body>
+    </table>
+    {% endfor %}
+    {% endfor %}
+  </section>
+</body>
 
 
 </html>
