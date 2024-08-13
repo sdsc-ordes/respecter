@@ -98,7 +98,7 @@ class SparqlConfig:
             prefix ex: <https://epfl.ch/example/> 
             prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
 
-            SELECT DISTINCT ?enumerationValue ?enumerationLabel ?enumerationDefinition ?property ?propertyLabel ?group ?groupLabel
+            SELECT DISTINCT ?enumerationValue ?enumerationLabel ?enumerationDefinition ?property ?propertyLabel ?group ?groupLabel ?groupDefinition
             WHERE { {
             ?propertyShape a sh:PropertyShape .
                     ?propertyShape sh:path ?property.
@@ -115,6 +115,9 @@ class SparqlConfig:
                         ?group """
             + self.get_predicate("label")
             + """ ?groupLabel .
+            ?group """
+            + self.get_predicate("definition")
+            + """ ?groupDefinition .
                         OPTIONAL{?enumerationValue """
             + self.get_predicate("definition")
             + """ ?enumerationDefinition .}
@@ -130,6 +133,9 @@ class SparqlConfig:
             + """.
                 ?enumerationValue a ?group .
                 ?group """
+            + self.get_predicate("definition")
+            + """ ?groupDefinition .
+            ?group """
             + self.get_predicate("label")
             + """ ?groupLabel .
                         OPTIONAL{?enumerationValue """
@@ -241,4 +247,5 @@ def debug_sparql_query(file):
     """
     with open(file, "r") as f:
         return json.load(f)
+
 
