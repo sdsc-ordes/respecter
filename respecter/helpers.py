@@ -177,7 +177,6 @@ def extract_enumerations(rdf_enumerations, qname, current_ontology_url=None):
             qname=qname,
             current_ontology_url=current_ontology_url,
         )
-        print(f"current_enumeration.definition: {current_enumeration.definition}")
         current_enumeration.fragment_identifier = extract_fragment_identifier(  # TODO: refactor this to use the separator from the sparql config
             rdf_enumeration.get("enumerationValue", {}).get("value", "")
         )
@@ -239,9 +238,6 @@ def group_format_enumerations(enumerations: Dict[str, Enumeration]):
     grouped_enumerations = dict()
     for _, enumeration in enumerations.items():
         for enumeration_group in enumeration.enumeration_group:
-            print("************************************************************************************************")
-            print(f"grouped_enumerations : {enumeration_group}")
-            print("************************************************************************************************")
             if enumeration_group.term not in grouped_enumerations:
                 grouped_enumerations[enumeration_group.term] = {
                     "term": enumeration_group.term,
