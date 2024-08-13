@@ -177,6 +177,7 @@ def extract_enumerations(rdf_enumerations, qname, current_ontology_url=None):
             qname=qname,
             current_ontology_url=current_ontology_url,
         )
+        print(f"current_enumeration.definition: {current_enumeration.definition}")
         current_enumeration.fragment_identifier = extract_fragment_identifier(  # TODO: refactor this to use the separator from the sparql config
             rdf_enumeration.get("enumerationValue", {}).get("value", "")
         )
@@ -205,7 +206,12 @@ def extract_enumerations(rdf_enumerations, qname, current_ontology_url=None):
         group_fragment_identifier = extract_fragment_identifier(  # TODO: refactor this to use the separator from the sparql config
             rdf_enumeration.get("group", {}).get("value", "")                                         
         )
-        enumeration_group = EnumerationGroup(label=group_label, term=group_term, fragment_identifier=group_fragment_identifier)
+        group_definition = format_value(
+            rdf_enumeration.get("groupDefinition", {}),
+            qname=qname,
+            current_ontology_url=current_ontology_url,
+        )
+        enumeration_group = EnumerationGroup(label=group_label, term=group_term, fragment_identifier=group_fragment_identifier, definition=group_definition)
         current_enumeration.add_enumeration_group(enumeration_group)
 
         enumerations[label] = current_enumeration
@@ -233,16 +239,21 @@ def group_format_enumerations(enumerations: Dict[str, Enumeration]):
     grouped_enumerations = dict()
     for _, enumeration in enumerations.items():
         for enumeration_group in enumeration.enumeration_group:
+            print("************************************************************************************************")
+            print(f"grouped_enumerations : {enumeration_group}")
+            print("************************************************************************************************")
             if enumeration_group.term not in grouped_enumerations:
                 grouped_enumerations[enumeration_group.term] = {
                     "term": enumeration_group.term,
                     "label": enumeration_group.label,
-                    "fragment_identifier": enumeration_group.fragment_identifier,
+                    "FragmentIdentifier": enumeration_group.fragment_identifier,
                     "enumerations": [],
                 }
             grouped_enumerations[enumeration_group.term]["enumerations"].append(
                 enumeration
             )
+            
+            
     for group_label, group_data in grouped_enumerations.items():
         enumerations = group_data["enumerations"]
         sorted_enumerations = sorted(enumerations)
