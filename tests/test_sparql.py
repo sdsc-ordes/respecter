@@ -1,7 +1,7 @@
 import pytest
 import rdflib
 
-from respecter.sparql import sparql_query, apply_sparql_query_file, SparqlConfig
+from sparql import sparql_query, apply_sparql_query_file, SparqlConfig
 
 LANGUAGES_DATA_FILE_PATH = "tests/data/languages.ttl"
 SPARQL_FILE_PATH = "tests/sparql/languages.sparql"
