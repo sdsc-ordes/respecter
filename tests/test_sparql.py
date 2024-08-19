@@ -1,10 +1,11 @@
 import pytest
 import rdflib
 
-from respecter.sparql import sparql_query, apply_sparql_query_file
+from respecter.sparql import sparql_query, apply_sparql_query_file, SparqlConfig
 
 LANGUAGES_DATA_FILE_PATH = "tests/data/languages.ttl"
 SPARQL_FILE_PATH = "tests/sparql/languages.sparql"
+SPARQL_CONFIG_FILE_PATH = "tests/config/sparql_config.yaml"
 
 SAMPLE_SPARQL = """
 SELECT ?subject WHERE {
@@ -33,3 +34,14 @@ def test_apply_sparql_query():
 
     assert len(bindings) == 1
     assert bindings[0].get("subject", {}).get("value", "") == "https://example.com/Alice"
+
+def test_load_sparql_config():
+    sparql_config = SparqlConfig(SPARQL_CONFIG_FILE_PATH)
+    assert sparql_config.get_uri_base() == "https://example.com"
+    assert sparql_config.get_uri_separator() == "/"
+    assert sparql_config.get_type("class") == "<http://www.w3.org/2000/01/rdf-schema#Class>"
+    assert sparql_config.get_type("property") == "<http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>"
+    assert sparql_config.get_type("enumeration") == "<https://epfl.ch/example/EnumerationType>"
+    assert sparql_config.get_predicate("definition") == "<http://www.w3.org/2000/01/rdf-schema#comment>"
+    assert sparql_config.get_predicate("example") == "<http://www.w3.org/2004/02/skos/core#example>"
+    assert sparql_config.get_predicate("label") == "<http://www.w3.org/2000/01/rdf-schema#label>"
