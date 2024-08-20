@@ -13,6 +13,8 @@ from helpers import (
 )
 from sparql import apply_sparql_query_file, SparqlConfig
 from typing import List
+from pyshacl import validate
+from rdflib import Graph
 
 # Define the SPARQL query to retrieve the concepts
 ONTOLOGY_SPARQL = "sparql_queries/sparql_query_ontology.sparql"
@@ -78,7 +80,7 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
     )
     ontology = Ontology()
     ontology.import_from_rdf(ontology_metadata[0])
-   
+    
     return ontology, concepts, properties, enumerations
 
 def fix_prefixes(rendered_html):
@@ -88,6 +90,33 @@ def fix_prefixes(rendered_html):
     if "schema1" in rendered_html:
         rendered_html = rendered_html.replace("schema1", "schema")
     return rendered_html
+
+
+def validate_ontology(ontology_file: str, shacl_file: str) -> tuple:
+    """
+    Validates the ontology against SHACL constraints.
+    """
+        
+    data_graph = Graph()
+    with open(ontology_file, "rb") as f:
+        data_graph.parse(file=f, format="turtle")
+    
+    ontology_graph = Graph()
+    with open(shacl_file, "rb") as f:
+        ontology_graph.parse(file=f, format="turtle")
+
+    results = validate(
+        data_graph,
+        shacl_graph=ontology_graph,
+        inference='rdfs',  
+        allow_warnings=False, 
+        debug=False,  
+    )
+
+    conforms, results_graph, results_text = results
+
+    return conforms, results_graph, results_text
+
 
 def render_template(
     ontology: Ontology,
