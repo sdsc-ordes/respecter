@@ -18,7 +18,15 @@ The following command will generate a ReSpec styled HTML page from the ontology 
 
 ```sh
 python3 respecter/cli.py examples/custodian.ttl --output custodian.html
+
 ```
+
+The following command will validate the ontology `custodian.ttl` against the shacl validation file shacl-shacl.ttl:
+
+```sh
+python3 respecter/cli.py examples/custodian.ttl --validation examples/shacl-shacl.ttl
+```
+
 
 To know more about the available options, run:
 
