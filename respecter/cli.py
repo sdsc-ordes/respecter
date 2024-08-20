@@ -2,7 +2,7 @@ import click
 import typer
 import os
 from typing import Optional
-from core import fetch_ontology, render_template
+from core import fetch_ontology, render_template, validate_ontology
 
 __version__ = (
     "0.0.1"  # TODO: Move this to __init__.py and use poetry to manage the version
@@ -35,6 +35,11 @@ def main(
         show_choices=True,
         help="Path to the SPARQL configuration file.",
     ),
+    shacl_file: Optional[str] = typer.Option(
+        None,
+        "--validation",
+        help="Path to the shacl file"
+        ),
     debug: Optional[bool] = typer.Option(
         False, "--debug", help="Enable debugging mode."
     ),
@@ -51,6 +56,18 @@ def main(
     ),
 ):
     """
+    Validate an ontology
+    """
+    if shacl_file:
+        print(f"shacl_file")
+        shacl_validation_results = validate_ontology(ontology, shacl_file)
+        if not shacl_validation_results[0]:
+            typer.echo(f"Validation errors found: {shacl_validation_results[2]}")
+            raise typer.Exit(code=1) 
+        else:
+            typer.echo("Data conforms to SHACL constraints.")
+            
+    """
     Turns a RDF serialization of an ontology into a ReSpec styled HTML page
     """
     ontology, concepts, properties, enumerations = fetch_ontology(
@@ -58,6 +75,8 @@ def main(
         sparql_config_file_path=sparql_config_path,
         debug=debug,
     )
+    
+    
     template = render_template(ontology, concepts, properties, enumerations)
     # Write rendered template to file
     if os.path.exists(output):
