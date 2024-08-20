@@ -59,7 +59,6 @@ def main(
     Validate an ontology
     """
     if shacl_file:
-        print(f"shacl_file")
         shacl_validation_results = validate_ontology(ontology, shacl_file)
         if not shacl_validation_results[0]:
             typer.echo(f"Validation errors found: {shacl_validation_results[2]}")
