@@ -82,7 +82,6 @@ class SparqlConfig:
             _yaml_config = yaml.load(f, Loader=yaml.FullLoader)
         
         prefixes = _yaml_config["prefix"]
-        print(f"prefix:{prefixes}")
         
         enumerations_query = (
         """
@@ -145,7 +144,6 @@ class SparqlConfig:
             }
             """
         )
-        print (f"enumerations_query{enumerations_query} ")
         return enumerations_query
 
     def build_concepts_query(self, config_file_path) -> str:
@@ -160,7 +158,6 @@ class SparqlConfig:
             _yaml_config = yaml.load(f, Loader=yaml.FullLoader)
         
         prefixes = _yaml_config["prefix"]
-        print(f"prefix:{prefixes}")
         
         sparql_query = (
         """
@@ -207,7 +204,6 @@ class SparqlConfig:
             BIND(COALESCE(?thing,?classRestriction,?datatype) AS ?range)}
             """
         )
-        print (f"sparql_query{sparql_query} ")
         return sparql_query
 
 
