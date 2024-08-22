@@ -33,7 +33,7 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
 
     sparql_config = SparqlConfig(sparql_config_file_path)
     
-    concepts_query = sparql_config.build_concepts_query()
+    concepts_query = sparql_config.build_concepts_query(sparql_config_file_path)
     
 
     # Save the query to a file (for debugging)
@@ -50,7 +50,7 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
     concepts_query_result = json.loads(concepts_query_result)
     
 
-    enumerations_query = sparql_config.build_enumerations_query()
+    enumerations_query = sparql_config.build_enumerations_query(sparql_config_file_path)
     enumerations_query_result = graph.query(enumerations_query).serialize(format="json")
     enumerations_query_result = json.loads(enumerations_query_result)
 

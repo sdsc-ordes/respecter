@@ -70,34 +70,30 @@ class SparqlConfig:
             raise ValueError(f"Predicate {predicate_name} not found in config file")
         return self.predicates.get(predicate_name)
 
-    def build_enumerations_query(self) -> str:
+    def build_enumerations_query(self,config_file_path) -> str:
         """
         Builds a SPARQL query string for enumerations.
 
         Returns:
             str: The complete SPARQL query string for enumerations.
         """
-
+        
+        with open(config_file_path, "r") as f:
+            _yaml_config = yaml.load(f, Loader=yaml.FullLoader)
+        
+        prefixes = _yaml_config["prefix"]
+        print(f"prefix:{prefixes}")
+        
         enumerations_query = (
-            """
-            PREFIX sh: <http://www.w3.org/ns/shacl#>
-            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-            PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-            PREFIX owl: <http://www.w3.org/2002/07/owl#>
-            PREFIX dct: <http://purl.org/dc/terms/>
-            PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
-            PREFIX vann: <http://purl.org/vocab/vann/>
-            prefix schema: <http://schema.org/>
-            prefix sd: <https://w3id.org/okn/o/sd#>
-            prefix bio: <https://bioschemas.org/>
-            prefix spe: <https://openschemas.github.io/spec-container/specifications/>
-            prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
-            prefix xsd:  <http://www.w3.org/2001/XMLSchema#> 
-            prefix shsh: <http://www.w3.org/ns/shacl-shacl#> 
-            prefix dcterms: <http://purl.org/dc/terms/> 
-            prefix ex: <https://epfl.ch/example/> 
-            prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
+        """
+        """
+        )
+         
+        for prefix_key, prefix_value in prefixes.items():# Construct the SPARQL query with placeholders for prefixes
+            enumerations_query += f"PREFIX {prefix_key}: {prefix_value}\n"
 
+        enumerations_query += (
+            """   
             SELECT DISTINCT ?enumerationValue ?enumerationLabel ?enumerationDefinition ?property ?propertyLabel ?group ?groupLabel ?groupDefinition
             WHERE { {
             ?propertyShape a sh:PropertyShape .
@@ -149,39 +145,33 @@ class SparqlConfig:
             }
             """
         )
-
+        print (f"enumerations_query{enumerations_query} ")
         return enumerations_query
 
-    def build_concepts_query(self) -> str:
+    def build_concepts_query(self, config_file_path) -> str:
         """
         Builds a SPARQL query string for concepts.
 
         Returns:
             str: The complete SPARQL query string for concepts.
         """
-
+        
+        with open(config_file_path, "r") as f:
+            _yaml_config = yaml.load(f, Loader=yaml.FullLoader)
+        
+        prefixes = _yaml_config["prefix"]
+        print(f"prefix:{prefixes}")
+        
         sparql_query = (
+        """
+        """
+        )
+         
+        for prefix_key, prefix_value in prefixes.items():# Construct the SPARQL query with placeholders for prefixes
+            sparql_query += f"PREFIX {prefix_key}: {prefix_value}\n"
+
+        sparql_query += (
             """
-            PREFIX sh: <http://www.w3.org/ns/shacl#>
-            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-            PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-            PREFIX owl: <http://www.w3.org/2002/07/owl#>
-            PREFIX dct: <http://purl.org/dc/terms/>
-            PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
-            PREFIX vann: <http://purl.org/vocab/vann/>
-            prefix schema: <http://schema.org/>
-            prefix sd: <https://w3id.org/okn/o/sd#>
-            prefix bio: <https://bioschemas.org/>
-            prefix spe: <https://openschemas.github.io/spec-container/specifications/>
-            prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
-            prefix xsd:  <http://www.w3.org/2001/XMLSchema#> 
-            prefix shsh: <http://www.w3.org/ns/shacl-shacl#> 
-            prefix dcterms: <http://purl.org/dc/terms/> 
-            prefix ex: <https://epfl.ch/example/> 
-            prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
-            prefix sdc:  <https://swissdatacustodian.ch/doc/ontology#>
-            prefix dpv:  <https://w3id.org/dpv#> 
-            
             SELECT ?domain ?classLabel ?classDefinition ?property ?propertyLabel ?propertyDefinition ?range ?example
             WHERE{
             
@@ -217,7 +207,7 @@ class SparqlConfig:
             BIND(COALESCE(?thing,?classRestriction,?datatype) AS ?range)}
             """
         )
-
+        print (f"sparql_query{sparql_query} ")
         return sparql_query
 
 
