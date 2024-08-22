@@ -25,6 +25,10 @@ The following command will validate the ontology `custodian.ttl` against the sha
 
 ```sh
 python3 respecter/cli.py examples/custodian.ttl --validation examples/shacl-shacl.ttl
+
+or 
+
+python3 respecter/cli.py examples/custodian.ttl --validation examples/shacl-shacl.ttl  --output custodian.html
 ```
 
 
