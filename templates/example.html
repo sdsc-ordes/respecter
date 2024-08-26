@@ -76,14 +76,16 @@
     <h3 id="{{ concept.FragmentIdentifier }}">{{ concept.Label }}</h3>
     <table class="def">
       {% for key, value in concept.items() %}
-      <tr>
-        <td>
-          <p>{{ key }}</p>
-        </td>
-        <td>
-          <p>{{ value }}</p>
-        </td>
-      </tr>
+        {% if key != 'FragmentIdentifier' %} 
+          <tr>
+            <td>
+              <p>{{ key }}</p>
+            </td>
+            <td>
+              <p>{{ value }}</p>
+            </td>
+          </tr>
+        {% endif %}
       {% endfor %}
     </table>
     {% endfor %}
@@ -96,14 +98,16 @@
     <h3 id="{{ property.FragmentIdentifier }}">{{ property.Label }}</h3>
     <table class="def">
       {% for key, value in property.items() %}
-      <tr>
-        <td>
-          <p>{{ key }}</p>
-        </td>
-        <td>
-          <p>{{ value }}</p>
-        </td>
-      </tr>
+       {% if key != 'FragmentIdentifier' %} 
+          <tr>
+            <td>
+              <p>{{ key }}</p>
+            </td>
+            <td>
+              <p>{{ value }}</p>
+            </td>
+          </tr>
+        {% endif %}
       {% endfor %}
     </table>
     {% endfor %}
@@ -126,14 +130,16 @@
     <h4 id="{{ item.FragmentIdentifier }}">{{ item.Label }}</h4>
     <table class="def">
       {% for key, value in item.items() %}
-      <tr>
-        <td>
-          <p>{{ key }}</p>
-        </td>
-        <td>
-          <p>{{ value }}</p>
-        </td>
-      </tr>
+        {% if key != 'FragmentIdentifier' %} 
+          <tr>
+            <td>
+              <p>{{ key }}</p>
+            </td>
+            <td>
+              <p>{{ value }}</p>
+            </td>
+          </tr>
+        {% endif %}
       {% endfor %}
     </table>
     {% endfor %}
