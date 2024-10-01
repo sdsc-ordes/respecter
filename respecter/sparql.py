@@ -1,18 +1,3 @@
-# respecter
-# Copyright 2022 - Swiss Data Science Center (SDSC)
-# A partnership between École Polytechnique Fédérale de Lausanne (EPFL) and
-# Eidgenössische Technische Hochschule Zürich (ETHZ).# 
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-# 
-# http://www.apache.org/licenses/LICENSE-2.0
-# 
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
 import json
 import yaml
 from dataclasses import dataclass, field
@@ -50,9 +35,24 @@ class SparqlConfig:
             raise ValueError('Element "type" not found in config file')
         if "predicate" not in _yaml_config:
             raise ValueError('Element "predicate" not found in config file')
+        if "ontology" not in _yaml_config:
+            raise ValueError('Element "ontology" not found in config file')
 
         self.types = _yaml_config["type"]
         self.predicates = _yaml_config["predicate"]
+        self.ontology = _yaml_config["ontology"]
+
+    def get_uri_base(self):
+        """
+        Get the ontology URI from the config file.
+        """
+        return self.ontology.get("uri_base")
+
+    def get_uri_separator(self):
+        """
+        Get the ontology URI separator from the config file.
+        """
+        return self.ontology.get("separator")
 
     def get_type(self, type_name):
         """
@@ -70,162 +70,155 @@ class SparqlConfig:
             raise ValueError(f"Predicate {predicate_name} not found in config file")
         return self.predicates.get(predicate_name)
 
-
-def build_enumerations_query(config_file_path: str) -> str:
-    """
-    Builds a SPARQL query string for enumerations based on a YAML configuration file.
-
-    Args:
-        config_file_path (str): Path to the YAML file containing SPARQL predicate definitions.
-
-    Returns:
-        str: The complete SPARQL query string for enumerations.
-    """
-
-    config = SparqlConfig(config_file_path)
-
-    enumerations_query = (
+    def build_enumerations_query(self) -> str:
         """
-        PREFIX sh: <http://www.w3.org/ns/shacl#>
-        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-        PREFIX owl: <http://www.w3.org/2002/07/owl#>
-        PREFIX dct: <http://purl.org/dc/terms/>
-        PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
-        PREFIX vann: <http://purl.org/vocab/vann/>
-        prefix schema: <http://schema.org/>
-        prefix sd: <https://w3id.org/okn/o/sd#>
-        prefix bio: <https://bioschemas.org/>
-        prefix spe: <https://openschemas.github.io/spec-container/specifications/>
-        prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
-        prefix xsd:  <http://www.w3.org/2001/XMLSchema#> 
-        prefix shsh: <http://www.w3.org/ns/shacl-shacl#> 
-        prefix dcterms: <http://purl.org/dc/terms/> 
-        prefix ex: <https://epfl.ch/example/> 
-        prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
+        Builds a SPARQL query string for enumerations.
 
-        SELECT DISTINCT ?enumerationValue ?enumerationLabel ?enumerationDefinition ?property ?propertyLabel ?group ?groupLabel
-        WHERE { {
-        ?propertyShape a sh:PropertyShape .
-                ?propertyShape sh:path ?property.
-                OPTIONAL{
-                    ?property """
-        + config.get_predicate("label")
-        + """ ?propertyLabel}
-        { 
-            ?propertyShape sh:class ?group .
-            ?group rdfs:subClassOf """
-        + config.get_type("enumeration")
-        + """ .
-            ?enumerationValue a ?group .
-                    ?group """
-        + config.get_predicate("label")
-        + """ ?groupLabel .
-                    OPTIONAL{?enumerationValue """
-        + config.get_predicate("definition")
-        + """ ?enumerationDefinition .}
-        OPTIONAL{?enumerationValue """
-        + config.get_predicate("label")
-        + """ ?enumerationLabel.}
-        }
-        UNION
-        {
-        ?propertyShape sh:or/rdf:rest*/rdf:first/sh:class ?group .
-        ?group rdfs:subClassOf """
-        + config.get_type("enumeration")
-        + """ .
-        ?enumerationValue a ?group .
-        ?group """
-        + config.get_predicate("label")
-        + """ ?groupLabel.
-        OPTIONAL{?enumerationValue """
-        + config.get_predicate("definition")
-        + """ ?enumerationDefinition .}
-        OPTIONAL{?enumerationValue """
-        + config.get_predicate("label")
-        + """ ?enumerationLabel.}
-                        
-        }
-        }    
-        }
+        Returns:
+            str: The complete SPARQL query string for enumerations.
         """
-    )
 
-    return enumerations_query
+        enumerations_query = (
+            """
+            PREFIX sh: <http://www.w3.org/ns/shacl#>
+            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+            PREFIX owl: <http://www.w3.org/2002/07/owl#>
+            PREFIX dct: <http://purl.org/dc/terms/>
+            PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
+            PREFIX vann: <http://purl.org/vocab/vann/>
+            prefix schema: <http://schema.org/>
+            prefix sd: <https://w3id.org/okn/o/sd#>
+            prefix bio: <https://bioschemas.org/>
+            prefix spe: <https://openschemas.github.io/spec-container/specifications/>
+            prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+            prefix xsd:  <http://www.w3.org/2001/XMLSchema#> 
+            prefix shsh: <http://www.w3.org/ns/shacl-shacl#> 
+            prefix dcterms: <http://purl.org/dc/terms/> 
+            prefix ex: <https://epfl.ch/example/> 
+            prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
 
+            SELECT DISTINCT ?enumerationValue ?enumerationLabel ?enumerationDefinition ?property ?propertyLabel ?group ?groupLabel ?groupDefinition
+            WHERE { {
+            ?propertyShape a sh:PropertyShape .
+                    ?propertyShape sh:path ?property.
+                    OPTIONAL{
+                        ?property """
+            + self.get_predicate("label")
+            + """ ?propertyLabel}
+            { 
+                ?propertyShape sh:class ?group .
+                ?group rdfs:subClassOf """
+            + self.get_type("enumeration")
+            + """ .
+                ?enumerationValue a ?group .
+                        ?group """
+            + self.get_predicate("label")
+            + """ ?groupLabel .
+            ?group """
+            + self.get_predicate("definition")
+            + """ ?groupDefinition .
+                        OPTIONAL{?enumerationValue """
+            + self.get_predicate("definition")
+            + """ ?enumerationDefinition .}
+                        OPTIONAL{?enumerationValue """
+            + self.get_predicate("label")
+            + """ ?enumerationLabel.}
+            }
+            UNION
+            {
+                ?propertyShape sh:or/rdf:rest*/rdf:first/sh:class ?group .
+                ?group rdfs:subClassOf """
+            + self.get_type("enumeration")
+            + """.
+                ?enumerationValue a ?group .
+                ?group """
+            + self.get_predicate("definition")
+            + """ ?groupDefinition .
+            ?group """
+            + self.get_predicate("label")
+            + """ ?groupLabel .
+                        OPTIONAL{?enumerationValue """
+            + self.get_predicate("label")
+            + """ ?enumerationDefinition .}
+                            OPTIONAL{?enumerationValue """
+            + self.get_predicate("label")
+            + """ ?enumerationLabel.}
+            }
+            }
+            }
+            """
+        )
 
-def build_concepts_query(config_file_path: str) -> str:
-    """
-    Builds a SPARQL query string for concepts based on a YAML configuration file.
+        return enumerations_query
 
-    Args:
-        config_file_path (str): Path to the YAML file containing SPARQL predicate definitions.
-
-    Returns:
-        str: The complete SPARQL query string for concepts.
-    """
-
-    config = SparqlConfig(config_file_path)
-
-    sparql_query = (
+    def build_concepts_query(self) -> str:
         """
-        PREFIX sh: <http://www.w3.org/ns/shacl#>
-        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-        PREFIX owl: <http://www.w3.org/2002/07/owl#>
-        PREFIX dct: <http://purl.org/dc/terms/>
-        PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
-        PREFIX vann: <http://purl.org/vocab/vann/>
-        prefix schema: <http://schema.org/>
-        prefix sd: <https://w3id.org/okn/o/sd#>
-        prefix bio: <https://bioschemas.org/>
-        prefix spe: <https://openschemas.github.io/spec-container/specifications/>
-        prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
-        prefix xsd:  <http://www.w3.org/2001/XMLSchema#> 
-        prefix shsh: <http://www.w3.org/ns/shacl-shacl#> 
-        prefix dcterms: <http://purl.org/dc/terms/> 
-        prefix ex: <https://epfl.ch/example/> 
-        prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
-        
-        SELECT ?domain ?classLabel ?classDefinition ?property ?propertyLabel ?propertyDefinition ?range ?example
-        WHERE{
-        
-        ?nodeshape sh:property ?propertyShape .
-        
-        
+        Builds a SPARQL query string for concepts.
 
-        ?property a """
-        + config.get_type("property")
-        + """.
-        ?property """
-        + config.get_predicate("definition")
-        + """ ?propertyDefinition.
-        ?property """
-        + config.get_predicate("label")
-        + """ ?propertyLabel.
-
-        ?propertyShape a sh:PropertyShape .
-        ?propertyShape sh:path ?property .
-
-        OPTIONAL {?property skos:example ?example}
-        OPTIONAL {?propertyShape sh:datatype ?datatype}
-        OPTIONAL {?propertyShape sh:class ?classRestriction}
-        OPTIONAL {?propertyShape sh:or/rdf:rest*/rdf:first ?option .
-                ?option ?pred ?thing .}
-        OPTIONAL {?nodeshape sh:property ?property .}
-        OPTIONAL{?nodeshape sh:targetClass ?domain1 .}
-        BIND(COALESCE(?domain1,?nodeshape) as ?domain).
-        ?domain """
-        + config.get_predicate("label")
-        + """ ?classLabel .
-        ?domain """
-        + config.get_predicate("definition")
-        + """ ?classDefinition.
-        BIND(COALESCE(?thing,?classRestriction,?datatype) AS ?range)}
+        Returns:
+            str: The complete SPARQL query string for concepts.
         """
-    )
 
-    return sparql_query
+        sparql_query = (
+            """
+            PREFIX sh: <http://www.w3.org/ns/shacl#>
+            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+            PREFIX owl: <http://www.w3.org/2002/07/owl#>
+            PREFIX dct: <http://purl.org/dc/terms/>
+            PREFIX dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
+            PREFIX vann: <http://purl.org/vocab/vann/>
+            prefix schema: <http://schema.org/>
+            prefix sd: <https://w3id.org/okn/o/sd#>
+            prefix bio: <https://bioschemas.org/>
+            prefix spe: <https://openschemas.github.io/spec-container/specifications/>
+            prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+            prefix xsd:  <http://www.w3.org/2001/XMLSchema#> 
+            prefix shsh: <http://www.w3.org/ns/shacl-shacl#> 
+            prefix dcterms: <http://purl.org/dc/terms/> 
+            prefix ex: <https://epfl.ch/example/> 
+            prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
+            prefix sdc:  <https://swissdatacustodian.ch/doc/ontology#>
+            prefix dpv:  <https://w3id.org/dpv#> 
+            
+            SELECT ?domain ?classLabel ?classDefinition ?property ?propertyLabel ?propertyDefinition ?range ?example
+            WHERE{
+            
+            ?nodeshape sh:property ?propertyShape .
+
+            ?property a """
+            + self.get_type("property")
+            + """.
+            ?property """
+            + self.get_predicate("definition")
+            + """ ?propertyDefinition.
+            ?property """
+            + self.get_predicate("label")
+            + """ ?propertyLabel.
+
+            ?propertyShape a sh:PropertyShape .
+            ?propertyShape sh:path ?property .
+
+            OPTIONAL {?property skos:example ?example}
+            OPTIONAL {?propertyShape sh:datatype ?datatype}
+            OPTIONAL {?propertyShape sh:class ?classRestriction}
+            OPTIONAL {?propertyShape sh:or/rdf:rest*/rdf:first ?option .
+                    ?option ?pred ?thing .}
+            OPTIONAL {?nodeshape sh:property ?property .}
+            OPTIONAL{?nodeshape sh:targetClass ?domain1 .}
+            BIND(COALESCE(?domain1,?nodeshape) as ?domain).
+            ?domain """
+            + self.get_predicate("label")
+            + """ ?classLabel .
+            ?domain """
+            + self.get_predicate("definition")
+            + """ ?classDefinition.
+            BIND(COALESCE(?thing,?classRestriction,?datatype) AS ?range)}
+            """
+        )
+
+        return sparql_query
 
 
 def sparql_query(graph, query):
@@ -254,3 +247,5 @@ def debug_sparql_query(file):
     """
     with open(file, "r") as f:
         return json.load(f)
+
+

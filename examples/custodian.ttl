@@ -78,12 +78,16 @@ sdc:SignatureShape a sh:NodeShape ;
                 sdc:identifier,
                 sdc:hasSignatureShape.
 
-###################################################################################################################
+# ###################################################################################################################
 
 dpv:Contract a rdfs:Class ;
     skos:definition "Creation, completion, fulfilment, or performance of a contract involving specified processing" ;
     skos:prefLabel "Contract" ;
     .
+
+sdc:Signature a rdfs:Class ;
+    skos:prefLabel "Signature" ;
+    skos:definition "A digital signature of a contract".
 
 sdc:DataHandling a rdfs:Class ;
     skos:definition "A high-level Class to describe 'data handling'. This can consist of personal data being processed for a purpose, involving entities, using technical and organisational measures, applicable risks, rights, and legal basis." ;
@@ -120,12 +124,12 @@ dpv:hasIdentifier a rdf:Property ;
     .
 
 dcat:startDate a rdf:Property ;
-    skos:prefLabel "Start date" ;
+    skos:prefLabel "start date" ;
     skos:definition "The start of the period."
     .
 
 dcat:endDate a rdf:Property ;
-    skos:prefLabel "End date" ;
+    skos:prefLabel "end date" ;
     skos:definition "The end of the period."
     .
 
@@ -155,7 +159,7 @@ dpv:hasPersonalData a rdf:Property ;
     .
 
 dpv:hasProcessing a rdf:Property ;
-    skos:prefLabel "Has processing" ;
+    skos:prefLabel "has processing" ;
     skos:definition "Indicates association with Processing" ;
     .
 
@@ -165,7 +169,7 @@ dpv:hasTechnicalOrganisationalMeasure a rdf:Property ;
     .
 
 sdc:hasDataHandling a rdf:Property ;
-    skos:prefLabel "Has Data Handling" ;
+    skos:prefLabel "has data handling" ;
     skos:definition "The property which links a contract to a data handling" ;
     .
 
@@ -175,42 +179,43 @@ dpv:hasName a rdf:Property ;
     .
 
 dcat:downloadURL a rdf:Property ;
-    skos:prefLabel "Download URL" ;
+    skos:prefLabel "download url" ;
     skos:definition "The URL of the downloadable file in a given format. E.g., CSV file or RDF file. The format is indicated by the distribution's dcterms:format and/or dcat:mediaType" ;
     .
 
 dcat:theme a rdf:Property ;
-    skos:prefLabel "Theme" ;
+    skos:prefLabel "theme" ;
     skos:definition "A main category of the resource. A resource can have multiple themes." ;
     .
 
 sdc:hasSignee a rdf:Property ;
-    skos:prefLabel "has Signee" ;
+    skos:prefLabel "has signee" ;
     skos:definition "Relates a resource to a signee." ;
     .
+
 sdc:hasContract a rdf:Property ;
-    skos:prefLabel "has Contract" ;
-    skos:definition "" ;
+    skos:prefLabel "has contract" ;
+    skos:definition "Refer to the existence of a contractual relationship between two entities" ;
     .
 
 sdc:status a rdf:Property ;
     skos:prefLabel "status" ;
-    skos:definition "" ;
+    skos:definition "Refer to the state of a contract at a particular time" ;
     .
 
 sdc:contractHash a rdf:Property ;
-    skos:prefLabel "contract Hash" ;
-    skos:definition "" ;
+    skos:prefLabel "contract hash" ;
+    skos:definition " A cryptographic hash that uniquely identifies a specific version of a contract." ;
     .
 
 sdc:identifier a rdf:Property ;
     skos:prefLabel "identifier" ;
-    skos:definition "" ;
+    skos:definition "A unique label or code assigned to a person, object, or concept to distinguish it from others" ;
     .
 
 sdc:hasSignature a rdf:Property ;
-    skos:prefLabel "has Signature" ;
-    skos:definition "" ;
+    skos:prefLabel "has signature" ;
+    skos:definition "Indicate the presence of a digital signature associated with a particular entity or data" ;
     .
 
 ###################################################################################################################
@@ -309,8 +314,8 @@ sdc:themeShape a sh:PropertyShape ;
     sh:path dcat:theme ;
     sh:minCount 1 ;
     skos:prefLabel "Theme" ;
-    sh:class sdc:Theme ;
-    .
+    sh:class dcat:theme ;
+    . 
 
 sdc:hasSigneeShape a sh:PropertyShape ;
     sh:path sdc:hasSignee ;
@@ -348,10 +353,6 @@ sdc:hasSignatureShape a sh:PropertyShape ;
     sh:class sdc:Signature ;
     .
 
-
-
-
-
 #High level Enumeration type class, under which all enumeration classes fall
 sdc:EnumerationType a rdfs:Class ;
     rdfs:subClassOf schema:Enumeration ;
@@ -379,7 +380,6 @@ sdc:OrganisationalMeasureEnumeration a rdfs:Class ;
     rdfs:subClassOf sdc:EnumerationType ;
     skos:prefLabel "Organisational Measure Enumeration" ;
 .
-
 sdc:TechnicalMeasureEnumeration a rdfs:Class ;
     skos:definition "An enumeration class for different technical measures to be typed as" ;
     rdfs:subClassOf sdc:EnumerationType ;

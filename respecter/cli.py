@@ -74,14 +74,13 @@ def main(
         debug=debug,
     )
     template = render_template(ontology, concepts, properties, enumerations)
-
     # Write rendered template to file
     if os.path.exists(output):
         click.confirm(
             f"The file {output} already exists. Do you want to overwrite it?",
             abort=True,
         )
-    with open(output, "w") as f:
+    with open(output, "w", encoding="utf-8") as f:
         f.write(template)
     typer.echo(f"HTML page saved to {output}")
 

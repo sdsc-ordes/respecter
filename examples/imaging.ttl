@@ -1,0 +1,1516 @@
+@prefix schema: <http://schema.org/>.
+@prefix sd: <https://w3id.org/okn/o/sd#>.
+@prefix bio: <https://bioschemas.org/>.
+@prefix spe: <https://openschemas.github.io/spec-container/specifications/>.
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix shsh: <http://www.w3.org/ns/shacl-shacl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix imag: <https://imaging-plaza.epfl.ch/ontology#> .
+@prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+@prefix schema: <http://schema.org/>.
+@prefix sd: <https://w3id.org/okn/o/sd#>.
+@prefix bio: <https://bioschemas.org/>.
+@prefix spe: <https://openschemas.github.io/spec-container/specifications/>.
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix shsh: <http://www.w3.org/ns/shacl-shacl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix imag: <https://imaging-plaza.epfl.ch/ontology#> .
+@prefix md4i: <http://w3id.org/nfdi4ing/metadata4ing#>.
+@prefix dct: <http://purl.org/dc/terms/>.
+@prefix vann: <http://purl.org/vocab/vann/>.
+
+<https://imaging-plaza.epfl.ch/ontology#>
+    a owl:Ontology ;
+    dct:abstract "The Imaging Plaza ontology provides concepts (classes and properties) to model human and machine readable imaging software metadata. It is the result of re-using external pre-existing vocabularies such as schema.org and the software description ontology, together with custom imaging specific objects and properties." ;
+    dct:contributor "Robin Franken", "Carlos Vivar Rios", "Edward Andò", "Laurène Donati", "Oksana Riba", "Mallory Wittwer", "Florian Aymanns", "Maud Barthélemy";
+    dct:created "2024-04-01"^^xsd:date ;
+    dct:creator "Oksana Riba", "Edward Andò", "Laurène Donati", "Robin Franken" ;
+    dct:description "The Imaging Plaza ontology provides concepts (classes and properties) to model human and machine readable imaging software metadata. It is the result of re-using external pre-existing vocabularies such as schema.org and the software description ontology, together with custom imaging specific objects and properties. The ontology contains purely semantic information (labels, definitions etc.) and is meant to be used in conjuction with a graph of enumeration values and a graph containing SHACL shapes to provide more machine readable restrictions on values of properties." ;
+    dct:license <https://spdx.org/licenses/CC-BY-SA-4.0.html> ;
+    dct:modified "2024-05-06"^^xsd:date ;
+    dct:title "Imaging Plaza Ontology" ;
+    dct:downloadURL "https://raw.githubusercontent.com/sdsc-ordes/imaging-plaza-ontology/picklists-restructure/imaging-ontology-combined.ttl" ;
+    vann:preferredNamespacePrefix "ex" ;
+    vann:preferredNamespaceUri "https://imaging-plaza.epfl.ch/ontology#"^^xsd:string ;
+    owl:versionInfo "0.6.0"^^xsd:string ;
+    sh:entailment sh:Rules ;
+	  sh:declare [
+		sh:prefix "imag" ;
+		sh:namespace <https://imaging-plaza.epfl.ch/ontology#> ;
+	] .
+
+<https://imaging-plaza.epfl.ch/ontology#ImagingOntologyShapes>
+	a owl:Ontology ;
+.
+
+imag:fairlevel0Shape a sh:NodeShape    
+.
+imag:fairlevel1Shape a sh:NodeShape ;
+      sh:targetClass schema:SoftwareSourceCode ;
+			sh:property
+                  [sh:path schema:license ;
+                  sh:minCount 1;
+                  sh:message "Fair level 1"] ,
+                  
+                  [sh:path schema:citation ;
+                  sh:minCount 1;
+                  sh:message "Fair level 1"] ,
+                  
+                  [sh:path schema:name ;
+                  sh:minCount 1;
+                  sh:message "Fair level 1"];    
+.
+
+imag:fairlevel2Shape a sh:NodeShape ;
+      sh:targetClass schema:SoftwareSourceCode ;
+			sh:property 
+                  [sh:path sd:readme ;
+                  sh:minCount 1 ;
+                  sh:message "Fair level 2"] ;
+      sh:and (imag:fairlevel1Shape)
+.
+
+imag:fairlevel3Shape a sh:NodeShape ;
+      sh:targetClass schema:SoftwareSourceCode ;
+			sh:property 
+                  [sh:path schema:softwareRequirements ;
+                  sh:minCount 1 ;
+                  sh:message "Fair level 3"] ;
+      sh:and (imag:fairlevel2Shape) 
+.
+
+imag:fairlevel4Shape a sh:NodeShape ;
+      sh:targetClass schema:SoftwareSourceCode ;
+			sh:property 
+                  [sh:path schema:memoryRequirements ;
+                  sh:minCount 1;
+                  sh:message "Fair level 4"] ,
+                  
+                  [sh:path sd:hasDocumentation ;
+                  sh:minCount 1;
+                  sh:message "Fair level 4"] ,
+                  
+                  [sh:path sd:hasParameter ;
+                  sh:minCount 1;
+                  sh:message "Fair level 4"] ;
+      sh:and (imag:fairlevel3Shape)
+.
+
+imag:fairlevel5Shape a sh:NodeShape ;
+      sh:targetClass schema:SoftwareSourceCode ;
+			sh:property
+                  [sh:path sd:hasExecutableInstructions ;
+                  sh:minCount 1;
+                  sh:message "Fair level 5"] ,
+                 
+                  [sh:path sd:hasExecutableNotebook ;
+                  sh:minCount 1;
+                  sh:message "Fair level 5"];
+      sh:and (imag:fairlevel4Shape) 
+.
+
+imag:FeatureTaggerRule a sh:SPARQLRule ;
+    sh:name "Feature tagger" ;
+    sh:description "This shape is used to extend the initial tagging of a software with it's higher level tags, for ease of retrieval/filtering" ;
+	sh:construct """
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX schema: <http://schema.org/>
+			CONSTRUCT {
+				$this schema:featureList ?parentFeatureLabel .
+                $this schema:featureList ?feature .
+			}
+			WHERE {
+				$this schema:featureList ?feature .
+                ?featureClass rdfs:label ?feature .
+				?featureClass rdfs:subClassOf ?parentFeature.
+                ?parentFeature rdfs:label ?parentFeatureLabel .
+			}
+			""" .
+
+schema:SoftwareSourceCode
+a sh:NodeShape, rdfs:Class ;
+sh:property schema:SoftwareApplication-applicationCategory ,
+              schema:CreativeWork-citation ,
+              schema:SoftwareSourceCode-codeRepository ,
+              schema:CreativeWork-conditionsOfAccess ,
+              schema:CreativeWork-dateCreated ,
+              schema:CreativeWork-datePublished ,
+              schema:Thing-description ,
+              schema:SoftwareApplication-featureList ,
+              schema:Thing-image ,
+              schema:CreativeWork-isAccessibleForFree ,
+              schema:CreativeWork-isBasedOn ,
+              imag:isPluginModuleOfShape,
+              imag:relatedToOrganizationShape, 
+              schema:CreativeWork-license ,
+              schema:CreativeWork-maintainer ,
+              schema:SoftwareApplication-memoryRequirements ,
+              schema:Thing-name ,
+              schema:SoftwareApplication-operatingSystem ,
+              schema:CreativeWork-producer ,
+              schema:SoftwareSourceCode-programmingLanguage ,
+              schema:SoftwareApplication-softwareRequirements ,
+              schema:SoftwareApplication-processorRequirements ,
+              imag:SoftwareApplication-requiresGPUShape ,
+              schema:SoftwareApplication-supportingData ,
+              schema:Thing-url ,
+              schema:Thing-identifier ,
+              sd:SoftwareApplication-hasAcknowledgements ,
+              sd:SoftwareApplication-hasDocumentation ,
+              sd:SoftwareApplication-hasExecutableInstructions ,
+              sd:SoftwareApplication-hasExecutableNotebook ,
+              sd:SoftwareApplication-hasParameter ,
+              sd:SoftwareApplication-readme ,
+              sd:SoftwareApplication-hasFunding ,
+              sd:SoftwareConfiguration-hasSoftwareImage ,
+              imag:SoftwareApplication-imagingModalityShape ,
+              imag:fairLevelShape ;
+ sh:rule [
+		a sh:TripleRule ;
+		sh:subject sh:this ;
+		sh:predicate imag:fairLevel ;
+		sh:object "Fair level 0" ;
+		sh:condition imag:fairlevel0Shape ];      
+  sh:rule [
+		a sh:TripleRule ;
+		sh:subject sh:this ;
+		sh:predicate imag:fairLevel ;
+		sh:object "Fair level 1" ;
+		sh:condition imag:fairlevel1Shape ];           
+
+  sh:rule [
+		a sh:TripleRule ;
+		sh:subject sh:this ;
+		sh:predicate imag:fairLevel ;
+		sh:object "Fair level 2" ;
+		sh:condition imag:fairlevel2Shape ;
+	] ;
+  sh:rule [
+		a sh:TripleRule ;
+		sh:subject sh:this ;
+		sh:predicate imag:fairLevel ;
+		sh:object "Fair level 3" ;
+		sh:condition imag:fairlevel3Shape ;
+	] ;
+  sh:rule [
+		a sh:TripleRule ;
+		sh:subject sh:this ;
+		sh:predicate imag:fairLevel ;
+		sh:object "Fair level 4" ;
+		sh:condition imag:fairlevel4Shape
+	] ;
+  sh:rule [
+		a sh:TripleRule ;
+		sh:subject sh:this ;
+		sh:predicate imag:fairLevel ;
+		sh:object "Fair level 5" ;
+		sh:condition imag:fairlevel5Shape
+	] ;
+  sh:rule imag:FeatureTaggerRule ;
+.
+imag:fairLevelShape a sh:PropertyShape ;
+  sh:path imag:fairLevel ;
+  sh:datatype xsd:string ;
+  sh:minCount 1 ;
+  .
+
+imag:SoftwareApplication-imagingModalityShape 
+  a sh:PropertyShape ;
+  sh:path imag:imagingModality ;
+  sh:class imag:ImagingModalityEnum ;
+  .
+
+schema:SoftwareApplication-applicationCategory
+  a sh:PropertyShape ;
+  sh:path schema:applicationCategory ;
+  sh:class imag:ApplicationCategoryEnum ;
+  .
+schema:SoftwareApplication-processorRequirements
+  a sh:PropertyShape ;
+  sh:path schema:processorRequirements ;
+  sh:class imag:ProcessorRequirementsEnum ;
+  .
+
+imag:SoftwareApplication-requiresGPUShape
+  a sh:PropertyShape ;
+  sh:path imag:requiresGPU ;
+  sh:datatype xsd:boolean .
+
+schema:CreativeWork-citation
+  a sh:PropertyShape ;
+  sh:path schema:citation ;
+  sh:minCount 1 ;
+  sh:datatype xsd:string ;
+  sh:pattern "^http.*" ;
+.
+schema:SoftwareSourceCode-codeRepository
+  a sh:PropertyShape ;
+  sh:path schema:codeRepository ;
+  sh:pattern "^http.*" ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+.
+
+schema:CreativeWork-conditionsOfAccess
+  a sh:PropertyShape ;
+  sh:path schema:conditionsOfAccess ;
+  sh:datatype xsd:string ;
+
+.        
+
+schema:CreativeWork-dateCreated
+  a sh:PropertyShape ;
+  sh:path schema:dateCreated ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  sh:datatype xsd:date ;
+  .
+
+schema:CreativeWork-datePublished
+  a sh:PropertyShape ;
+  sh:path schema:datePublished ;
+  sh:datatype xsd:date ;  
+  sh:minCount 1 ;
+.
+
+schema:Thing-description
+  a sh:PropertyShape ;
+  sh:path schema:description ;
+  sh:datatype xsd:string ;
+  sh:maxLength 2000 ;
+  sh:minCount 1 ;
+.
+
+schema:SoftwareApplication-featureList
+  a sh:PropertyShape ;
+  sh:path schema:featureList ;
+  sh:class imag:FeatureListEnum ;
+.
+
+schema:Thing-image
+  a sh:PropertyShape ;
+  sh:path schema:image ;
+  sh:class schema:ImageObject ; 
+  sh:minCount 1 ;
+.
+
+schema:ImagingObject 
+  a sh:NodeShape, rdfs:Class ;
+  sh:property schema:Thing-url ;
+  sh:property schema:CreativeWork-keywords ;
+  .
+
+
+schema:CreativeWork-isAccessibleForFree
+  a sh:PropertyShape ;
+  sh:path schema:isAccessibleForFree ;
+  sh:datatype xsd:boolean ;
+.
+
+schema:CreativeWork-isBasedOn
+  a sh:PropertyShape ;
+  sh:path schema:isBasedOn ;
+  sh:pattern "^http.*" ;
+  .
+
+imag:isPluginModuleOfShape
+  a sh:PropertyShape ;
+  sh:path imag:isPluginModuleOf ;
+  sh:class imag:isPluginModuleOfEnum ;
+  .
+
+imag:relatedToOrganizationShape
+  a sh:PropertyShape ;
+  sh:path imag:relatedToOrganization ;
+  sh:datatype xsd:string ;
+  .
+
+schema:CreativeWork-keywords
+  a sh:PropertyShape ;
+  sh:path schema:keywords ;
+  sh:class imag:ImageObjectTagEnum ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+.
+
+schema:CreativeWork-license
+  a sh:PropertyShape ;
+  sh:path schema:license ;
+  sh:pattern ".*spdx\\.org.*" ;
+  sh:minCount 1 ;
+.
+
+schema:CreativeWork-maintainer
+  a sh:PropertyShape ;
+  sh:path schema:maintainer ;
+  sh:minCount 1 ;
+  sh:or (
+      [
+        sh:class schema:Organization ;
+      ]
+      [
+        sh:class schema:Person ;
+      ]
+    ) ;
+.
+
+schema:Person
+a sh:NodeShape ;
+  sh:property schema:Person-email ;
+  sh:property schema:Person-familyName ;
+  sh:property schema:Person-givenName ;
+  sh:property md4i:orcidIdShape ;
+  sh:property schema:Person-affiliation 
+.
+
+schema:Person-email
+  a sh:PropertyShape ;
+  sh:path schema:email ;
+  sh:datatype xsd:string ;
+.
+
+schema:Person-familyName
+  a sh:PropertyShape ;
+  sh:path schema:familyName ;
+  sh:datatype xsd:string ;
+  sh:minCount 1 ;
+  .
+
+schema:Person-givenName
+  a sh:PropertyShape ;
+  sh:path schema:givenName ;
+  sh:datatype xsd:string ;
+  sh:minCount 1 ;
+.
+
+md4i:orcidIdShape
+  a sh:PropertyShape ;
+  sh:path md4i:orcidId ;
+  sh:datatype xsd:string ;
+  .
+
+schema:Person-affiliation
+  a sh:PropertyShape ;
+  sh:path schema:affiliation ;
+  sh:class imag:AffiliationEnum ;
+.
+
+schema:Organization
+a sh:NodeShape ;
+sh:property schema:Organization-legalName ;
+sh:property md4i:hasRorIdShape ;
+.
+
+schema:SoftwareApplication-memoryRequirements
+  a sh:PropertyShape ;
+  sh:path schema:memoryRequirements ;
+  sh:or (
+    [sh:datatype xsd:string ]
+    [sh:hasValue "None"])
+.
+
+schema:Thing-name
+  a sh:PropertyShape ;
+  sh:path schema:name ;
+  sh:datatype xsd:string ;
+  sh:minCount 1 ;
+  sh:maxLength 60
+.
+
+schema:SoftwareApplication-operatingSystem
+  a sh:PropertyShape ;
+  sh:path schema:operatingSystem ;
+  sh:class imag:OperatingSystemEnum ;
+.
+
+schema:CreativeWork-producer
+  a sh:PropertyShape ;
+  sh:path schema:producer ;
+  sh:minCount 1 ;
+  sh:or (
+      [
+        sh:class schema:Organization ;
+      ]
+      [
+        sh:class schema:Person ;
+      ]
+    ) ;
+.
+
+schema:SoftwareSourceCode-programmingLanguage
+  a sh:PropertyShape ;
+  sh:path schema:programmingLanguage ;
+  sh:class imag:ComputerLanguageEnum ;
+.
+
+
+schema:SoftwareApplication-softwareRequirements
+  a sh:PropertyShape ;
+  sh:path schema:softwareRequirements ;
+  sh:class imag:SoftwareRequirementsEnum ;
+.
+
+schema:SoftwareApplication-softwareVersion
+  a sh:PropertyShape ;
+  sh:path schema:softwareVersion ;
+  sh:datatype xsd:string ;
+  sh:pattern "[0-9]+\\.[0-9]+\\.[0-9]+" ;
+  sh:minCount 1 ;
+  .
+
+schema:SoftwareApplication-supportingData
+  a sh:PropertyShape ;
+  sh:path schema:supportingData ;
+  sh:class schema:DataFeed ;
+.
+
+schema:Thing-url
+  a sh:PropertyShape ;
+  sh:path schema:url ;
+  sh:pattern "^http.*" ;
+.
+
+sd:SoftwareApplication-hasAcknowledgements
+    a sh:PropertyShape ;
+    sh:path sd:hasAcknowledgements ;
+    sh:datatype xsd:string ;
+    .
+
+sd:SoftwareApplication-hasDocumentation
+    a sh:PropertyShape ;
+    sh:path sd:hasDocumentation ;
+    sh:pattern "^http.*" ;
+    .
+
+sd:SoftwareApplication-hasExecutableInstructions
+    a sh:PropertyShape ;
+    sh:path sd:hasExecutableInstructions ;
+    sh:datatype xsd:string ;
+    .                           
+
+sd:SoftwareApplication-hasExecutableNotebook
+    a sh:PropertyShape ;
+    sh:path sd:hasExecutableNotebook ;
+    sh:pattern "^http.*" ;
+    .
+
+sd:SoftwareApplication-hasParameter
+    a sh:PropertyShape ;
+    sh:path sd:hasParameter ;
+    sh:class bio:FormalParameter ;
+    .
+
+sd:SoftwareApplication-readme
+    a sh:PropertyShape ;
+    sh:path sd:readme ;
+    sh:pattern "^http.*" ;
+  .
+
+schema:DataFeed
+a sh:NodeShape ;
+sh:property schema:Thing-description ,
+              schema:DataDownload-contentURL ,
+              schema:Dataset-measurementTechnique ,
+              schema:Thing-name ,
+              schema:Dataset-variableMeasured ;
+              
+.   
+
+schema:DataDownload-contentURL
+  a sh:PropertyShape ;
+  sh:path schema:contentUrl ;
+  sh:pattern "^http.*" ;
+  sh:minCount 1 ;
+.
+
+
+
+sd:SoftwareApplication-hasFunding
+    a sh:PropertyShape ;
+    sh:path sd:hasFunding ;
+    sh:class sd:FundingInformation ;
+    .
+    
+
+schema:Thing-identifier
+  a sh:PropertyShape ;
+  sh:path schema:identifier ;
+  sh:datatype xsd:string ;
+  sh:minCount 1 ;
+.
+
+sd:FundingInformation-fundingSource
+    a sh:PropertyShape ;
+    sh:path sd:fundingSource ;
+    sh:class schema:Organization ;
+    sh:minCount 1 ;
+    .
+sd:FundingInformation-fundingGrant a sh:PropertyShape ;
+	sh:path sd:fundingGrant ;
+	sh:datatype xsd:string ;
+	sh:minCount 1.
+
+sd:FundingInformation
+    a sh:NodeShape ;
+    sh:property schema:Thing-identifier,
+                sd:FundingInformation-fundingGrant,
+                sd:FundingInformation-fundingSource ;
+    .
+
+
+
+bio:FormalParameter
+    a sh:NodeShape ;
+    sh:property schema:Thing-description ,
+                schema:CreativeWork-encodingFormat,
+                schema:Thing-name,
+                sd:DatasetSpecification-hasDimensionality,
+                sd:DatasetSpecification-hasFormat ,
+                schema:PropertyValueSpecification-defaultValue,
+                schema:PropertyValueSpecification-valueRequired
+    .
+
+schema:CreativeWork-encodingFormat
+  a sh:PropertyShape ;
+  sh:path schema:encodingFormat ;
+  sh:pattern ".*iana.org/assignments/media-types/.*" ;
+.
+
+sd:DatasetSpecification-hasDimensionality
+    a sh:PropertyShape ;
+    sh:path sd:hasDimensionality ;
+    sh:datatype xsd:integer ;
+    sh:minExclusive 0 ;
+    .
+
+sd:DatasetSpecification-hasFormat
+    a sh:PropertyShape ;
+    sh:path sd:hasFormat ;
+    sh:datatype xsd:string ;
+    .
+
+schema:PropertyValueSpecification-defaultValue
+  a sh:PropertyShape ;
+  sh:path schema:defaultValue ;
+  sh:datatype xsd:string ;
+
+.
+
+schema:PropertyValueSpecification-valueRequired
+  a sh:PropertyShape ;
+  sh:path schema:valueRequired ;
+  sh:datatype xsd:boolean ;
+.
+
+sd:SoftwareConfiguration-hasSoftwareImage
+    a sh:PropertyShape ;
+    sh:path sd:hasSoftwareImage ;
+    sh:class sd:SoftwareImage;
+    .
+
+sd:SoftwareImage    a sh:NodeShape ;
+    sh:property schema:Thing-name ,
+                schema:Thing-description ,
+                schema:SoftwareApplication-softwareVersion ,
+                sd:SoftwareImage-availableInRegistry ;
+    .
+
+
+
+sd:SoftwareImage-availableInRegistry
+    a sh:PropertyShape ;
+    sh:pattern "^http.*" ;
+    sh:path sd:availableInRegistry ;
+    .
+
+schema:Dataset-measurementTechnique
+  a sh:PropertyShape ;
+  sh:path schema:measurementTechnique ;
+  sh:datatype xsd:string ;
+.
+
+schema:Dataset-variableMeasured
+  a sh:PropertyShape ;
+  sh:path schema:variableMeasured ;
+        sh:datatype xsd:string ;
+.
+
+schema:Organization-legalName
+  a sh:PropertyShape ;
+  sh:path schema:legalName ;
+  sh:datatype xsd:string ;
+  sh:minCount 1 ;
+.
+
+md4i:hasRorIdShape
+  a sh:PropertyShape ;
+  sh:path md4i:hasRorId ;
+  sh:pattern "^http.*" ;
+  .
+
+
+schema:SoftwareSourceCode
+  a rdfs:Class ;
+  rdfs:comment "A software application." ;
+  rdfs:label "Software application" ;
+  rdfs:subClassOf schema:CreativeWork .
+
+schema:license a rdf:Property;
+  rdfs:comment "A license document that applies to this content, typically indicated by URL.";
+  rdfs:label "License" .
+
+schema:citation a rdf:Property;
+  rdfs:comment "A DOI https URL citation to publication about this software. Use Zenodo to generate if needed. e.g. https://doi.org/10.1016/j.procs.2017.03.009";
+  rdfs:label "Citation DOI" .
+
+schema:contentURL a rdf:Property;
+  rdfs:comment "Actual bytes of the media object, for example the image file or video file.";
+  rdfs:label "Content URL".
+
+schema:dateCreated a rdf:Property;
+  rdfs:comment "The date on which the repository was created.";
+  rdfs:label "Date created" .
+
+schema:datePublished a rdf:Property;
+  rdfs:comment "Latest published git release date, else, the publish date of the doi.";
+  rdfs:label "Date published" .
+
+schema:maintainer a rdf:Property;
+  rdfs:comment "A maintainer of a Dataset, software package or other Project. A maintainer is a Person or Organization that manages contributions to, and/or publication of, some (typically complex) artifact.";
+  rdfs:label "Maintainer" .
+
+schema:memoryRequirements a rdf:Property;
+  rdfs:comment "Minimum RAM requirements in GB to run the software, 0 if not applicable.";
+  rdfs:label "Memory requirements" .
+
+imag:fairLevel a rdf:Property;
+  rdfs:comment "A score of 1-5 rating the Findability, Accessibility, Interoperability and Reusability of a piece of software based on the presence of certain properties for an instance of software";
+  rdfs:label "FAIR Level" .
+
+schema:affiliation a rdf:Property;
+  rdfs:comment "An organization that this person is affiliated with. For example, a university (EPFL/ETHZ), lab, company." ;
+  rdfs:label "Affiliation". 
+
+schema:applicationCategory a rdf:Property;
+  rdfs:comment "Type of software application, e.g. 'Plugin, gui, desktop app, library'.";
+  rdfs:label "Application category" .
+
+schema:codeRepository a rdf:Property;
+  rdfs:comment "Primary link to the repository where the un-compiled, human readable code and related code is located (GitLab, GitHub, CodePlex etc.).";
+  rdfs:label "Code repository" .
+
+schema:conditionsOfAccess a rdf:Property;
+  rdfs:comment "Conditions that affect the availability of, or method(s) of access to, an item. e.g. log-in required ";
+  rdfs:label "Conditions of access" .
+
+schema:description a rdf:Property;
+  rdfs:comment "A description of the item.";
+  rdfs:label "Description" .
+
+schema:featureList a rdf:Property;
+  rdfs:comment "Features or modules provided by this application (and possibly required by other applications).";
+  rdfs:label "Feature list" .
+
+schema:image a rdf:Property;
+  rdfs:comment "An image of the item.";
+  rdfs:label "Image" .
+
+schema:isAccessibleForFree a rdf:Property;
+  rdfs:comment "A flag to signal that the item, event, or place is accessible for free.";
+  rdfs:label "Is accessible for free" .
+
+schema:isBasedOn a rdf:Property;
+  rdfs:comment "A resource from which this work is derived or from which it is a modification or adaption.";
+  rdfs:label "Is based on" .
+
+imag:isPluginModuleOf a rdf:Property;
+  rdfs:comment "The resource for which this tool is a plugin or module." ;
+  rdfs:label "Is plugin/module of" .
+
+imag:relatedToOrganization a rdf:Property ;
+  rdfs:comment "The lab/institution/group/project/organization to which a software is related and/or affiliated to" ;
+  rdfs:label "Related to organization" ;
+  .
+
+schema:email a rdf:Property;
+  rdfs:comment "Email address.";
+  rdfs:label "E-mail" .
+
+schema:familyName a rdf:Property;
+  rdfs:comment "Family name. In the U.S., the last name of a Person.";
+  rdfs:label "Family name" .
+
+schema:givenName a rdf:Property;
+  rdfs:comment "Given name. In the U.S., the first name of a Person.";
+  rdfs:label "Given name" .
+
+schema:name a rdf:Property;
+  rdfs:comment "The name of a person, in the US their first and last name(s) seperated by spaces";
+  rdfs:label "Name" .
+
+md4i:orcidId a rdf:Property ;
+  rdfs:comment "The ORCID ID of a person" ;
+  rdfs:label "Has ORCID ID" .
+
+md4i:hasRorId a rdf:Property ;
+  rdfs:comment "A Research Organization Registry identifier, that points to a research organization" ;
+  rdfs:label "Has ROR ID" .
+
+schema:legalName a rdf:Property;
+  rdfs:comment "The official name of the organization, e.g. the registered company name.";
+  rdfs:label "Legal name" .
+
+schema:operatingSystem a rdf:Property;
+  rdfs:comment "Operating systems supported (Windows 7, OS X 10.6, Android 1.6).";
+  rdfs:label "Operating system" .
+
+schema:producer a rdf:Property;
+  rdfs:comment "The person or organization who produced the work (e.g. music album, movie, TV/radio series etc.).";
+  rdfs:label "Producer" .
+
+schema:programmingLanguage a rdf:Property;
+  rdfs:comment "The computer programming language.";
+  rdfs:label "Programming Language" .
+
+schema:softwareRequirements a rdf:Property;
+  rdfs:comment "Special third party dependencies (e.g. CUDA, Tensorflow etc. related requirements).";
+  rdfs:label "Software requirements" .
+
+schema:softwareVersion a rdf:Property;
+  rdfs:comment "Version of the software instance.";
+  rdfs:label "Software version" .
+
+schema:url a rdf:Property;
+  rdfs:comment "Fill in any URL related to this repository. e.g. related lab or project website.";
+  rdfs:label "URL" .
+
+schema:identifier a rdf:Property;
+  rdfs:comment "Represents any kind of unique string to identify something, such as ISBNs, GTIN codes, UUIDs etc.";
+  rdfs:label "Identifier" .
+
+schema:defaultValue a rdf:Property;
+  rdfs:comment "The default value of the input.  For properties that expect a literal, the default is a literal value, for properties that expect an object, it's an ID reference to one of the current values.";
+  rdfs:label "Default value" .
+
+schema:valueRequired a rdf:Property;
+  rdfs:comment "Whether the property must be filled in to complete the action.  Default is false.";
+  rdfs:label "Value required" .
+
+schema:supportingData a rdf:Property;
+  rdfs:comment "Supporting data for a SoftwareApplication.";
+  rdfs:label "Supporting data" .
+
+schema:distribution a rdf:Property;
+  rdfs:comment "A downloadable form of this dataset, at a specific location, in a specific format." ;
+  rdfs:label "Distribution" .
+
+schema:encodingFormat a rdf:Property;
+  rdfs:comment "Expressed using a MIME format (http://www.iana.org/assignments/media-types/media-types.xhtml).";
+  rdfs:label "Encoding format" .
+
+schema:measurementTechnique a rdf:Property;
+  rdfs:comment "A technique or technology used in a Dataset corresponding to the method used for measuring the corresponding variable(s)." ;
+  rdfs:label "Measurement technique" .
+
+schema:variableMeasured a rdf:Property;
+  rdfs:comment "The variables that are measured in some dataset, described as text.";
+  rdfs:label "Variable measured" .
+
+imag:imagingModality a rdf:Property;
+  rdfs:comment "Technique or method used to create images of the interior of a body or an object for which this software was designed.";
+  rdfs:label "Imaging modality" .
+
+schema:keywords a rdf:Property;
+  rdfs:comment "The keywords/tags used to describe this content."@en;
+  rdfs:label "Keywords"@en .
+
+imag:requiresGPU a rdf:Property;
+  rdfs:comment "Stipulates whether something requires a graphical processing unit such as a NVIDEA or AMD graphics card";
+  rdfs:label "Requires GPU" .
+
+schema:processorRequirements a rdf:Property;
+  rdfs:comment "Processor architecture required to run the application.";
+  rdfs:label "Processor requirements" .
+
+sd:hasInput a rdf:Property;
+  rdfs:comment "Property that links a model configuration to the input types expected by it."@en;
+  rdfs:label "Has input"@en .
+
+sd:hasOutput a rdf:Property;
+  rdfs:comment "Property that expresses what are the outputs of a model"@en;
+  rdfs:label "Has output"@en .
+
+sd:hasParameter a rdf:Property;
+  rdfs:comment "Property that indicates the parameters of a model configuration"@en;
+  rdfs:label "Has parameter"@en .
+
+sd:hasFunding a rdf:Property;
+  rdfs:comment "Property that links a software project to its funding information"@en;
+  rdfs:label "Has funding information"@en .
+
+sd:hasSoftwareImage a rdf:Property;
+  rdfs:comment "Function to link a function with its corresponding container"@en;
+  rdfs:label "Has software image"@en .
+
+sd:fundingSource a rdf:Property;
+  rdfs:comment "Link to the organization funding a software component"@en;
+  rdfs:label "Funding source"@en;
+  rdfs:subPropertyOf owl:topObjectProperty .
+
+sd:readme a rdf:Property;
+  rdfs:comment "URl to the readme file of a software component"@en;
+  rdfs:label "Readme"@en;
+  rdfs:subPropertyOf <https://codemeta.github.io/terms/readme> .
+
+sd:hasDocumentation a rdf:Property;
+  rdfs:comment "Pointer to the documentation of the model"@en;
+  rdfs:label "Has documentation"@en .
+
+sd:hasExecutableInstructions a rdf:Property;
+  rdfs:comment "Human-readable instructions that indicate how a software component should be executed."@en;
+  rdfs:label "Has executable instructions"@en .
+
+sd:hasExecutableNotebook a rdf:Property;
+  rdfs:comment "Property that links a software component with an executable notebook (e.g., Jupyter notebook)."@en;
+  rdfs:label "Has executable notebook"@en .
+
+sd:hasAcknowledgements a rdf:Property;
+  rdfs:comment "String with the people, organizations and other contributors acknowledged by the authors."@en;
+  rdfs:label "Has acknowledgements"@en .
+
+sd:fundingGrant a rdf:Property;
+  rdfs:comment "Grant number used for funding"@en;
+  rdfs:label "Funding grant"@en;
+  rdfs:subPropertyOf <https://codemeta.github.io/terms/funding> .
+
+sd:hasFormat a rdf:Property;
+  rdfs:comment "Format followed by a file. For example, txt, nc, etc."@en;
+  rdfs:label "Has format"@en .
+
+sd:availableInRegistry a rdf:Property;
+  rdfs:comment "URL to registry of where software image can be found. For example, https://hub.docker.com/r/pytorch/pytorch"@en;
+  rdfs:label "Available in registry"@en .
+
+sd:hasDimensionality a rdf:Property;
+  rdfs:comment "Property to indicate dimensionality of the input or output of a dataset specification"@en;
+  rdfs:label "Has dimensionality"@en .
+
+
+#__________________________________________#
+
+
+
+schema:Person
+  a rdfs:Class ;
+  rdfs:comment "A person (alive, dead, undead, or fictional)." ;
+  rdfs:label "Person" ;
+  rdfs:subClassOf schema:Thing ;
+  owl:equivalentClass <http://xmlns.com/foaf/0.1/Person> ;
+.
+
+schema:Organization
+  a rdfs:Class ;
+  rdfs:comment "An organization such as a school, NGO, corporation, club, etc." ;
+  rdfs:label "Organization" ;
+  rdfs:subClassOf schema:Thing ;
+.
+
+schema:ComputerLanguage
+  a rdfs:Class ;
+  rdfs:comment "This type covers computer programming languages such as Scheme and Lisp, as well as other language-like computer representations. Natural languages are best represented with the Language type." ;
+  rdfs:label "Computer language" ;
+  rdfs:subClassOf schema:Intangible ;
+.
+
+
+schema:DataFeed
+  a rdfs:Class ;
+  rdfs:comment "A single feed providing structured information about one or more entities or topics." ;
+  rdfs:label "Data feed" ;
+  rdfs:subClassOf schema:Dataset ;
+.   
+
+
+schema:Grant
+  a rdfs:Class ;
+  rdfs:comment "A grant, typically financial or otherwise quantifiable, of resources." ;
+  rdfs:label "Grant" ;
+  rdfs:subClassOf schema:Intangible ;
+.
+
+sd:FundingInformation
+    a rdfs:Class ;
+    rdfs:comment "A class to represent the funding information of a software project"@en ;
+    rdfs:label "Funding Information"@en ; 
+    .
+
+sd:DatasetSpecification
+    a rdfs:Class ;
+    rdfs:subClassOf <http://purl.org/linked-data/cube#DataStructureDefinition> ;
+    rdfs:comment "Class designed to describe a type of input or output used or produced by a model. For example, Topoflow has several inputs. One of them is a text file with precipitation values. The representation of this input is an instance of a dataset specification."@en ;
+    rdfs:label "Dataset Specification"@en ;
+    .
+
+bio:FormalParameter
+    a rdfs:Class ;
+    rdfs:subClassOf <http://purl.org/linked-data/cube#DataStructureDefinition> ;
+    rdfs:comment "A FormalParameter is an identified variable used to stand for the actual value(s) that are consumed/produced by a set of steps"@en ;
+    rdfs:label "Formal Parameter"@en ;
+
+    .
+
+sd:SoftwareImage
+    a rdfs:Class ;
+    rdfs:subClassOf sd:Software ;
+    rdfs:comment "An image that virtualizes the functionality of a given software. For example, a Docker container."@en ;
+    rdfs:label "Software Image"@en ;
+    .
+
+
+
+imag:EnumerationType a rdfs:Class ;
+    rdfs:subClassOf schema:Enumeration ;
+    rdfs:comment "EnumerationType class used to group all enumeration classes under" ;
+    rdfs:label "Enumeration Type" ;
+.
+
+imag:ImagingModalityEnum a rdfs:Class ;
+    rdfs:comment "Enumeration class for imaging modality" ;
+    rdfs:label "Imaging Modality Enumeration" ;
+    rdfs:subClassOf imag:EnumerationType ;
+.
+
+imag:MRI a imag:ImagingModalityEnum ;
+    rdfs:label "MRI" ;
+.
+
+imag:CAT a imag:ImagingModalityEnum ;
+    rdfs:label "CAT" ;
+.
+
+imag:XRay a imag:ImagingModalityEnum ;
+    rdfs:label "X-ray" ;
+.
+
+imag:Any a imag:ImagingModalityEnum ;
+    rdfs:label "Any" ;
+.
+
+imag:AffiliationEnum a rdfs:Class ;
+    rdfs:comment "Enumeration class for affiliation" ;
+    rdfs:label "Affiliation Enumeration" ;
+    rdfs:subClassOf imag:EnumerationType ;
+.
+
+imag:EPFL a imag:AffiliationEnum ;
+    rdfs:label "EPFL" ;
+.
+
+imag:UNIL a imag:AffiliationEnum ;
+    rdfs:label "UNIL" ;
+.
+
+imag:ETHZ a imag:AffiliationEnum ;
+    rdfs:label "ETHZ" ;
+.
+
+imag:UZH a imag:AffiliationEnum ;
+    rdfs:label "UZH" ;
+.
+
+imag:NoneAffiliation a imag:AffiliationEnum ;
+    rdfs:label "None" ;
+.
+
+imag:IsPluginModuleOfEnum a rdfs:Class ;
+    rdfs:comment "Enumeration class for plugin module" ;
+    rdfs:label "Plugin Module Enumeration" ;
+    rdfs:subClassOf imag:EnumerationType ;
+.
+
+imag:Fiji a imag:IsPluginModuleOfEnum ;
+    rdfs:label "Fiji" ;
+.
+
+imag:Napari a imag:IsPluginModuleOfEnum ;
+    rdfs:label "napari" ;
+.
+
+imag:Icy a imag:IsPluginModuleOfEnum ;
+    rdfs:label "icy" ;
+.
+
+imag:QuPath a imag:IsPluginModuleOfEnum ;
+    rdfs:label "qupath" ;
+.
+
+imag:OMERO a imag:IsPluginModuleOfEnum ;
+    rdfs:label "OMERO" ;
+.
+
+imag:Pyxu a imag:IsPluginModuleOfEnum ;
+    rdfs:label "pyxu" ;
+.
+
+imag:NonePluginModule a imag:IsPluginModuleOfEnum ;
+    rdfs:label "None" ;
+.
+
+imag:ApplicationCategoryEnum a rdfs:Class ;
+    rdfs:comment "Enumeration class for application category" ;
+    rdfs:label "Application Category Enumeration" ;
+    rdfs:subClassOf imag:EnumerationType ;
+.
+
+imag:DesktopApp a imag:ApplicationCategoryEnum ;
+    rdfs:label "Desktop app" ;
+.
+
+imag:Plugin a imag:ApplicationCategoryEnum ;
+    rdfs:label "Plugin" ;
+.
+
+imag:WebApp a imag:ApplicationCategoryEnum ;
+    rdfs:label "Web app" ;
+.
+
+imag:Notebook a imag:ApplicationCategoryEnum ;
+    rdfs:label "Notebook" ;
+.
+
+imag:Library a imag:ApplicationCategoryEnum ;
+    rdfs:label "Library" ;
+.
+
+imag:ImageObjectTagEnum a rdfs:Class ;
+    rdfs:comment "Enumeration class for image object tag" ;
+    rdfs:label "Image Object Tag Enumeration" ;
+    rdfs:subClassOf imag:EnumerationType ;
+.
+
+imag:Logo a imag:ImageObjectTagEnum ;
+    rdfs:label "logo" ;
+.
+
+imag:IllustrativeImage a imag:ImageObjectTagEnum ;
+    rdfs:label "illustrative image" ;
+.
+
+imag:BeforeImage a imag:ImageObjectTagEnum ;
+    rdfs:label "before image" ;
+.
+
+imag:AfterImage a imag:ImageObjectTagEnum ;
+    rdfs:label "after image" ;
+.
+
+imag:AnimatedImage a imag:ImageObjectTagEnum ;
+    rdfs:label "animated image" ;
+.
+
+imag:OperatingSystemEnum a rdfs:Class ;
+    rdfs:comment "Enumeration class for operating system" ;
+    rdfs:label "Operating System Enumeration" ;
+    rdfs:subClassOf imag:EnumerationType ;
+.
+
+imag:Windows a imag:OperatingSystemEnum ;
+    rdfs:label "Windows" ;
+.
+
+imag:Linux a imag:OperatingSystemEnum ;
+    rdfs:label "Linux" ;
+.
+
+imag:MacOS a imag:OperatingSystemEnum ;
+    rdfs:label "MacOS" ;
+.
+
+imag:OtherOS a imag:OperatingSystemEnum ;
+    rdfs:label "Other" ;
+.
+
+imag:ProcessorRequirementsEnum a rdfs:Class ;
+    rdfs:comment "Enumeration class for processor requirements" ;
+    rdfs:label "Processor Requirements Enumeration" ;
+    rdfs:subClassOf imag:EnumerationType ;
+.
+
+imag:ARM64 a imag:ProcessorRequirementsEnum ;
+    rdfs:label "ARM64" ;
+.
+
+imag:AMD64 a imag:ProcessorRequirementsEnum ;
+    rdfs:label "AMD64" ;
+.
+
+imag:NoneProcessorRequirement a imag:ProcessorRequirementsEnum ;
+    rdfs:label "None" ;
+.
+
+imag:FeatureEnum a rdfs:Class ;
+    rdfs:comment "Enumeration class for software features" ;
+    rdfs:label "Feature Enumeration" ;
+    rdfs:subClassOf imag:EnumerationType ;
+.
+
+imag:Annotation a imag:FeatureEnum ;
+    rdfs:label "Annotation" ;
+.
+
+imag:Labelling a imag:FeatureEnum ;
+    rdfs:label "Labelling" ;
+.
+
+imag:Drawing a imag:FeatureEnum ;
+    rdfs:label "Drawing" ;
+.
+
+imag:OpticalFlow a imag:FeatureEnum ;
+    rdfs:label "Optical flow" ;
+.
+
+imag:DigitalImageCorrelation a imag:FeatureEnum ;
+    rdfs:label "Digital image correlation" ;
+.
+
+imag:MotionEstimation a imag:FeatureEnum ;
+    rdfs:label "Motion estimation" ;
+.
+
+imag:Registration a imag:FeatureEnum ;
+    rdfs:label "Registration" ;
+.
+
+imag:Stitching a imag:FeatureEnum ;
+    rdfs:label "Stitching" ;
+.
+
+imag:DriftCorrection a imag:FeatureEnum ;
+    rdfs:label "Drift correction" ;
+.
+
+imag:Denoising a imag:FeatureEnum ;
+    rdfs:label "Denoising" ;
+.
+
+imag:Deblurring a imag:FeatureEnum ;
+    rdfs:label "Deblurring" ;
+.
+
+imag:Smoothing a imag:FeatureEnum ;
+    rdfs:label "Smoothing" ;
+.
+
+imag:Deconvolution a imag:FeatureEnum ;
+    rdfs:label "Deconvolution" ;
+.
+
+imag:Preprocessing a imag:FeatureEnum ;
+    rdfs:label "Preprocessing" ;
+.
+
+imag:Filtering a imag:FeatureEnum ;
+    rdfs:label "Filtering" ;
+.
+
+imag:ImageSimplification a imag:FeatureEnum ;
+    rdfs:label "Image simplification" ;
+.
+
+imag:ImageEnhancement a imag:FeatureEnum ;
+    rdfs:label "Image enhancement" ;
+.
+
+imag:Segmentation a imag:FeatureEnum ;
+    rdfs:label "Segmentation" ;
+.
+
+imag:Classification a imag:FeatureEnum ;
+    rdfs:label "Classification" ;
+.
+
+imag:ObjectDetection a imag:FeatureEnum ;
+    rdfs:label "Object detection" ;
+.
+
+imag:ObjectRecognition a imag:FeatureEnum ;
+    rdfs:label "Object recognition" ;
+.
+
+imag:Clustering a imag:FeatureEnum ;
+    rdfs:label "Clustering" ;
+.
+
+imag:Grouping a imag:FeatureEnum ;
+    rdfs:label "Grouping" ;
+.
+
+imag:PatternRecognition a imag:FeatureEnum ;
+    rdfs:label "Pattern recognition" ;
+.
+
+imag:TemplateMatching a imag:FeatureEnum ;
+    rdfs:label "Template matching" ;
+.
+
+imag:InstanceSegmentation a imag:FeatureEnum ;
+    rdfs:label "Instance segmentation" ;
+.
+
+imag:PixelClassification a imag:FeatureEnum ;
+    rdfs:label "Pixel classification" ;
+.
+
+imag:FeatureExtraction a imag:FeatureEnum ;
+    rdfs:label "Feature extraction" ;
+.
+
+imag:DimensionalityReduction a imag:FeatureEnum ;
+    rdfs:label "Dimensionality reduction" ;
+.
+
+imag:DirectionalImageAnalysis a imag:FeatureEnum ;
+    rdfs:label "Directional image analysis" ;
+.
+
+imag:PoseEstimation a imag:FeatureEnum ;
+    rdfs:label "Pose estimation" ;
+.
+
+imag:PoseInformation a imag:FeatureEnum ;
+    rdfs:label "Pose information" ;
+.
+
+imag:PoseDetection a imag:FeatureEnum ;
+    rdfs:label "Pose detection" ;
+.
+
+imag:OrientationAnalysis a imag:FeatureEnum ;
+    rdfs:label "Orientation analysis" ;
+.
+
+imag:SceneReconstruction a imag:FeatureEnum ;
+    rdfs:label "Scene reconstruction" ;
+.
+
+imag:Reconstruction3d a imag:FeatureEnum ;
+    rdfs:label "3d reconstruction" ;
+.
+
+imag:ModelGeneration3d a imag:FeatureEnum ;
+    rdfs:label "3d model generation" ;
+.
+
+imag:MorphologicalReconstruction a imag:FeatureEnum ;
+    rdfs:label "Morphological reconstruction" ;
+.
+
+imag:DepthEstimation a imag:FeatureEnum ;
+    rdfs:label "Depth estimation" ;
+.
+
+imag:CurvatureEstimation a imag:FeatureEnum ;
+    rdfs:label "Curvature estimation" ;
+.
+
+imag:ShadingEstimation a imag:FeatureEnum ;
+    rdfs:label "Shading estimation" ;
+.
+
+imag:Modelling a imag:FeatureEnum ;
+    rdfs:label "Modelling" ;
+.
+
+imag:Simulation a imag:FeatureEnum ;
+    rdfs:label "Simulation" ;
+.
+
+imag:Visualization a imag:FeatureEnum ;
+    rdfs:label "Visualization" ;
+.
+
+imag:Rendering a imag:FeatureEnum ;
+    rdfs:label "Rendering" ;
+.
+
+imag:StatisticsMeasurement a imag:FeatureEnum ;
+    rdfs:label "Statistics measurement" ;
+.
+
+imag:QualityMetricMeasurement a imag:FeatureEnum ;
+    rdfs:label "Quality metric measurement" ;
+.
+
+imag:DistributionMeasurements a imag:FeatureEnum ;
+    rdfs:label "Distribution measurements" ;
+.
+
+imag:ImageQualityAssessment a imag:FeatureEnum ;
+    rdfs:label "Image quality assessment" ;
+.
+
+imag:MeshGeneration a imag:FeatureEnum ;
+    rdfs:label "Mesh generation" ;
+.
+
+imag:Voxelization a imag:FeatureEnum ;
+    rdfs:label "Voxelization" ;
+.
+
+imag:SurfaceParameterisation a imag:FeatureEnum ;
+    rdfs:label "Surface parameterisation" ;
+.
+
+imag:MorphologicalAnalysis a imag:FeatureEnum ;
+    rdfs:label "Morphological analysis" ;
+.
+
+imag:FeatureDetection a imag:FeatureEnum ;
+    rdfs:label "Feature detection" ;
+.
+
+imag:Tracking a imag:FeatureEnum ;
+    rdfs:label "Tracking" ;
+.
+
+imag:VisualQuestionAnswering a imag:FeatureEnum ;
+    rdfs:label "Visual question answering" ;
+.
+
+imag:SoftwareRequirementsEnum a rdfs:Class ;
+    rdfs:comment "Enumeration class for software requirements" ;
+    rdfs:label "Software Requirements Enumeration" ;
+    rdfs:subClassOf imag:EnumerationType ;
+.
+
+imag:PyTorch_2_2 a imag:SoftwareRequirementsEnum ;
+    rdfs:label "PyTorch 2.2" ;
+.
+
+imag:PyTorch_2_1 a imag:SoftwareRequirementsEnum ;
+    rdfs:label "PyTorch 2.1" ;
+.
+
+imag:PyTorch_2_0 a imag:SoftwareRequirementsEnum ;
+    rdfs:label "PyTorch 2.0" ;
+.
+
+imag:PyTorch_1_13 a imag:SoftwareRequirementsEnum ;
+    rdfs:label "PyTorch 1.13" ;
+.
+
+imag:Tensorflow_2_15 a imag:SoftwareRequirementsEnum ;
+    rdfs:label "Tensorflow 2.15" ;
+.
+
+imag:Tensorflow_2_4 a imag:SoftwareRequirementsEnum ;
+    rdfs:label "Tensorflow 2.4" ;
+.
+
+imag:Tensorflow_2_2 a imag:SoftwareRequirementsEnum ;
+    rdfs:label "Tensorflow 2.2" ;
+.
+
+imag:Tensorflow_2_0 a imag:SoftwareRequirementsEnum ;
+    rdfs:label "Tensorflow 2.0" ;
+.
+
+imag:Tensorflow_1_8 a imag:SoftwareRequirementsEnum ;
+    rdfs:label "Tensorflow 1.8" ;
+.
+
+imag:Tensorflow_1_5 a imag:SoftwareRequirementsEnum ;
+    rdfs:label "Tensorflow 1.5" ;
+.
+
+imag:Tensorflow_1_4 a imag:SoftwareRequirementsEnum ;
+    rdfs:label "Tensorflow 1.4" ;
+.
+
+imag:CUDA_11_8 a imag:SoftwareRequirementsEnum ;
+    rdfs:label "CUDA 11.8" ;
+.
+
+imag:CUDA_12_1 a imag:SoftwareRequirementsEnum ;
+    rdfs:label "CUDA 12.1" ;
+.
+
+imag:CUDA_10_1 a imag:SoftwareRequirementsEnum ;
+    rdfs:label "CUDA 10.1" ;
+.
+
+imag:CUDA_9_0 a imag:SoftwareRequirementsEnum ;
+    rdfs:label "CUDA 9.0" ;
+.
+
+imag:NoneSoftwareRequirement a imag:SoftwareRequirementsEnum ;
+    rdfs:label "None" ;
+.
+
+imag:ComputerLanguageEnum a rdfs:Class ;
+    rdfs:comment "Enumeration class for computer languages" ;
+    rdfs:label "Computer Language Enumeration" ;
+    rdfs:subClassOf imag:EnumerationType ;
+.
+
+imag:Python a imag:ComputerLanguageEnum ;
+    rdfs:label "Python" ;
+.
+
+imag:Scala a imag:ComputerLanguageEnum ;
+    rdfs:label "Scala" ;
+.
+
+imag:Java a imag:ComputerLanguageEnum ;
+    rdfs:label "Java" ;
+.
+
+imag:JavaScript a imag:ComputerLanguageEnum ;
+    rdfs:label "JavaScript" ;
+.
+
+imag:GoLang a imag:ComputerLanguageEnum ;
+    rdfs:label "GoLang" ;
+.
+
+imag:Csharp a imag:ComputerLanguageEnum ;
+    rdfs:label "C#" ;
+.
+
+imag:C a imag:ComputerLanguageEnum ;
+    rdfs:label "C" ;
+.
+
+imag:Bash a imag:ComputerLanguageEnum ;
+    rdfs:label "bash" ;
+.
+
+imag:Shell a imag:ComputerLanguageEnum ;
+    rdfs:label "shell" ;
+.
+
+imag:R a imag:ComputerLanguageEnum ;
+    rdfs:label "R" ;
+.
+
+imag:Rust a imag:ComputerLanguageEnum ;
+    rdfs:label "Rust" ;
+.
+
+imag:Cplusplus a imag:ComputerLanguageEnum ;
+    rdfs:label "C++" ;
+.
+
+imag:MatLab a imag:ComputerLanguageEnum ;
+    rdfs:label "MATLAB" ;
+.

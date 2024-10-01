@@ -28,6 +28,7 @@ class Ontology:
     publish_date: str = ""
     contributors: list = field(default_factory=list)
     creators: list = field(default_factory=list)
+    download_url: str = ""
 
     def to_dict(self):
         return {
@@ -37,6 +38,7 @@ class Ontology:
             "publish_date": self.publish_date,
             "contributors": self.contributors,
             "creators": self.creators,
+            "download_url": self.download_url,
         }
 
     def import_from_rdf(self, rdf_ontology):
@@ -48,6 +50,7 @@ class Ontology:
             rdf_ontology.get("contributors", {}).get("value", "").split("\n")
         )
         self.creators = rdf_ontology.get("creators", {}).get("value", "").split("\n")
+        self.download_url = rdf_ontology.get("download_url", {}).get("value", "")
 
 
 @dataclass
@@ -60,6 +63,7 @@ class Property:
     definition: str = ""
     property: str = ""
     domain: set = field(default_factory=set)
+    fragment_identifier: str = ""
     range: set = field(default_factory=set)
 
     def add_domain(self, domain):
@@ -72,6 +76,7 @@ class Property:
         return {
             "Label": self.label,
             "Definition": self.definition,
+            "FragmentIdentifier": self.fragment_identifier,
             "Property": self.property,
             "Domain": ", ".join(self.domain),
             "Range": ", ".join(self.range),
@@ -86,6 +91,7 @@ class Class:
 
     label: str = ""
     definition: str = ""
+    fragment_identifier: str = ""
     term: str = ""
     property: set = field(default_factory=set)
 
@@ -96,6 +102,7 @@ class Class:
         return {
             "Label": self.label,
             "Definition": self.definition,
+            "FragmentIdentifier": self.fragment_identifier,
             "Term": self.term,
             "Property": ", ".join(self.property),
         }
@@ -109,6 +116,7 @@ class EnumerationGroup:
 
     label: str = ""
     definition: str = ""
+    fragment_identifier: str = ""
     term: str = ""
 
     def to_string(self):
@@ -118,6 +126,7 @@ class EnumerationGroup:
         return {
             "Label": self.label,
             "Definition": self.definition,
+            "FragmentIdentifier": self.fragment_identifier,
             "Term": self.term,
         }
 
@@ -133,9 +142,10 @@ class Enumeration:
 
     label: str = ""
     definition: str = ""
-    term: str = ""
     enumeration_group: set = field(default_factory=set)
+    fragment_identifier: str = ""
     property: set = field(default_factory=set)
+    term: str = ""
 
     def add_property(self, property):
         self.property.add(property)
@@ -152,6 +162,7 @@ class Enumeration:
         return {
             "Label": self.label,
             "Definition": self.definition,
+            "FragmentIdentifier": self.fragment_identifier,
             "Term": self.term,
             "Groups": ", ".join([g.to_string() for g in self.enumeration_group]),
             "Property": ", ".join(self.property),

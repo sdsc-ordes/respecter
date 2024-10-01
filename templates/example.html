@@ -27,7 +27,7 @@
       publishDate: "{{ ontology.publishDate }}",
       specStatus: "ED",
       shortName: "ReSpecter",
-      github: "https://gitlab.com/data-custodian/custodian-ontology/-/blob/main/contract_shape_ontology.ttl?ref_type=heads",
+      github: "{{ ontology.url }}",
       authors: [
         {% for author in ontology.creators %}
     { name: "{{ author }}" },
@@ -45,6 +45,7 @@
   <section id="abstract">
     <p>{{ ontology.abstract }}</p>
   </section>
+
   <section class="informative">
     <h2>Introduction</h2>
     <p>{{ ontology.introduction }}</p>
@@ -52,22 +53,39 @@
       <p>"This ontology and the tool ReSpecter is still in active development. See <a
           href='https://github.com/sdsc-ordes/respecter/'>ReSpecter</a> for more details on the tool."</p>
     </aside>
+    <section>
+      <h3>Download File</h3>
+      <button onclick="downloadFile()">Download File</button>
+      <script>
+      function downloadFile() {
+          const link = document.createElement('a');
+          link.href = '{{ontology.download_url}}';
+          link.download = 'ontology.ttl';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      }
+      </script>
+    </section> 
   </section>
+
   <section>
     <h2>Classes</h2>
 
     {% for concept in concepts %}
-    <h3>{{ concept.Label }}</h3>
+    <h3 id="{{ concept.FragmentIdentifier }}">{{ concept.Label }}</h3>
     <table class="def">
       {% for key, value in concept.items() %}
-      <tr>
-        <td>
-          <p>{{ key }}</p>
-        </td>
-        <td>
-          <p>{{ value }}</p>
-        </td>
-      </tr>
+        {% if key != 'FragmentIdentifier' %} 
+          <tr>
+            <td>
+              <p>{{ key }}</p>
+            </td>
+            <td>
+              <p>{{ value }}</p>
+            </td>
+          </tr>
+        {% endif %}
       {% endfor %}
     </table>
     {% endfor %}
@@ -77,53 +95,57 @@
     <h2>Properties</h2>
 
     {% for property in properties %}
-    <h3>{{ property.Label }}</h3>
+    <h3 id="{{ property.FragmentIdentifier }}">{{ property.Label }}</h3>
     <table class="def">
       {% for key, value in property.items() %}
-      <tr>
-        <td>
-          <p>{{ key }}</p>
-        </td>
-        <td>
-          <p>{{ value }}</p>
-        </td>
-      </tr>
+       {% if key != 'FragmentIdentifier' %} 
+          <tr>
+            <td>
+              <p>{{ key }}</p>
+            </td>
+            <td>
+              <p>{{ value }}</p>
+            </td>
+          </tr>
+        {% endif %}
       {% endfor %}
     </table>
     {% endfor %}
   </section>
 
-  <body>
-    <section>
-      <h2>Enumeration Values</h2>
 
-      {# iterate over the enum_dict to display the groups and their items #}
-      {% for group in grouped_enumerations.values() %}
-      <h3>{{ group.label }}</h3>
-      <table class="def">
-        <tr>
-          <td>Term</td>
-          <td>{{ group.term }}</td>
-        </tr>
-      </table>
-      {% for item in group.enumerations %}
-      <h4>{{ item.Label }}</h4>
-      <table class="def">
-        {% for key, value in item.items() %}
-        <tr>
-          <td>
-            <p>{{ key }}</p>
-          </td>
-          <td>
-            <p>{{ value }}</p>
-          </td>
-        </tr>
-        {% endfor %}
-      </table>
+  <section>
+    <h2>Enumeration Values</h2>
+
+    {# iterate over the enum_dict to display the groups and their items #}
+    {% for group in grouped_enumerations.values() %}
+    <h3 id="{{ group.FragmentIdentifier }}">{{ group.label }}</h3>
+    <table class="def">
+      <tr>
+        <td>Term</td>
+        <td>{{ group.term }}</td>
+      </tr>
+    </table>
+    {% for item in group.enumerations %}
+    <h4 id="{{ item.FragmentIdentifier }}">{{ item.Label }}</h4>
+    <table class="def">
+      {% for key, value in item.items() %}
+        {% if key != 'FragmentIdentifier' %} 
+          <tr>
+            <td>
+              <p>{{ key }}</p>
+            </td>
+            <td>
+              <p>{{ value }}</p>
+            </td>
+          </tr>
+        {% endif %}
       {% endfor %}
-      {% endfor %}
-    </section>
-  </body>
+    </table>
+    {% endfor %}
+    {% endfor %}
+  </section>
+</body>
 
 
 </html>
