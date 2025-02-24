@@ -1,0 +1,16 @@
+LICENSE
+NOTICE
+README.md
+pyproject.toml
+src/respecter/__init__.py
+src/respecter/cli.py
+src/respecter/core.py
+src/respecter/helpers.py
+src/respecter/models.py
+src/respecter/sparql.py
+src/respecter.egg-info/PKG-INFO
+src/respecter.egg-info/SOURCES.txt
+src/respecter.egg-info/dependency_links.txt
+src/respecter.egg-info/entry_points.txt
+src/respecter.egg-info/requires.txt
+src/respecter.egg-info/top_level.txt
