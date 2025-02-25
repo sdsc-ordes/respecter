@@ -6,7 +6,15 @@ respecter is supposed to make it easier for non-RDF aware humans to browse throu
 
 Create a virtual python environment and install the dependencies from requirements.txt with:
 ```sh
-pip install -r requirements.txt
+pip install git+https://github.com/sdsc-ordes/respecter
+```
+
+## Development setup
+
+We use [just](https://github.com/casey/just) as a command runner and [uv](https://github.com/astral-sh/uv) as a python package manager. You can get into a development environment with a dedicated venv using:
+
+```sh
+just setup
 ```
 
 # Usage
