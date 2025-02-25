@@ -18,7 +18,7 @@ import typer
 import os
 from typing import Optional
 from typing_extensions import Annotated
-from .core import fetch_ontology, render_template
+from respecter.core import fetch_ontology, render_template
 
 __version__ = (
     "0.0.1"  # TODO: Move this to __init__.py and use poetry to manage the version
