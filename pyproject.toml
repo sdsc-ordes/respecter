@@ -45,7 +45,7 @@ test = [
 ]
 
 [project.scripts]
-respecter = "respecter.cli:main"
+respecter = "respecter.cli:app"
 
 [build-system]
 requires = ["hatchling"]
