@@ -38,28 +38,30 @@ def format_properties(properties):
 
     return [property.to_dict() for property in properties.values()]
 
+def format_uri_value(value, qname=None, current_ontology_url=None):
+    if current_ontology_url and value.startswith(current_ontology_url):
+        value_uri = value.replace(current_ontology_url, "#")
+    else:
+        value_uri = value
+    if qname:
+        value_string = qname(value)
+    else:
+        value_string = value
+    return '<a href="' + value_uri + '">' + value_string + "</a>"
 
-def format_value(value, qname=None, current_ontology_url=None):
+
+def format_value(item, qname=None, current_ontology_url=None):
     """
     Format the value to be used in the template.
     """
     # FIXME: the following section is a hack to have a working example.
     # This should be done differently and follow the Respec syntax for URLs.
     
-    if value.get("type") == "uri":
-        if current_ontology_url and value["value"].startswith(current_ontology_url):
-            value_uri = value["value"].replace(current_ontology_url, "#")
-                  
-        else:
-            value_uri = value["value"]
-        if qname:
-            value_string = qname(value["value"])
-        else:
-            value_string = value["value"]
-        return '<a href="' + value_uri + '">' + value_string + "</a>"
-    elif value.get("type") == "literal":
-        return value["value"]
-    elif value.get("type") == None:
+    if item.get("type") == "uri":
+        return format_uri_value(item.get("value", ""), qname=qname, current_ontology_url=current_ontology_url)
+    elif item.get("type") == "literal":
+        return item["value"]
+    elif item.get("type") == None:
         # Display a warning message
         print("Warning: missing value encountered.")
         return ""
@@ -67,12 +69,12 @@ def format_value(value, qname=None, current_ontology_url=None):
         # Display a warning message
         print(
             "Warning: unknown type '"
-            + value.get("type")
+            + item.get("type")
             + "' for value '"
-            + value.get("value")
+            + item.get("value")
             + "'"
         )
-        return value["value"]
+        return item["value"]
 
 
 def extract_fragment_identifier(uri_reference: str, separator="#"):
@@ -91,7 +93,7 @@ def extract_fragment_identifier(uri_reference: str, separator="#"):
         "fragment"
     """
     if separator in uri_reference:
-        return uri_reference.split("#")[1]
+        return uri_reference.split(separator)[-1]
     return ""
 
 

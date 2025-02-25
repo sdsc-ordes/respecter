@@ -1,0 +1,7 @@
+<https://example.com/Alice> a <https://schema.org/Person> ;
+    <https://schema.org/knowsLanguage> "English" .
+<https://example.com/Bob> a <https://schema.org/Person> ;
+    <https://schema.org/knowsLanguage> "French" .
+
+<https://example.com/SDSC> a <https://schema.org/Organization> ;
+    <https://schema.org/knowsLanguage> "English" .
