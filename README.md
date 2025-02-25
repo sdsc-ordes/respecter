@@ -25,13 +25,13 @@ The script `respecter/cli.py` can then be used to generate a ReSpec styled HTML 
 The following command will generate a ReSpec styled HTML page from the ontology `custodian.ttl` and save it under the name `custodian.html`:
 
 ```sh
-python3 respecter/cli.py examples/custodian.ttl --output custodian.html
+respecter examples/custodian.ttl --output custodian.html
 ```
 
 To know more about the available options, run:
 
 ```sh
-python3 respecter/cli.py --help
+respecter --help
 ```
 # Copyright
 Copyright © 2024 Swiss Data Science Center (SDSC), www.datascience.ch. All rights reserved. The SDSC operates as a 'Société Simple' (einfache Gesellschaft) under Swiss law, jointly established and legally represented by the École Polytechnique Fédérale de Lausanne (EPFL) and the Eidgenössische Technische Hochschule Zürich (ETH Zürich). This copyright encompasses all materials, software, documentation, and other content created and developed by the SDSC.
