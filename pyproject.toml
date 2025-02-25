@@ -6,7 +6,7 @@ authors = [
 ]
 description = "Turn an RDF-serialized ontology into a ReSpec styled HTML page"
 readme = "README.md"
-requires-python = ">=3.11,<3.13"
+requires-python = ">=3.11"
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
@@ -46,3 +46,7 @@ test = [
 
 [project.scripts]
 respecter = "respecter.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
