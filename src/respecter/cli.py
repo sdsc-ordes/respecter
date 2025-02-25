@@ -45,10 +45,10 @@ def main(
     ontology: Annotated[str, typer.Argument(
         help="Path to the ontology RDF file.",
     )],
-    config_path: Annotated[Optional[str], typer.Option(
-        "--config",
+    sparql_config_path: Annotated[Optional[str], typer.Option(
+        "--sparql-config",
         show_choices=True,
-        help="Path to the YAML configuration file.",
+        help="Path to the SPARQL configuration file.",
     )] = "config/sparql_config.yaml",
     debug: Annotated[bool, typer.Option(
         "--debug", help="Enable debugging mode."
