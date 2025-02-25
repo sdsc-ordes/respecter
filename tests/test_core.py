@@ -1,6 +1,6 @@
 import pytest
 
-from core import fix_prefixes
+from respecter.core import fix_prefixes
 
 def test_fix_prefixes():
     input_html = """

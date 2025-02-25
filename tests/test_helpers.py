@@ -1,6 +1,6 @@
 import pytest
 
-from helpers import extract_fragment_identifier, format_value
+from respecter.helpers import extract_fragment_identifier, format_value
 
 
 def test_extract_fragment_identifier():

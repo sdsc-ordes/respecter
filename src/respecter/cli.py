@@ -17,7 +17,8 @@ import click
 import typer
 import os
 from typing import Optional
-from core import fetch_ontology, render_template
+from typing_extensions import Annotated
+from respecter.core import fetch_ontology, render_template
 
 __version__ = (
     "0.0.1"  # TODO: Move this to __init__.py and use poetry to manage the version
@@ -41,33 +42,31 @@ def version_callback(value: bool):
 
 @app.command()
 def main(
-    ontology: str = typer.Argument(
+    ontology: Annotated[str, typer.Argument(
         help="Path to the ontology RDF file.",
-    ),
-    sparql_config_path: Optional[str] = typer.Option(
-        "config/sparql_config.yaml",
+    )],
+    sparql_config_path: Annotated[Optional[str], typer.Option(
         "--sparql-config",
         show_choices=True,
         help="Path to the SPARQL configuration file.",
-    ),
-    debug: Optional[bool] = typer.Option(
-        False, "--debug", help="Enable debugging mode."
-    ),
-    output: Optional[str] = typer.Option(
-        "output.html",
+    )] = "config/sparql_config.yaml",
+    debug: Annotated[bool, typer.Option(
+        "--debug", help="Enable debugging mode."
+    )] = False,
+    output: Annotated[str, typer.Option(
         "--output",
         help="Path to the output HTML file.",
-    ),
-    version: Optional[bool] = typer.Option(
-        None,
+    )] = "output.html",
+    version: Annotated[Optional[bool], typer.Option(
         "--version",
         help="Display version and exit",
         callback=version_callback,
-    ),
+    )] = None,
 ):
     """
     Turns a RDF serialization of an ontology into a ReSpec styled HTML page
     """
+    breakpoint()
     ontology, concepts, properties, enumerations = fetch_ontology(
         ontology_file_path=ontology,
         sparql_config_file_path=sparql_config_path,

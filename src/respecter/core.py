@@ -17,8 +17,8 @@ from jinja2 import Environment, FileSystemLoader
 import json
 import rdflib
 import os
-from models import Ontology, Class, Property, Enumeration
-from helpers import (
+from respecter.models import Ontology, Class, Property, Enumeration
+from respecter.helpers import (
     extract_classes,
     extract_enumerations,
     extract_properties,
@@ -26,7 +26,7 @@ from helpers import (
     format_properties,
     group_format_enumerations,
 )
-from sparql import apply_sparql_query_file, SparqlConfig
+from respecter.sparql import apply_sparql_query_file, SparqlConfig
 from typing import List
 
 # Define the SPARQL query to retrieve the concepts

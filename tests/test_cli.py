@@ -1,4 +1,4 @@
-from cli import app
+from respecter.cli import app
 from typer.testing import CliRunner
 
 runner = CliRunner()

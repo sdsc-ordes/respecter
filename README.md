@@ -6,7 +6,15 @@ respecter is supposed to make it easier for non-RDF aware humans to browse throu
 
 Create a virtual python environment and install the dependencies from requirements.txt with:
 ```sh
-pip install -r requirements.txt
+pip install git+https://github.com/sdsc-ordes/respecter
+```
+
+## Development setup
+
+We use [just](https://github.com/casey/just) as a command runner and [uv](https://github.com/astral-sh/uv) as a python package manager. You can get into a development environment with a dedicated venv using:
+
+```sh
+just dev
 ```
 
 # Usage
@@ -17,13 +25,13 @@ The script `respecter/cli.py` can then be used to generate a ReSpec styled HTML 
 The following command will generate a ReSpec styled HTML page from the ontology `custodian.ttl` and save it under the name `custodian.html`:
 
 ```sh
-python3 respecter/cli.py examples/custodian.ttl --output custodian.html
+respecter examples/custodian.ttl --output custodian.html
 ```
 
 To know more about the available options, run:
 
 ```sh
-python3 respecter/cli.py --help
+respecter --help
 ```
 # Copyright
 Copyright © 2024 Swiss Data Science Center (SDSC), www.datascience.ch. All rights reserved. The SDSC operates as a 'Société Simple' (einfache Gesellschaft) under Swiss law, jointly established and legally represented by the École Polytechnique Fédérale de Lausanne (EPFL) and the Eidgenössische Technische Hochschule Zürich (ETH Zürich). This copyright encompasses all materials, software, documentation, and other content created and developed by the SDSC.
