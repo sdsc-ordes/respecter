@@ -1,2 +1,0 @@
-[console_scripts]
-respecter = respecter.cli:main

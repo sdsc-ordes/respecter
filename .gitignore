@@ -2,3 +2,4 @@ debug/*
 .venv
 __pycache__/
 *.html
+*.egg-info*
