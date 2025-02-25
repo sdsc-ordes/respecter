@@ -14,7 +14,7 @@ pip install git+https://github.com/sdsc-ordes/respecter
 We use [just](https://github.com/casey/just) as a command runner and [uv](https://github.com/astral-sh/uv) as a python package manager. You can get into a development environment with a dedicated venv using:
 
 ```sh
-just setup
+just dev
 ```
 
 # Usage
