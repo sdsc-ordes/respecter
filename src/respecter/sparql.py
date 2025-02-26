@@ -1,7 +1,8 @@
+from pathlib import Path
 import json
 import yaml
 from dataclasses import dataclass, field
-
+from respecter import DEFAULT_CONFIG_PATH
 
 @dataclass
 class SparqlConfig:
@@ -18,8 +19,19 @@ class SparqlConfig:
 
     types: dict = field(default_factory=dict)
     predicates: dict = field(default_factory=dict)
+    ontology: dict = field(default_factory=dict)
 
-    def __init__(self, config_file_path):
+
+    @classmethod
+    def default(cls):
+        """
+        Initialize the SparqlConfig class with default values.
+        """
+        return cls.from_path(DEFAULT_CONFIG_PATH)
+
+
+    @classmethod
+    def from_path(cls, config_path: Path):
         """
         Initialize the SparqlConfig class.
 
@@ -29,18 +41,14 @@ class SparqlConfig:
         Raises:
             ValueError: If the "type" or "predicate" elements are not found in the config file.
         """
-        with open(config_file_path, "r") as f:
+        with open(config_path, "r") as f:
             _yaml_config = yaml.load(f, Loader=yaml.FullLoader)
-        if "type" not in _yaml_config:
-            raise ValueError('Element "type" not found in config file')
-        if "predicate" not in _yaml_config:
-            raise ValueError('Element "predicate" not found in config file')
-        if "ontology" not in _yaml_config:
-            raise ValueError('Element "ontology" not found in config file')
 
-        self.types = _yaml_config["type"]
-        self.predicates = _yaml_config["predicate"]
-        self.ontology = _yaml_config["ontology"]
+        return cls(
+            types=_yaml_config["type"], 
+            predicates=_yaml_config["predicate"],
+            ontology=_yaml_config["ontology"],
+        )
 
     def get_uri_base(self):
         """
