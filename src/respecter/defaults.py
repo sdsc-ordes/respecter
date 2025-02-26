@@ -1,4 +1,5 @@
-from pathlib import Path
+from importlib import resources
 
-DEFAULT_CONFIG_PATH = Path(__file__).parent / "config" / "sparql.yaml"
-DEFAULT_QUERY_PATH = Path(__file__).parent / "sparql_queries" / "sparql_query.sparql"
+CONFIG = resources.read_text("respecter", "data/config.yaml")
+QUERY = resources.read_text("respecter", "data/queries/ontology_metadata.sparql")
+TEMPLATE = resources.read_text("respecter", "data/template.html")
