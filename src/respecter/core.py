@@ -13,6 +13,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from pathlib import Path
+
 from jinja2 import Environment, FileSystemLoader
 import json
 import rdflib
@@ -33,20 +35,18 @@ from typing import List
 ONTOLOGY_SPARQL = "sparql_queries/sparql_query_ontology.sparql"
 
 
-def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
+def fetch_ontology(ontology_path: Path, config: SparqlConfig, debug=False):
     """
     Fetch the ontology from the RDF file and the SPARQL query.
     """
     # Load the turtle file
     graph = rdflib.Graph()
-    graph.parse(ontology_file_path)
+    graph.parse(ontology_path)
     
     
     # Load the SPARQL query
-
-    sparql_config = SparqlConfig(sparql_config_file_path)
     
-    concepts_query = sparql_config.build_concepts_query()
+    concepts_query = config.build_concepts_query()
     
 
     # Save the query to a file (for debugging)
@@ -63,7 +63,7 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
     concepts_query_result = json.loads(concepts_query_result)
     
 
-    enumerations_query = sparql_config.build_enumerations_query()
+    enumerations_query = config.build_enumerations_query()
     enumerations_query_result = graph.query(enumerations_query).serialize(format="json")
     enumerations_query_result = json.loads(enumerations_query_result)
 
@@ -75,21 +75,21 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
     concepts = extract_classes(
         concepts_data,
         qname=graph.qname,
-        current_ontology_url=sparql_config.get_uri_base()
+        current_ontology_url=config.get_uri_base()
         
-        + sparql_config.get_uri_separator(),
+        + config.get_uri_separator(),
     )
     properties = extract_properties(
         concepts_data,
         qname=graph.qname,
-        current_ontology_url=sparql_config.get_uri_base()
-        + sparql_config.get_uri_separator(),
+        current_ontology_url=config.get_uri_base()
+        + config.get_uri_separator(),
     )
     enumerations = extract_enumerations(
         enumerations_data,
         qname=graph.qname,
-        current_ontology_url=sparql_config.get_uri_base()
-        + sparql_config.get_uri_separator(),
+        current_ontology_url=config.get_uri_base()
+        + config.get_uri_separator(),
     )
     ontology = Ontology()
     ontology.import_from_rdf(ontology_metadata[0])
