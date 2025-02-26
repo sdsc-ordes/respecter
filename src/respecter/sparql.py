@@ -248,16 +248,6 @@ def sparql_query(graph, query):
     return query_result
 
 
-def apply_sparql_query_file(graph, sparql_filename):
-    """
-    Execute a SPARQL query on a graph and return the results.
-    """
-    # Load the SPARQL query
-    with open(sparql_filename, "r") as f:
-        query = f.read()
-    return sparql_query(graph, query)
-
-
 def debug_sparql_query(file):
     """
     Load the results of a SPARQL query from a file.

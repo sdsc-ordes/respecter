@@ -28,11 +28,9 @@ from respecter.helpers import (
     format_properties,
     group_format_enumerations,
 )
-from respecter.sparql import apply_sparql_query_file, SparqlConfig
+from respecter import defaults
+from respecter.sparql import sparql_query, SparqlConfig
 from typing import List
-
-# Define the SPARQL query to retrieve the concepts
-ONTOLOGY_SPARQL = "sparql_queries/sparql_query_ontology.sparql"
 
 
 def fetch_ontology(ontology_path: Path, config: SparqlConfig, debug=False):
@@ -58,7 +56,8 @@ def fetch_ontology(ontology_path: Path, config: SparqlConfig, debug=False):
             file.write(concepts_query)
             print(f"SPARQL query saved to file: {filename}")
 
-    ontology_query_result = apply_sparql_query_file(graph, ONTOLOGY_SPARQL)
+    breakpoint()
+    ontology_query_result = sparql_query(graph, defaults.QUERY)
     concepts_query_result = graph.query(concepts_query).serialize(format="json")
     concepts_query_result = json.loads(concepts_query_result)
     
