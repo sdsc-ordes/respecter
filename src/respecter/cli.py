@@ -13,12 +13,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from pathlib import Path
 import click
 import typer
-import os
 from typing import Optional
 from typing_extensions import Annotated
 from respecter.core import fetch_ontology, render_template
+from respecter.sparql import SparqlConfig
 
 __version__ = (
     "0.0.1"  # TODO: Move this to __init__.py and use poetry to manage the version
@@ -42,21 +43,27 @@ def version_callback(value: bool):
 
 @app.command()
 def main(
-    ontology: Annotated[str, typer.Argument(
+    ontology_path: Annotated[Path, typer.Argument(
         help="Path to the ontology RDF file.",
+        exists=True,
+        dir_okay=False,
     )],
-    sparql_config_path: Annotated[Optional[str], typer.Option(
-        "--sparql-config",
+    config_path: Annotated[Optional[Path], typer.Option(
+        "--config",
         show_choices=True,
-        help="Path to the SPARQL configuration file.",
-    )] = "config/sparql_config.yaml",
+        help="Path to the YAML configuration file.",
+        exists=True,
+        dir_okay=False,
+    )] = None,
     debug: Annotated[bool, typer.Option(
         "--debug", help="Enable debugging mode."
     )] = False,
-    output: Annotated[str, typer.Option(
+    output: Annotated[Optional[Path], typer.Option(
         "--output",
-        help="Path to the output HTML file.",
-    )] = "output.html",
+        help="Path to the output HTML file. If not provided, the output will be printed to stdout.",
+        exists=False,
+        dir_okay=False,
+    )] = None,
     version: Annotated[Optional[bool], typer.Option(
         "--version",
         help="Display version and exit",
@@ -66,22 +73,23 @@ def main(
     """
     Turns a RDF serialization of an ontology into a ReSpec styled HTML page
     """
-    breakpoint()
+    if config_path:
+        config = SparqlConfig.from_path(config)
+    else:
+        config = SparqlConfig.default()
     ontology, concepts, properties, enumerations = fetch_ontology(
-        ontology_file_path=ontology,
-        sparql_config_file_path=sparql_config_path,
+        ontology_path=ontology_path,
+        config=config,
         debug=debug,
     )
     template = render_template(ontology, concepts, properties, enumerations)
     # Write rendered template to file
-    if os.path.exists(output):
-        click.confirm(
-            f"The file {output} already exists. Do you want to overwrite it?",
-            abort=True,
-        )
-    with open(output, "w", encoding="utf-8") as f:
-        f.write(template)
-    typer.echo(f"HTML page saved to {output}")
+    if output:
+        with open(output, "w", encoding="utf-8") as f:
+            f.write(template)
+        typer.echo(f"HTML page saved to {output}", err=True)
+    else:
+        typer.echo(template)
 
 
 if __name__ == "__main__":
