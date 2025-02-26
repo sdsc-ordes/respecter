@@ -2,7 +2,7 @@ from pathlib import Path
 import json
 import yaml
 from dataclasses import dataclass, field
-from respecter import DEFAULT_CONFIG_PATH
+from respecter import defaults
 
 @dataclass
 class SparqlConfig:
@@ -27,7 +27,7 @@ class SparqlConfig:
         """
         Initialize the SparqlConfig class with default values.
         """
-        return cls.from_path(DEFAULT_CONFIG_PATH)
+        return cls.parse(defaults.CONFIG)
 
 
     @classmethod
@@ -42,8 +42,17 @@ class SparqlConfig:
             ValueError: If the "type" or "predicate" elements are not found in the config file.
         """
         with open(config_path, "r") as f:
-            _yaml_config = yaml.load(f, Loader=yaml.FullLoader)
+            return cls.parse(f.read())
 
+
+    @classmethod
+    def parse(cls, config: str):
+        """
+        Initialize the SparqlConfig class.
+        Args:
+            config (str): A YAML string containing the config data.
+        """
+        _yaml_config = yaml.load(config, Loader=yaml.FullLoader)
         return cls(
             types=_yaml_config["type"], 
             predicates=_yaml_config["predicate"],
