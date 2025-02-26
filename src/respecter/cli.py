@@ -47,6 +47,7 @@ def main(
         help="Path to the ontology RDF file.",
         exists=True,
         dir_okay=False,
+        show_default=False,
     )],
     config_path: Annotated[Optional[Path], typer.Option(
         "--config",
