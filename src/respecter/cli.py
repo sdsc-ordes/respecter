@@ -52,6 +52,7 @@ def run(
         show_default=False,
     )],
     config_path: Annotated[Path, typer.Option(
+        "-c",
         "--config",
         help="Path to the YAML configuration file.",
         show_default=False,
@@ -59,9 +60,12 @@ def run(
         dir_okay=False,
     )],
     debug: Annotated[bool, typer.Option(
-        "--debug", help="Enable debugging mode."
+        "-d",
+        "--debug",
+        help="Enable debugging mode."
     )] = False,
     output: Annotated[Optional[Path], typer.Option(
+        "-o",
         "--output",
         help="Path to the output HTML file. If not provided, the output will be printed to stdout.",
         exists=False,
