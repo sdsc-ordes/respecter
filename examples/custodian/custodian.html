@@ -1,0 +1,3652 @@
+ <!-- respecter
+ Copyright 2022 - Swiss Data Science Center (SDSC)
+ A partnership between École Polytechnique Fédérale de Lausanne (EPFL) and
+ Eidgenössische Technische Hochschule Zürich (ETHZ). 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License. -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swiss Data Custodian Contract Ontology</title>
+  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+  <script class="remove">
+    // All config options at https://respec.org/docs/
+    var respecConfig = {
+      publishDate: "",
+      specStatus: "ED",
+      shortName: "ReSpecter",
+      github: "https://gitlab.com/data-custodian/custodian-ontology/-/blob/main/contract_shape_ontology.ttl?ref_type=heads",
+      authors: [
+        
+    { name: "Robin Franken" },
+    
+    { name: "Martin Fontanet" },
+    
+    { name: "Sabrina Ossey" },
+    
+    { name: "Oksana Riba" },
+    
+      ],
+    editors: [
+    { name: "SDSC ORDES Team" },
+    
+    ],
+    };
+  </script>
+</head>
+
+<body>
+  <section id="abstract">
+    <p>The swiss data custodian ontology provides SHACL shapes and concepts (classes and properties) to model human and machine readable contracts.</p>
+  </section>
+  <section class="informative">
+    <h2>Introduction</h2>
+    <p>The swiss data custodian ontology provides SHACL shapes and concepts (classes and properties) to model human and machine readable contracts.</p>
+    <aside class="note" title="ReSpecter status">
+      <p>"This ontology and the tool ReSpecter is still in active development. See <a
+          href='https://github.com/sdsc-ordes/respecter/'>ReSpecter</a> for more details on the tool."</p>
+    </aside>
+  </section>
+  <section>
+    <h2>Classes</h2>
+
+    
+    <h3>Contract</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>Contract</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>Creation, completion, fulfilment, or performance of a contract involving specified processing</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Term</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#Contract">dpv:Contract</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/dcat#startDate">dcat:startDate</a>, <a href="http://www.w3.org/ns/dcat#endDate">dcat:endDate</a>, <a href="https://w3id.org/dpv#hasIdentifier">dpv:hasIdentifier</a>, <a href="https://swissdatacustodian.ch/doc/ontology#hasDataHandling">sdc:hasDataHandling</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>Legal Entity</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>Legal Entity</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>A human or non-human 'thing' that constitutes as an entity and which is recognised and defined in law</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Term</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#LegalEntity">dpv:LegalEntity</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasIdentifier">dpv:hasIdentifier</a>, <a href="https://w3id.org/dpv#hasName">dpv:hasName</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>Data Handling</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>Data Handling</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>A high-level Class to describe 'data handling'. This can consist of personal data being processed for a purpose, involving entities, using technical and organisational measures, applicable risks, rights, and legal basis.</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Term</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">sdc:DataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasDataController">dpv:hasDataController</a>, <a href="https://w3id.org/dpv#hasPersonalData">dpv:hasPersonalData</a>, <a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a>, <a href="https://w3id.org/dpv#hasDataProcessor">dpv:hasDataProcessor</a>, <a href="https://w3id.org/dpv#hasPurpose">dpv:hasPurpose</a>, <a href="https://w3id.org/dpv#hasDataSubject">dpv:hasDataSubject</a>, <a href="https://w3id.org/dpv#hasProcessing">dpv:hasProcessing</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>Personal Data</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>Personal Data</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>Data directly or indirectly associated or related to an individual.</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Term</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#PersonalData">dpv:PersonalData</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/dcat#downloadURL">dcat:downloadURL</a>, <a href="http://www.w3.org/ns/dcat#theme">dcat:theme</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+  </section>
+
+  <section>
+    <h2>Properties</h2>
+
+    
+    <h3>has identifier</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>has identifier</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>Indicates an identifier associated for identification or reference</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasIdentifier">dpv:hasIdentifier</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Domain</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#Contract">dpv:Contract</a>, <a href="https://w3id.org/dpv#LegalEntity">dpv:LegalEntity</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Range</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>Start date</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>Start date</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>The start of the period.</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/dcat#startDate">dcat:startDate</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Domain</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#Contract">dpv:Contract</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Range</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/2001/XMLSchema#dateTime">xsd:dateTime</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>End date</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>End date</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>The end of the period.</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/dcat#endDate">dcat:endDate</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Domain</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#Contract">dpv:Contract</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Range</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/2001/XMLSchema#dateTime">xsd:dateTime</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>has data controller</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>has data controller</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>Indicates association with Data Controller</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasDataController">dpv:hasDataController</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Domain</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">sdc:DataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Range</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#DataController">dpv:DataController</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>has data subject</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>has data subject</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>Indicates association with Data Subject</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasDataSubject">dpv:hasDataSubject</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Domain</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">sdc:DataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Range</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#DataSubject">dpv:DataSubject</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>has data processor</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>has data processor</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>Indiciates inclusion or applicability of a Data Processor</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasDataProcessor">dpv:hasDataProcessor</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Domain</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">sdc:DataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Range</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#DataProcessor">dpv:DataProcessor</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>has purpose</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>has purpose</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>Indicates association with Purpose</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasPurpose">dpv:hasPurpose</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Domain</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">sdc:DataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Range</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#PurposeEnumeration">sdc:PurposeEnumeration</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>has personal data</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>has personal data</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>Indicates association with Personal Data</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasPersonalData">dpv:hasPersonalData</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Domain</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">sdc:DataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Range</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#PersonalDataEnumeration">sdc:PersonalDataEnumeration</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>Has processing</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>Has processing</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>Indicates association with Processing</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasProcessing">dpv:hasProcessing</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Domain</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">sdc:DataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Range</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#ProcessingEnumeration">sdc:ProcessingEnumeration</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>has technical and organisational measure</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>has technical and organisational measure</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>Indicates use or applicability of Technical or Organisational measure</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Domain</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">sdc:DataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Range</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#TechnicalMeasureEnumeration">sdc:TechnicalMeasureEnumeration</a>, <a href="https://swissdatacustodian.ch/doc/ontology#OrganisationalMeasureEnumeration">sdc:OrganisationalMeasureEnumeration</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>Has Data Handling</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>Has Data Handling</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>The property which links a contract to a data handling</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#hasDataHandling">sdc:hasDataHandling</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Domain</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#Contract">dpv:Contract</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Range</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#DataHandling">sdc:DataHandling</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>has name</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>has name</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>Indicates a name</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#hasName">dpv:hasName</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Domain</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#LegalEntity">dpv:LegalEntity</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Range</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>Download URL</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>Download URL</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>The URL of the downloadable file in a given format. E.g., CSV file or RDF file. The format is indicated by the distribution's dcterms:format and/or dcat:mediaType</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/dcat#downloadURL">dcat:downloadURL</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Domain</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#PersonalData">dpv:PersonalData</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Range</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+    <h3>Theme</h3>
+    <table class="def">
+      
+      <tr>
+        <td>
+          <p>Label</p>
+        </td>
+        <td>
+          <p>Theme</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Definition</p>
+        </td>
+        <td>
+          <p>A main category of the resource. A resource can have multiple themes.</p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Property</p>
+        </td>
+        <td>
+          <p><a href="http://www.w3.org/ns/dcat#theme">dcat:theme</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Domain</p>
+        </td>
+        <td>
+          <p><a href="https://w3id.org/dpv#PersonalData">dpv:PersonalData</a></p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <p>Range</p>
+        </td>
+        <td>
+          <p><a href="https://swissdatacustodian.ch/doc/ontology#Theme">sdc:Theme</a></p>
+        </td>
+      </tr>
+      
+    </table>
+    
+  </section>
+
+  <body>
+    <section>
+      <h2>Enumeration Values</h2>
+
+      
+      
+      <h3>Purpose Enumeration</h3>
+      <table class="def">
+        <tr>
+          <td>Term</td>
+          <td><a href="https://swissdatacustodian.ch/doc/ontology#PurposeEnumeration">sdc:PurposeEnumeration</a></td>
+        </tr>
+      </table>
+      
+      <h4>Academic Research</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Academic Research</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Purposes associated with conducting or assisting with research conducted in an academic context e.g. within universities</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#AcademicResearch">sdc:AcademicResearch</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#PurposeEnumeration">sdc:PurposeEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasPurpose">dpv:hasPurpose</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Commercial Research</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Commercial Research</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Purposes associated with conducting research in a commercial setting or with intention to commercialise e.g. in a company or sponsored by a company</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#CommercialResearch">sdc:CommercialResearch</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#PurposeEnumeration">sdc:PurposeEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasPurpose">dpv:hasPurpose</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Fulfilment of Obligation</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Fulfilment of Obligation</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Purposes associated with carrying out data processing to fulfill an obligation</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#FulfilmentOfObligation">sdc:FulfilmentOfObligation</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#PurposeEnumeration">sdc:PurposeEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasPurpose">dpv:hasPurpose</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Improve Existing Products and Services</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Improve Existing Products and Services</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Purposes associated with improving existing products and services</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#ImproveExistingProductsandServices">sdc:ImproveExistingProductsandServices</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#PurposeEnumeration">sdc:PurposeEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasPurpose">dpv:hasPurpose</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Internal Resource Optimisation</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Internal Resource Optimisation</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Purposes associated with optimisation of internal resource availability and usage for organisation</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#InternalResourceOptimisation">sdc:InternalResourceOptimisation</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#PurposeEnumeration">sdc:PurposeEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasPurpose">dpv:hasPurpose</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Legal Compliance</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Legal Compliance</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Purposes associated with carrying out data processing to fulfill a legal or statutory obligation</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#LegalCompliance">sdc:LegalCompliance</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#PurposeEnumeration">sdc:PurposeEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasPurpose">dpv:hasPurpose</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Quality control</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Quality control</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#QualityControl">sdc:QualityControl</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#PurposeEnumeration">sdc:PurposeEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasPurpose">dpv:hasPurpose</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Research and Development</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Research and Development</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Purposes associated with conducting research and development for new methods, products, or services</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#ResearchAndDevelopment">sdc:ResearchAndDevelopment</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#PurposeEnumeration">sdc:PurposeEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasPurpose">dpv:hasPurpose</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      
+      <h3>Personal Data Enumeration</h3>
+      <table class="def">
+        <tr>
+          <td>Term</td>
+          <td><a href="https://swissdatacustodian.ch/doc/ontology#PersonalDataEnumeration">sdc:PersonalDataEnumeration</a></td>
+        </tr>
+      </table>
+      
+      <h4>Discharge DataSet</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Discharge DataSet</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#DischargeDataSet">sdc:DischargeDataSet</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#PersonalDataEnumeration">sdc:PersonalDataEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasPersonalData">dpv:hasPersonalData</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Generic PROMS</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Generic PROMS</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#GenericPROMS">sdc:GenericPROMS</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#PersonalDataEnumeration">sdc:PersonalDataEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasPersonalData">dpv:hasPersonalData</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Low value indicators</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Low value indicators</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#Lowvalueindicators">sdc:Lowvalueindicators</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#PersonalDataEnumeration">sdc:PersonalDataEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasPersonalData">dpv:hasPersonalData</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      
+      <h3>Processing Enumeration</h3>
+      <table class="def">
+        <tr>
+          <td>Term</td>
+          <td><a href="https://swissdatacustodian.ch/doc/ontology#ProcessingEnumeration">sdc:ProcessingEnumeration</a></td>
+        </tr>
+      </table>
+      
+      <h4>Analyse</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Analyse</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>To study or examine the data in detail</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#Analyse">sdc:Analyse</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#ProcessingEnumeration">sdc:ProcessingEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasProcessing">dpv:hasProcessing</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Modify</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Modify</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>To modify or change data</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#Modify">sdc:Modify</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#ProcessingEnumeration">sdc:ProcessingEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasProcessing">dpv:hasProcessing</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Monitor</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Monitor</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>To monitor data for some criteria</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#Monitor">sdc:Monitor</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#ProcessingEnumeration">sdc:ProcessingEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasProcessing">dpv:hasProcessing</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Query</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Query</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>To query or make enquiries over data</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#Query">sdc:Query</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#ProcessingEnumeration">sdc:ProcessingEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasProcessing">dpv:hasProcessing</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Share</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Share</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>To give data (or a portion of it) to others</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#Share">sdc:Share</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#ProcessingEnumeration">sdc:ProcessingEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasProcessing">dpv:hasProcessing</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Store</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Store</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>To keep data for future use</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#Store">sdc:Store</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#ProcessingEnumeration">sdc:ProcessingEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasProcessing">dpv:hasProcessing</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Transfer</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Transfer</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>To move data from one place to another</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#Transfer">sdc:Transfer</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#ProcessingEnumeration">sdc:ProcessingEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasProcessing">dpv:hasProcessing</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Transform</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Transform</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>To change the form or nature of data</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#Transform">sdc:Transform</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#ProcessingEnumeration">sdc:ProcessingEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasProcessing">dpv:hasProcessing</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Use</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Use</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>To use data</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#Use">sdc:Use</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#ProcessingEnumeration">sdc:ProcessingEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasProcessing">dpv:hasProcessing</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      
+      <h3>Organisational Measure Enumeration</h3>
+      <table class="def">
+        <tr>
+          <td>Term</td>
+          <td><a href="https://swissdatacustodian.ch/doc/ontology#OrganisationalMeasureEnumeration">sdc:OrganisationalMeasureEnumeration</a></td>
+        </tr>
+      </table>
+      
+      <h4>Compliance Monitoring</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Compliance Monitoring</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Monitoring of compliance (e.g. internal policy, regulations)</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#ComplianceMonitoring">sdc:ComplianceMonitoring</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#OrganisationalMeasureEnumeration">sdc:OrganisationalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Consortium Agreement</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Consortium Agreement</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#ConsortiumAgreement">sdc:ConsortiumAgreement</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#OrganisationalMeasureEnumeration">sdc:OrganisationalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Cybersecurity training</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Cybersecurity training</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Training methods related to cybersecurity</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#CybersecurityTraining">sdc:CybersecurityTraining</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#OrganisationalMeasureEnumeration">sdc:OrganisationalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Data Protection Impact Assessment</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Data Protection Impact Assessment</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#DataProtectionImpactAssessment">sdc:DataProtectionImpactAssessment</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#OrganisationalMeasureEnumeration">sdc:OrganisationalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Data Protection Training</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Data Protection Training</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Training intended to increase knowledge regarding data protection</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#DataProtectionTraining">sdc:DataProtectionTraining</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#OrganisationalMeasureEnumeration">sdc:OrganisationalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Data Transfer and Processing Agreement</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Data Transfer and Processing Agreement</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#DataTransferAndProcessingAgreement">sdc:DataTransferAndProcessingAgreement</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#OrganisationalMeasureEnumeration">sdc:OrganisationalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Data Transfer and Use Agreement</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Data Transfer and Use Agreement</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#DataTransferAndUseAgreement">sdc:DataTransferAndUseAgreement</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#OrganisationalMeasureEnumeration">sdc:OrganisationalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Ethics board approval</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Ethics board approval</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#EthicsBoardApproval">sdc:EthicsBoardApproval</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#OrganisationalMeasureEnumeration">sdc:OrganisationalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Identity Management Method</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Identity Management Method</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Management of identity and identity-based processes</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#IdentityManagementMethod">sdc:IdentityManagementMethod</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#OrganisationalMeasureEnumeration">sdc:OrganisationalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Non-Disclosure Agreement (NDA)</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Non-Disclosure Agreement (NDA)</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Non-disclosure Agreements e.g. preserving confidentiality of information</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#NDA">sdc:NDA</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#OrganisationalMeasureEnumeration">sdc:OrganisationalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      
+      <h3>Technical Measure Enumeration</h3>
+      <table class="def">
+        <tr>
+          <td>Term</td>
+          <td><a href="https://swissdatacustodian.ch/doc/ontology#TechnicalMeasureEnumeration">sdc:TechnicalMeasureEnumeration</a></td>
+        </tr>
+      </table>
+      
+      <h4>Access Control Method</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Access Control Method</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Methods which restrict access to a place or resource</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#AccessControlMethod">sdc:AccessControlMethod</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#TechnicalMeasureEnumeration">sdc:TechnicalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Activity Monitoring</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Activity Monitoring</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Monitoring of activities including assessing whether they have been successfully initiated and completed</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#ActivityMonitoring">sdc:ActivityMonitoring</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#TechnicalMeasureEnumeration">sdc:TechnicalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Authentication Protocols</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Authentication Protocols</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Protocols involving validation of identity i.e. authentication of a person or information</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#AuthenticationProtocols">sdc:AuthenticationProtocols</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#TechnicalMeasureEnumeration">sdc:TechnicalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Authorisation Protocols</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Authorisation Protocols</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Protocols involving authorisation of roles or profiles to determine permission, rights, or privileges</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#AuthorisationProtocols">sdc:AuthorisationProtocols</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#TechnicalMeasureEnumeration">sdc:TechnicalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Cryptographic Methods</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Cryptographic Methods</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Use of cryptographic methods to perform tasks</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#CryptographicMethods">sdc:CryptographicMethods</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#TechnicalMeasureEnumeration">sdc:TechnicalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Data Sanitisation Technique</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Data Sanitisation Technique</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Removal of sensitive information from a data or document</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#DataSanitisationTechnique">sdc:DataSanitisationTechnique</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#TechnicalMeasureEnumeration">sdc:TechnicalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Encryption</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Encryption</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Technical measures consisting of encryption</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#Encryption">sdc:Encryption</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#TechnicalMeasureEnumeration">sdc:TechnicalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Security Method</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Security Method</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p>Methods that relate to creating and providing security</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#SecurityMethod">sdc:SecurityMethod</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#TechnicalMeasureEnumeration">sdc:TechnicalMeasureEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://w3id.org/dpv#hasTechnicalOrganisationalMeasure">dpv:hasTechnicalOrganisationalMeasure</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      
+      <h3>Legal Entity Enumeration</h3>
+      <table class="def">
+        <tr>
+          <td>Term</td>
+          <td><a href="https://swissdatacustodian.ch/doc/ontology#LegalEntityEnumeration">sdc:LegalEntityEnumeration</a></td>
+        </tr>
+      </table>
+      
+      <h4>Authority</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Authority</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#Authority">sdc:Authority</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#LegalEntityEnumeration">sdc:LegalEntityEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#hasSignee">sdc:hasSignee</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Balgrist - Universitätsklinik Balgrist</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Balgrist - Universitätsklinik Balgrist</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#Balgrist">sdc:Balgrist</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#LegalEntityEnumeration">sdc:LegalEntityEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#hasSignee">sdc:hasSignee</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>CHUV - Centre hospitalier universitaire vaudois</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>CHUV - Centre hospitalier universitaire vaudois</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#CHUV">sdc:CHUV</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#LegalEntityEnumeration">sdc:LegalEntityEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#hasSignee">sdc:hasSignee</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Data Controller</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Data Controller</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#DataController">sdc:DataController</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#LegalEntityEnumeration">sdc:LegalEntityEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#hasSignee">sdc:hasSignee</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Data Exporter</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Data Exporter</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#DataExporter">sdc:DataExporter</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#LegalEntityEnumeration">sdc:LegalEntityEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#hasSignee">sdc:hasSignee</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Data Subject</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Data Subject</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#DataSubject">sdc:DataSubject</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#LegalEntityEnumeration">sdc:LegalEntityEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#hasSignee">sdc:hasSignee</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>ETH Zürich</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>ETH Zürich</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#ETH">sdc:ETH</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#LegalEntityEnumeration">sdc:LegalEntityEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#hasSignee">sdc:hasSignee</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>KiSpi - Kinderspital Zürich</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>KiSpi - Kinderspital Zürich</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#KiSpi">sdc:KiSpi</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#LegalEntityEnumeration">sdc:LegalEntityEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#hasSignee">sdc:hasSignee</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Organisation</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Organisation</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#Organisation">sdc:Organisation</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#LegalEntityEnumeration">sdc:LegalEntityEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#hasSignee">sdc:hasSignee</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Recipient</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Recipient</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#Recipient">sdc:Recipient</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#LegalEntityEnumeration">sdc:LegalEntityEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#hasSignee">sdc:hasSignee</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>Representative</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>Representative</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#Representative">sdc:Representative</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#LegalEntityEnumeration">sdc:LegalEntityEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#hasSignee">sdc:hasSignee</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>SDSC - Swiss Data Science Center</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>SDSC - Swiss Data Science Center</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#SDSC">sdc:SDSC</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#LegalEntityEnumeration">sdc:LegalEntityEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#hasSignee">sdc:hasSignee</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>SENSA UNIL</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>SENSA UNIL</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#SENSA">sdc:SENSA</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#LegalEntityEnumeration">sdc:LegalEntityEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#hasSignee">sdc:hasSignee</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>SIS - Leonhard Med ETH Zürich</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>SIS - Leonhard Med ETH Zürich</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#SIS">sdc:SIS</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#LegalEntityEnumeration">sdc:LegalEntityEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#hasSignee">sdc:hasSignee</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <h4>USZ - Universitätsspital Zürich</h4>
+      <table class="def">
+        
+        <tr>
+          <td>
+            <p>Label</p>
+          </td>
+          <td>
+            <p>USZ - Universitätsspital Zürich</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Definition</p>
+          </td>
+          <td>
+            <p></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Term</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#USZ">sdc:USZ</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Groups</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#LegalEntityEnumeration">sdc:LegalEntityEnumeration</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <p>Property</p>
+          </td>
+          <td>
+            <p><a href="https://swissdatacustodian.ch/doc/ontology#hasSignee">sdc:hasSignee</a></p>
+          </td>
+        </tr>
+        
+      </table>
+      
+      
+    </section>
+  </body>
+
+
+</html>
