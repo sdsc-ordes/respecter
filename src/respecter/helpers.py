@@ -69,11 +69,8 @@ def format_value(item, qname=None, current_ontology_url=None):
     else:  # FIXME: handle other types
         # Display a warning message
         print(
-            "Warning: unknown type '"
-            + item.get("type")
-            + "' for value '"
-            + item.get("value")
-            + "'"
+            f'Warning: unknown type {item.get("type")} for value {item.get("value")}',
+            file=sys.stderr
         )
         return item["value"]
 
