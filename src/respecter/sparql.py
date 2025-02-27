@@ -2,7 +2,6 @@ from pathlib import Path
 import json
 import yaml
 from dataclasses import dataclass, field
-from respecter import defaults
 
 @dataclass
 class SparqlConfig:
@@ -21,13 +20,6 @@ class SparqlConfig:
     predicates: dict = field(default_factory=dict)
     ontology: dict = field(default_factory=dict)
 
-
-    @classmethod
-    def default(cls):
-        """
-        Initialize the SparqlConfig class with default values.
-        """
-        return cls.parse(defaults.CONFIG)
 
 
     @classmethod
@@ -57,6 +49,19 @@ class SparqlConfig:
             types=_yaml_config["type"], 
             predicates=_yaml_config["predicate"],
             ontology=_yaml_config["ontology"],
+        )
+
+    def dump(self):
+        """
+        Dump the configuration data to a YAML string.
+        """
+
+        return yaml.dump(
+            {
+                "type": self.types,
+                "predicate": self.predicates,
+                "ontology": self.ontology,
+            }
         )
 
     def get_uri_base(self):
