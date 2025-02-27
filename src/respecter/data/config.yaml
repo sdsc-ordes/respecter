@@ -1,16 +1,20 @@
-ontology: # Replace with the actual ontology base URI
-  uri_base: ${uri_base}
-  separator: ${separator}
+# The base URI and fragment separator for the ontology to document.
+ontology:
+  uri_base: "https://example.org/example-ontolgy"
+  separator: "#"
 
+# The types used in the ontology to denote classes, properties and enumerations.
+# (e.g. skos:Concept, owl:Class, etc.).
 type:
-  class: ${class} #the class type in the ontology (could also be skos:Concept, owl:Class, etc.)
-  property: ${property} 
-  enumeration: ${enumerationType}
+  class: "<http://www.w3.org/2000/01/rdf-schema#Class>"
+  property: "<http://www.w3.org/2000/01/rdf-schema#Property>"
+  enumeration: "<http://schema.org/Enumeration>"
 
+# Annotation predicates used in the ontology
 predicate:
-  definition: ${definition}
-  label:  ${label}
-  example: ${example}
+  definition: "<http://www.w3.org/2004/02/skos/core#definition>"
+  label: "<http://www.w3.org/2000/01/rdf-schema#label>"
+  example: "<http://www.w3.org/2004/02/skos/core#example>"
 
 
 prefix:

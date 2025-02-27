@@ -13,7 +13,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from jinja2 import Environment, FileSystemLoader
+from pathlib import Path
+
+from jinja2 import Template
 import json
 import rdflib
 import os
@@ -26,27 +28,22 @@ from respecter.helpers import (
     format_properties,
     group_format_enumerations,
 )
-from respecter.sparql import apply_sparql_query_file, SparqlConfig
+from respecter import defaults
+from respecter.sparql import run_query, SparqlConfig
 from typing import List
 
-# Define the SPARQL query to retrieve the concepts
-ONTOLOGY_SPARQL = "sparql_queries/sparql_query_ontology.sparql"
 
-
-def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
+def fetch_ontology(ontology_path: Path, config: SparqlConfig, debug=False):
     """
     Fetch the ontology from the RDF file and the SPARQL query.
     """
     # Load the turtle file
     graph = rdflib.Graph()
-    graph.parse(ontology_file_path)
+    graph.parse(ontology_path)
     
     
     # Load the SPARQL query
-
-    sparql_config = SparqlConfig(sparql_config_file_path)
-    
-    concepts_query = sparql_config.build_concepts_query()
+    concepts_query = config.build_concepts_query()
     
 
     # Save the query to a file (for debugging)
@@ -58,12 +55,11 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
             file.write(concepts_query)
             print(f"SPARQL query saved to file: {filename}")
 
-    ontology_query_result = apply_sparql_query_file(graph, ONTOLOGY_SPARQL)
+    ontology_query_result = run_query(graph, defaults.QUERY)
     concepts_query_result = graph.query(concepts_query).serialize(format="json")
     concepts_query_result = json.loads(concepts_query_result)
-    
 
-    enumerations_query = sparql_config.build_enumerations_query()
+    enumerations_query = config.build_enumerations_query()
     enumerations_query_result = graph.query(enumerations_query).serialize(format="json")
     enumerations_query_result = json.loads(enumerations_query_result)
 
@@ -75,21 +71,21 @@ def fetch_ontology(ontology_file_path, sparql_config_file_path, debug=False):
     concepts = extract_classes(
         concepts_data,
         qname=graph.qname,
-        current_ontology_url=sparql_config.get_uri_base()
+        current_ontology_url=config.get_uri_base()
         
-        + sparql_config.get_uri_separator(),
+        + config.get_uri_separator(),
     )
     properties = extract_properties(
         concepts_data,
         qname=graph.qname,
-        current_ontology_url=sparql_config.get_uri_base()
-        + sparql_config.get_uri_separator(),
+        current_ontology_url=config.get_uri_base()
+        + config.get_uri_separator(),
     )
     enumerations = extract_enumerations(
         enumerations_data,
         qname=graph.qname,
-        current_ontology_url=sparql_config.get_uri_base()
-        + sparql_config.get_uri_separator(),
+        current_ontology_url=config.get_uri_base()
+        + config.get_uri_separator(),
     )
     ontology = Ontology()
     ontology.import_from_rdf(ontology_metadata[0])
@@ -111,8 +107,7 @@ def render_template(
     enumerations: List[Enumeration],
 ):
     grouped_enumerations = group_format_enumerations(enumerations)
-    environment = Environment(loader=FileSystemLoader("templates"))
-    template = environment.get_template("example.html")
+    template = Template(defaults.TEMPLATE)
     # Render the template
     rendered_html = template.render(
         concepts=format_classes(concepts),

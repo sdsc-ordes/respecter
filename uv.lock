@@ -59,6 +59,12 @@ wheels = [
 ]
 
 [[package]]
+name = "importlib"
+version = "1.0.4"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/31/77/3781f65cafe55480b56914def99022a5d2965a4bb269655c89ef2f1de3cd/importlib-1.0.4.zip", hash = "sha256:b6ee7066fea66e35f8d0acee24d98006de1a0a8a94a8ce6efe73a9a23c8d9826", size = 7074 }
+
+[[package]]
 name = "iniconfig"
 version = "2.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -267,6 +273,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "click" },
+    { name = "importlib" },
     { name = "isodate" },
     { name = "jinja2" },
     { name = "markdown-it-py" },
@@ -295,6 +302,7 @@ test = [
 [package.metadata]
 requires-dist = [
     { name = "click", specifier = "==8.1.7" },
+    { name = "importlib", specifier = ">=1.0.4" },
     { name = "isodate", specifier = "==0.6.1" },
     { name = "jinja2", specifier = "==3.1.3" },
     { name = "markdown-it-py", specifier = "==3.0.0" },

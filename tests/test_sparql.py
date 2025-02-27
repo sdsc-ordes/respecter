@@ -1,11 +1,12 @@
+from pathlib import Path
 import pytest
 import rdflib
 
-from respecter.sparql import sparql_query, apply_sparql_query_file, SparqlConfig
+from respecter.sparql import run_query, SparqlConfig
 
-LANGUAGES_DATA_FILE_PATH = "tests/data/languages.ttl"
-SPARQL_FILE_PATH = "tests/sparql/languages.sparql"
-SPARQL_CONFIG_FILE_PATH = "tests/config/sparql_config.yaml"
+LANGUAGES_DATA_FILE_PATH = Path("tests/data/languages.ttl")
+SPARQL_FILE_PATH = Path("tests/sparql/languages.sparql")
+SPARQL_CONFIG_FILE_PATH = Path("tests/config/sparql_config.yaml")
 
 SAMPLE_SPARQL = """
 SELECT ?subject WHERE {
@@ -21,22 +22,14 @@ def load_graph():
 
 def test_sparql_query():
     graph = load_graph()
-    query_results = sparql_query(graph, SAMPLE_SPARQL)
+    query_results = run_query(graph, SAMPLE_SPARQL)
     bindings = query_results.get("results").get("bindings", []) 
     
     assert len(bindings) == 1
     assert bindings[0].get("subject", {}).get("value", "") == "https://example.com/Alice"
 
-def test_apply_sparql_query():
-    graph = load_graph()
-    query_results = apply_sparql_query_file(graph, SPARQL_FILE_PATH)
-    bindings = query_results.get("results").get("bindings", [])
-
-    assert len(bindings) == 1
-    assert bindings[0].get("subject", {}).get("value", "") == "https://example.com/Alice"
-
 def test_load_sparql_config():
-    sparql_config = SparqlConfig(SPARQL_CONFIG_FILE_PATH)
+    sparql_config = SparqlConfig.from_path(SPARQL_CONFIG_FILE_PATH)
     assert sparql_config.get_uri_base() == "https://example.com"
     assert sparql_config.get_uri_separator() == "/"
     assert sparql_config.get_type("class") == "<http://www.w3.org/2000/01/rdf-schema#Class>"
