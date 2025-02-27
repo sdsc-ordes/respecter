@@ -29,7 +29,7 @@ from respecter.helpers import (
     group_format_enumerations,
 )
 from respecter import defaults
-from respecter.sparql import sparql_query, SparqlConfig
+from respecter.sparql import run_query, SparqlConfig
 from typing import List
 
 
@@ -56,7 +56,7 @@ def fetch_ontology(ontology_path: Path, config: SparqlConfig, debug=False):
             file.write(concepts_query)
             print(f"SPARQL query saved to file: {filename}")
 
-    ontology_query_result = sparql_query(graph, defaults.QUERY)
+    ontology_query_result = run_query(graph, defaults.QUERY)
     concepts_query_result = graph.query(concepts_query).serialize(format="json")
     concepts_query_result = json.loads(concepts_query_result)
     

@@ -2,7 +2,7 @@ from pathlib import Path
 import pytest
 import rdflib
 
-from respecter.sparql import sparql_query, SparqlConfig
+from respecter.sparql import run_query, SparqlConfig
 
 LANGUAGES_DATA_FILE_PATH = Path("tests/data/languages.ttl")
 SPARQL_FILE_PATH = Path("tests/sparql/languages.sparql")
@@ -22,7 +22,7 @@ def load_graph():
 
 def test_sparql_query():
     graph = load_graph()
-    query_results = sparql_query(graph, SAMPLE_SPARQL)
+    query_results = run_query(graph, SAMPLE_SPARQL)
     bindings = query_results.get("results").get("bindings", []) 
     
     assert len(bindings) == 1

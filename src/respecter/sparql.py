@@ -243,7 +243,7 @@ class SparqlConfig:
         return sparql_query
 
 
-def sparql_query(graph, query):
+def run_query(graph, query):
     """
     Execute a SPARQL query on a graph and return the results.
     """
@@ -251,13 +251,5 @@ def sparql_query(graph, query):
     query_result = query_result.serialize(format="json")
     query_result = json.loads(query_result)
     return query_result
-
-
-def debug_sparql_query(file):
-    """
-    Load the results of a SPARQL query from a file.
-    """
-    with open(file, "r") as f:
-        return json.load(f)
 
 
