@@ -1,0 +1,151 @@
+ <!-- respecter
+ Copyright 2022 - Swiss Data Science Center (SDSC)
+ A partnership between École Polytechnique Fédérale de Lausanne (EPFL) and
+ Eidgenössische Technische Hochschule Zürich (ETHZ). 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License. -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>{{ontology.title}}</title>
+  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+  <script class="remove">
+    // All config options at https://respec.org/docs/
+    var respecConfig = {
+      publishDate: "{{ ontology.publishDate }}",
+      specStatus: "ED",
+      shortName: "ReSpecter",
+      github: "{{ ontology.url }}",
+      authors: [
+        {% for author in ontology.creators %}
+    { name: "{{ author }}" },
+    {% endfor %}
+      ],
+    editors: [{% for editor in ontology.contributors %}
+    { name: "{{ editor }}" },
+    {% endfor %}
+    ],
+    };
+  </script>
+</head>
+
+<body>
+  <section id="abstract">
+    <p>{{ ontology.abstract }}</p>
+  </section>
+
+  <section class="informative">
+    <h2>Introduction</h2>
+    <p>{{ ontology.introduction }}</p>
+    <aside class="note" title="ReSpecter status">
+      <p>"This ontology and the tool ReSpecter is still in active development. See <a
+          href='https://github.com/sdsc-ordes/respecter/'>ReSpecter</a> for more details on the tool."</p>
+    </aside>
+    <section>
+      <h3>Download File</h3>
+      <button onclick="downloadFile()">Download File</button>
+      <script>
+      function downloadFile() {
+          const link = document.createElement('a');
+          link.href = '{{ontology.download_url}}';
+          link.download = 'ontology.ttl';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      }
+      </script>
+    </section> 
+  </section>
+
+  <section>
+    <h2>Classes</h2>
+
+    {% for concept in concepts %}
+    <h3 id="{{ concept.FragmentIdentifier }}">{{ concept.Label }}</h3>
+    <table class="def">
+      {% for key, value in concept.items() %}
+        {% if key != 'FragmentIdentifier' %} 
+          <tr>
+            <td>
+              <p>{{ key }}</p>
+            </td>
+            <td>
+              <p>{{ value }}</p>
+            </td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </table>
+    {% endfor %}
+  </section>
+
+  <section>
+    <h2>Properties</h2>
+
+    {% for property in properties %}
+    <h3 id="{{ property.FragmentIdentifier }}">{{ property.Label }}</h3>
+    <table class="def">
+      {% for key, value in property.items() %}
+       {% if key != 'FragmentIdentifier' %} 
+          <tr>
+            <td>
+              <p>{{ key }}</p>
+            </td>
+            <td>
+              <p>{{ value }}</p>
+            </td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </table>
+    {% endfor %}
+  </section>
+
+
+  <section>
+    <h2>Enumeration Values</h2>
+
+    {# iterate over the enum_dict to display the groups and their items #}
+    {% for group in grouped_enumerations.values() %}
+    <h3 id="{{ group.FragmentIdentifier }}">{{ group.label }}</h3>
+    <table class="def">
+      <tr>
+        <td>Term</td>
+        <td>{{ group.term }}</td>
+      </tr>
+    </table>
+    {% for item in group.enumerations %}
+    <h4 id="{{ item.FragmentIdentifier }}">{{ item.Label }}</h4>
+    <table class="def">
+      {% for key, value in item.items() %}
+        {% if key != 'FragmentIdentifier' %} 
+          <tr>
+            <td>
+              <p>{{ key }}</p>
+            </td>
+            <td>
+              <p>{{ value }}</p>
+            </td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </table>
+    {% endfor %}
+    {% endfor %}
+  </section>
+</body>
+
+
+</html>
