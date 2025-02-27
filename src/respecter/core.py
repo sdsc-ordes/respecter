@@ -56,7 +56,6 @@ def fetch_ontology(ontology_path: Path, config: SparqlConfig, debug=False):
             file.write(concepts_query)
             print(f"SPARQL query saved to file: {filename}")
 
-    breakpoint()
     ontology_query_result = sparql_query(graph, defaults.QUERY)
     concepts_query_result = graph.query(concepts_query).serialize(format="json")
     concepts_query_result = json.loads(concepts_query_result)
