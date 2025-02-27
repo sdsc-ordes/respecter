@@ -19,6 +19,6 @@ dev: install
   bash -c ". .venv/bin/activate && exec ${SHELL:-bash}"
 
 # Run unit tests
-test:
+test *args:
   @echo "Running tests"
-  uv run pytest
+  uv run pytest {{args}}
