@@ -43,7 +43,6 @@ def fetch_ontology(ontology_path: Path, config: SparqlConfig, debug=False):
     
     
     # Load the SPARQL query
-    
     concepts_query = config.build_concepts_query()
     
 
@@ -59,7 +58,6 @@ def fetch_ontology(ontology_path: Path, config: SparqlConfig, debug=False):
     ontology_query_result = run_query(graph, defaults.QUERY)
     concepts_query_result = graph.query(concepts_query).serialize(format="json")
     concepts_query_result = json.loads(concepts_query_result)
-    
 
     enumerations_query = config.build_enumerations_query()
     enumerations_query_result = graph.query(enumerations_query).serialize(format="json")
