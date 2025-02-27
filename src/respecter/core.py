@@ -15,7 +15,7 @@
 # limitations under the License.
 from pathlib import Path
 
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Template
 import json
 import rdflib
 import os
@@ -109,8 +109,7 @@ def render_template(
     enumerations: List[Enumeration],
 ):
     grouped_enumerations = group_format_enumerations(enumerations)
-    environment = Environment(loader=FileSystemLoader("templates"))
-    template = environment.get_template("example.html")
+    template = Template(defaults.TEMPLATE)
     # Render the template
     rendered_html = template.render(
         concepts=format_classes(concepts),
