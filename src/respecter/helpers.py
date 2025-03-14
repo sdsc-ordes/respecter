@@ -13,6 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import sys
 from respecter.models import Class, Property, Enumeration, EnumerationGroup
 from typing import Dict, List
 
@@ -63,16 +64,13 @@ def format_value(item, qname=None, current_ontology_url=None):
         return item["value"]
     elif item.get("type") == None:
         # Display a warning message
-        print("Warning: missing value encountered.")
+        print("Warning: missing value encountered.", file=sys.stderr)
         return ""
     else:  # FIXME: handle other types
         # Display a warning message
         print(
-            "Warning: unknown type '"
-            + item.get("type")
-            + "' for value '"
-            + item.get("value")
-            + "'"
+            f'Warning: unknown type {item.get("type")} for value {item.get("value")}',
+            file=sys.stderr
         )
         return item["value"]
 

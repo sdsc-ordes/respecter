@@ -1,0 +1,37 @@
+# The base URI and fragment separator for the ontology to document.
+ontology:
+  uri_base: "https://example.org/example-ontolgy"
+  separator: "#"
+
+# The types used in the ontology to denote classes, properties and enumerations.
+# (e.g. skos:Concept, owl:Class, etc.).
+type:
+  class: "<http://www.w3.org/2000/01/rdf-schema#Class>"
+  property: "<http://www.w3.org/2000/01/rdf-schema#Property>"
+  enumeration: "<http://schema.org/Enumeration>"
+
+# Annotation predicates used in the ontology
+predicate:
+  definition: "<http://www.w3.org/2004/02/skos/core#definition>"
+  label: "<http://www.w3.org/2000/01/rdf-schema#label>"
+  example: "<http://www.w3.org/2004/02/skos/core#example>"
+
+prefix:
+  sh: <http://www.w3.org/ns/shacl#>
+  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+  skos: <http://www.w3.org/2004/02/skos/core#>
+  owl: <http://www.w3.org/2002/07/owl#>
+  dct: <http://purl.org/dc/terms/>
+  dcat: <https://www.w3.org/TR/vocab-dcat-2/#>
+  vann: <http://purl.org/vocab/vann/>
+  schema: <http://schema.org/>
+  sd: <https://w3id.org/okn/o/sd#>
+  bio: <https://bioschemas.org/>
+  spe: <https://openschemas.github.io/spec-container/specifications/>
+  rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  xsd: <http://www.w3.org/2001/XMLSchema#>
+  shsh: <http://www.w3.org/ns/shacl-shacl#>
+  dcterms: <http://purl.org/dc/terms/>
+  ex: <https://epfl.ch/example/>
+  md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
+  dpv: <https://w3id.org/dpv#>

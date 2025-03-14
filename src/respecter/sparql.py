@@ -1,7 +1,7 @@
+from pathlib import Path
 import json
 import yaml
 from dataclasses import dataclass, field
-
 
 @dataclass
 class SparqlConfig:
@@ -18,8 +18,12 @@ class SparqlConfig:
 
     types: dict = field(default_factory=dict)
     predicates: dict = field(default_factory=dict)
+    ontology: dict = field(default_factory=dict)
 
-    def __init__(self, config_file_path):
+
+
+    @classmethod
+    def from_path(cls, config_path: Path):
         """
         Initialize the SparqlConfig class.
 
@@ -29,18 +33,36 @@ class SparqlConfig:
         Raises:
             ValueError: If the "type" or "predicate" elements are not found in the config file.
         """
-        with open(config_file_path, "r") as f:
-            _yaml_config = yaml.load(f, Loader=yaml.FullLoader)
-        if "type" not in _yaml_config:
-            raise ValueError('Element "type" not found in config file')
-        if "predicate" not in _yaml_config:
-            raise ValueError('Element "predicate" not found in config file')
-        if "ontology" not in _yaml_config:
-            raise ValueError('Element "ontology" not found in config file')
+        with open(config_path, "r") as f:
+            return cls.parse(f.read())
 
-        self.types = _yaml_config["type"]
-        self.predicates = _yaml_config["predicate"]
-        self.ontology = _yaml_config["ontology"]
+
+    @classmethod
+    def parse(cls, config: str):
+        """
+        Initialize the SparqlConfig class.
+        Args:
+            config (str): A YAML string containing the config data.
+        """
+        _yaml_config = yaml.load(config, Loader=yaml.FullLoader)
+        return cls(
+            types=_yaml_config["type"], 
+            predicates=_yaml_config["predicate"],
+            ontology=_yaml_config["ontology"],
+        )
+
+    def dump(self):
+        """
+        Dump the configuration data to a YAML string.
+        """
+
+        return yaml.dump(
+            {
+                "type": self.types,
+                "predicate": self.predicates,
+                "ontology": self.ontology,
+            }
+        )
 
     def get_uri_base(self):
         """
@@ -221,7 +243,7 @@ class SparqlConfig:
         return sparql_query
 
 
-def sparql_query(graph, query):
+def run_query(graph, query):
     """
     Execute a SPARQL query on a graph and return the results.
     """
@@ -229,23 +251,5 @@ def sparql_query(graph, query):
     query_result = query_result.serialize(format="json")
     query_result = json.loads(query_result)
     return query_result
-
-
-def apply_sparql_query_file(graph, sparql_filename):
-    """
-    Execute a SPARQL query on a graph and return the results.
-    """
-    # Load the SPARQL query
-    with open(sparql_filename, "r") as f:
-        query = f.read()
-    return sparql_query(graph, query)
-
-
-def debug_sparql_query(file):
-    """
-    Load the results of a SPARQL query from a file.
-    """
-    with open(file, "r") as f:
-        return json.load(f)
 
 
