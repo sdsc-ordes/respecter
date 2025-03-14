@@ -16,7 +16,6 @@ predicate:
   label: "<http://www.w3.org/2000/01/rdf-schema#label>"
   example: "<http://www.w3.org/2004/02/skos/core#example>"
 
-
 prefix:
   sh: <http://www.w3.org/ns/shacl#>
   rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -29,10 +28,10 @@ prefix:
   sd: <https://w3id.org/okn/o/sd#>
   bio: <https://bioschemas.org/>
   spe: <https://openschemas.github.io/spec-container/specifications/>
-  rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
-  xsd:  <http://www.w3.org/2001/XMLSchema#> 
-  shsh: <http://www.w3.org/ns/shacl-shacl#> 
-  dcterms: <http://purl.org/dc/terms/> 
-  ex: <https://epfl.ch/example/> 
+  rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  xsd: <http://www.w3.org/2001/XMLSchema#>
+  shsh: <http://www.w3.org/ns/shacl-shacl#>
+  dcterms: <http://purl.org/dc/terms/>
+  ex: <https://epfl.ch/example/>
   md4i: <http://w3id.org/nfdi4ing/metadata4ing#>
-  dpv:  <https://w3id.org/dpv#>
+  dpv: <https://w3id.org/dpv#>

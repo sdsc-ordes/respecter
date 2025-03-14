@@ -1,13 +1,13 @@
 # respecter
 # Copyright 2022 - Swiss Data Science Center (SDSC)
 # A partnership between École Polytechnique Fédérale de Lausanne (EPFL) and
-# Eidgenössische Technische Hochschule Zürich (ETHZ).# 
+# Eidgenössische Technische Hochschule Zürich (ETHZ).#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 # http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -94,7 +94,7 @@ def run(
 @app.command()
 def generate_config(
         interactive: Annotated[bool, typer.Option(
-        "-i", 
+        "-i",
         "--interactive",
         help="Populate the configuration file interactively.",
         show_default=False,
@@ -104,7 +104,7 @@ def generate_config(
     Generate an example configuration file.
     """
     config = SparqlConfig.parse(defaults.CONFIG)
-    
+
     if interactive:
         config.ontology['uri'] = typer.prompt("URI base of the ontology")
         config.ontology['separator'] = typer.prompt(
@@ -117,14 +117,14 @@ def generate_config(
                 f"Type used for {field}", default=default,
             )
         for field in ['definition', 'label', 'example']:
-            default = config.types[field]
+            default = config.predicates[field]
             config.predicates[field] = typer.prompt(
                 f"Predicate used for {field}", default=default,
             )
 
     typer.echo(config.dump())
-    
-    
+
+
 
 typer_cli = typer.main.get_command(app)
 cli.add_command(typer_cli, "cli")
