@@ -51,8 +51,3 @@ respecter = "respecter.cli:app"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
-
-[tool.hatch.build]
-include = [
-    "respecter/data/**/*",
-]
